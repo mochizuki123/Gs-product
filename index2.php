@@ -19,7 +19,7 @@
       <option value="">テーマを選択してください</option>
     </select>
     
-    <button id="generateButton">キーワードを生成</button>
+    <button id="generateButton">お題を生成</button>
     <div class="result" id="result"></div>
 
     <script>
@@ -136,6 +136,7 @@
         $("#stopRecord").prop("disabled", true);
         $('#load_gif').css('display', 'block'); 
         stopTimer(); // タイマーを停止
+        resetTimer(); // タイマーリセット
       });
     </script>
   
