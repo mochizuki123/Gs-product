@@ -1,4 +1,8 @@
 <?php
+// エラーを出力する
+ini_set('display_errors', '1');
+error_reporting(E_ALL);
+
 session_start();
 require_once 'funcs.php';
 loginCheck();
@@ -8,16 +12,17 @@ $pdo = db_conn();
 //contents table + user table 結合
 // php myadmin で実行するSQL文
 
+//speech_textテーブルとusersテーブルを結合（JOIN）これにより、speech_textテーブルのデータとusersテーブルのデータを組み合わせて取得
+
 $stmt = $pdo->prepare('
 SELECT 
-    contents.id as id,
-    contents.content as content,
-    contents.image as image, 
-    users.name as name
+    speech_text.id as id,
+    speech_text.speech_text as speech_text, 
+    users.user_name as user_name
 FROM 
-    contents
+    speech_text
 JOIN 
-    users ON contents.user_id = users.id');
+    users ON speech_text.user_id = users.user_id');  //利用方法？
 $status = $stmt->execute();
 
 //３．つぶやき表示
@@ -28,7 +33,7 @@ if (!$status) {
     while ($r = $stmt->fetch(PDO::FETCH_ASSOC)) {
         $view .= '<div class="record"><p>';
         $view .= '<a href="detail.php?id=' . $r["id"] . '">';
-        $view .= h($r['id']) . " " . h($r['content']) . " @ " . $r['name']; //$r['name']; //
+        $view .= $r["id"] . "." . "　" . h($r['speech_text']) . " @ " . $r['user_name']; 
         
         $view .= '</a>';
         $view .= "　";
@@ -38,8 +43,8 @@ if (!$status) {
             $view .= '削除';
             $view .= '</a>';
         }
-        $view .= '<img src="' . h($r['image']) . '" class="image-class">';
-        $view .= '</p></div>';
+        // $view .= '<img src="' . h($r['image']) . '" class="image-class">';
+        // $view .= '</p></div>';
     }
 }
 ?>
@@ -64,9 +69,9 @@ if (!$status) {
     <header>
         <nav class="navbar navbar-default">
             <div class="container-fluid">
-                <div class="navbar-header"><a class="navbar-brand" href="index.php">つぶやき登録</a></div>
+                <div class="navbar-header"><a class="navbar-brand" href="menu1.php">メニュー①</a></div>
                 <div class="navbar-header"><a class="navbar-brand" href="logout.php">ログアウト</a></div>
-                <div class="navbar-header user-name"><p><?= $_SESSION['user_name'] ?></p></div>
+                
             </div>
         </nav>
     </header>

@@ -225,6 +225,7 @@
             }, 1000);
         }
     </script> -->
+
   </body>
 </html>
 
@@ -292,3 +293,31 @@ input {
 }
 
 </style>
+
+
+<form method="POST" action="insert.php" enctype="multipart/form-data">
+        <div class="jumbotron">
+            <fieldset>
+                <legend>振り返り</legend>
+                <div>
+                    <label for="speech_text">内容：</label>
+                    <textarea id="speech_text" name="speech_text" rows="1" cols="10"></textarea>
+                </div>
+                
+                <!-- <div>
+                    <label for="speech_file">内容：</label>
+                    <input type="file" name="speech_file" id="speech_file">
+                    <textarea id="speech_file" name="speech_file" rows="1" cols="10"></textarea>
+                </div> -->
+                
+                <div>
+                    <label for="image">画像：</label>
+                    <input type="file" name="image" id="image">    
+                </div>
+
+                <div>
+                    <input type="submit" value="送信">
+                </div>
+            </fieldset>
+        </div>
+    </form>

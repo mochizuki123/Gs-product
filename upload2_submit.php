@@ -4,7 +4,7 @@ session_start();
 ini_set('display_errors', '1');
 error_reporting(E_ALL);
 // API KEY
-$openai_api_key = "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";
+$openai_api_key = "xxx";
 
 // $language = "ja";
 

@@ -18,6 +18,13 @@
     <header>
         <nav class="navbar navbar-default">ようこそ！</nav>
     </header>
+   
+    <div class="navbar-header">
+            <a class="navbar-brand" >
+              <img src="img/logo.png" alt="Logo" style="width:40px;">
+            </a>
+    </div>
+   
     <form name="form1" action="login_act.php" method="post">
         ID:<input type="text" name="user_id" />
         PW:<input type="password" name="login_pw" />
