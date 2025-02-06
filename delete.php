@@ -11,7 +11,7 @@ $id = $_GET['id'];
 $pdo = db_conn();
 
 //３．つぶやき登録SQL作成
-$stmt = $pdo->prepare('DELETE FROM contents WHERE id = :id;');
+$stmt = $pdo->prepare('DELETE FROM  speech_text WHERE id = :id;');
 $stmt->bindValue(':id', $id, PDO::PARAM_INT);  //Integer（数値の場合 PDO::PARAM_INT)
 $status = $stmt->execute(); //実行
 

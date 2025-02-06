@@ -6,13 +6,108 @@
     <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="css/menu1.css">
     
-     
- 
   <style>
+.navbar {
+    background-color: grey ;
+    color: white;
+    padding: 10px 0;
+    height: 50px;
+}
 
+.nav.navbar-nav {
+    display: flex;
+    flex-direction: row;
+    justify-content: right;
+}
 
+.navbar-nav li {
+    display: inline-block;
+    margin-right: 15px;
+}
 
+.navbar-nav li a {
+    text-decoration: none;
+    padding: 10px 15px;
+    color: white;
+}
+
+.navbar-nav li a:hover {
+    background-color: #ddd;
+}
+.selection {
+      /* text-align: center; */
+      margin-left: 150px;
+      font-family: Arial, sans-serif;
+      padding: 20px;
+  }
+
+  input {
+      margin-right: 10px;
+  }
+
+  #generateButton:active {
+      -webkit-transform: translateY(4px);
+      transform: translateY(4px);
+      border-bottom: none;
+  }
+
+  /* 選択テーマの表示位置 */
+  .result {
+      font-size: 40px;
+      margin-top: 40px;
+      margin-left: 20%;
+      font-weight: bold;
+  }
+
+  .rec_control {
+      position: fixed;
+      bottom: 0;
+      width: 70%;
+      z-index: 1;
+  }
+
+  .main_content {
+      width: 70%;
+  }
+
+  #response {
+      position: fixed;
+      right: 0;
+      top: 0;
+      padding: 4em 2em;
+      font-size: 12px;
+      width: 30%;
+      overflow-y: scroll;
+      -webkit-overflow-scrolling: touch;
+      height: 100%;
+      border-left: 1px solid #eee;
+      z-index: 1;
+      background: #fdfdfd;
+  }
+
+  #myStopwatch {
+      /* text-align: center;  */
+      font-size: 24px;
+      /* 文字サイズを調整 */
+      position: absolute;
+      margin-top: 5%;
+      left: 30%;
+      /* transform: translate(-50%, -50%); */
+      /* 中央に配置 */
+  }
+
+  .comment {
+      /* display: flex;
+          justify-content: center;
+          align-items: center;
+          height: 100vh; */
+
+      margin-top: 100px;
+      margin-left: 100px;
+      font-size: 15px;
+  }
 </style>
+
 </head>  
   <body>
   <nav class="navbar navbar-default">
@@ -134,7 +229,7 @@
             $('#load_gif').css('display', 'block');
             
             $.ajax({
-              url: "upload2.php",  //upload ファイルへ転送
+              url: "upload1.php",  //upload ファイルへ転送
               type: "POST",
               data: formData,
               processData: false,
@@ -276,4 +371,3 @@
 
   </body>
 </html>
-＃Add: えーとカウンター、生成テキスト→DB登録、

@@ -1,3 +1,10 @@
+.navbar {
+    background-color: grey ;
+    color: white;
+    padding: 10px 0;
+    height: 30px;
+}
+
 .nav.navbar-nav {
     display: flex;
     flex-direction: row;
@@ -74,7 +81,7 @@
       font-size: 24px;
       /* 文字サイズを調整 */
       position: absolute;
-      margin-top: 10%;
+      margin-top: 5%;
       left: 30%;
       /* transform: translate(-50%, -50%); */
       /* 中央に配置 */
