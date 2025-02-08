@@ -76,13 +76,12 @@
     <input type="text" id="char_limit" name="char_limit" placeholder="文字数上限を記載"><br><br>
 
     <label for="message">伝えたいメッセージ</label>
-    <input type="text" name="message" id="message" placeholder="メッセージを記載" rows="2" cols="80"></textarea> <br><br>
+    <input type="text" name="message" id="message" placeholder="メッセージを記載" style="width: 500px;"><br><br>
     
     <label for="outline">スピーチの骨子</label>
-    <input type="text" name="outline" id="outline" placeholder="骨子を記載" width="80"></textarea> <br><br>
+    <input type="text" name="outline" id="outline" placeholder="骨子を記載" style="width: 500px;"><br><br>
     
-
-    <input type="submit" value="送信">
+    <input type="submit" value="スピーチ原稿を生成">
 
  </form>
  <!-- GET パラメータの response の値を表示 htmlspecialchars($_GET['response']) は、HTML特殊文字をエスケープして、XSS（クロスサイトスクリプティング）攻撃を防ぎ-->
