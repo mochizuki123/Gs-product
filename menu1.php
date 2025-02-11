@@ -53,9 +53,9 @@
 
   /* 選択テーマの表示位置 */
   .result {
-      font-size: 40px;
+      font-size: 20px;
       margin-top: 40px;
-      margin-left: 20%;
+      margin-left: 10%;
       font-weight: bold;
   }
 
@@ -141,10 +141,18 @@
     <script>
         // テーマをキーにして、関連キーワードの配列を値として保持
         const keywordMap = {
-            趣味: ["野球", "釣り", "読書", "ゲーム", "料理"],
-            スポーツ: ["サッカー", "バスケットボール", "ランニング", "水泳", "テニス"],
-            音楽: ["ロック", "ポップ", "ジャズ", "クラシック", "ヒップホップ"],
-            旅行: ["温泉", "ビーチ", "山登り", "海外旅行", "キャンプ"]
+            ストーリー: [
+                "初めて自転車に乗った時のこと",
+                "初めて海外に行った時のこと",
+                "初めて仕事をした時のこと",
+                "初めて大勢の人前で話をした時のこと",
+                "初めて給料をもらった時のこと",
+                "初めて一人暮らしした時のこと"
+            ]
+            // 趣味: ["野球", "釣り", "読書", "ゲーム", "料理"],
+            // スポーツ: ["サッカー", "バスケットボール", "ランニング", "水泳", "テニス"],
+            // 音楽: ["ロック", "ポップ", "ジャズ", "クラシック", "ヒップホップ"],
+            // 旅行: ["温泉", "ビーチ", "山登り", "海外旅行", "キャンプ"]
         };
         
         const themeSelect = document.getElementById('themeSelect');
@@ -155,26 +163,36 @@
             themeSelect.appendChild(option);
         }
         
-        
+        let displayedKeywords = [];
         function getRandomKeyword(theme) {
             const keywords = keywordMap[theme];
             if (!keywords) {
                 return "該当するテーマが見つかりませんでした。別のテーマを試してください。";
             }
-            const randomIndex = Math.floor(Math.random() * keywords.length);
-            return keywords[randomIndex];          
+        
+        // すべてのキーワードが表示された場合、リセット
+        if (displayedKeywords.length === keywords.length) {
+            displayedKeywords = [];
         }
+         
+        let keyword;
+        do {
+            const randomIndex = Math.floor(Math.random() * keywords.length);
+            keyword = keywords[randomIndex];
+        } while (displayedKeywords.includes(keyword));
+
+        displayedKeywords.push(keyword);
+        return keyword;   
+    }
+        //     const randomIndex = Math.floor(Math.random() * keywords.length);
+        //     return keywords[randomIndex];          
+        // }
       
         $(document).ready(function() {
             $("#generateButton").click(function () {
                 const selectedTheme = $("#themeSelect").val();
                 const keyword = getRandomKeyword(selectedTheme);
                 $("#result").text(keyword);
-        // // ボタンのクリックイベントリスナー
-        // document.getElementById("generateButton").addEventListener("click", () => {
-        //     const theme = document.getElementById("themeInput").value.trim();
-        //     const result = getRandomKeyword(theme);
-        //     document.getElementById("result").textContent = result;
             });
         });
     </script>
@@ -363,7 +381,7 @@
                 </div> -->
                 
                 <div>
-                    <input type="submit" value="送信">
+                    <input type="submit" value="保存">
                 </div>
             </fieldset>
         </div>
