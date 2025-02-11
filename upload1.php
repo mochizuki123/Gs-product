@@ -55,9 +55,18 @@ if (!empty($_FILES['voice']['tmp_name'])) {
         $response = curl_exec($ch);
         if (curl_errno($ch)) {
             echo 'Error:' . curl_error($ch);
-        } else {
-            echo 'Response:' . $response;
+        } else {    
+                $response_data = json_decode($response, true);
+            if (isset($response_data['text'])) {
+                echo '<div style="font-size: 18px;">' . $response_data['text']. '</div>';
+            } else {
+                echo 'テキストが見つかりませんでした。';
+            }
         }
+        //  } else {
+        //     echo 'Response:' . $response;
+        //     // echo $response;
+        // }
         curl_close($ch);
     } else {
         echo "ファイルのアップロードに失敗しました。";

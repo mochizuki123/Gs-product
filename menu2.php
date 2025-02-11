@@ -78,9 +78,21 @@
     <label for="message">伝えたいメッセージ</label>
     <input type="text" name="message" id="message" placeholder="メッセージを記載" style="width: 500px;"><br><br>
     
-    <label for="outline">スピーチの骨子</label>
-    <input type="text" name="outline" id="outline" placeholder="骨子を記載" style="width: 500px;"><br><br>
-    
+    <label for="outline">スピーチの骨子①</label>
+    <input type="text" name="outline1" id="outline" placeholder="骨子を記載" style="width: 500px;"><br>
+    <label for="outline">スピーチの骨子②</label>
+    <input type="text" name="outline2" id="outline" placeholder="骨子を記載" style="width: 500px;"><br>
+    <label for="outline">スピーチの骨子③</label>
+    <input type="text" name="outline3" id="outline" placeholder="骨子を記載" style="width: 500px;"><br>
+    <label for="outline">スピーチの骨子④</label>
+    <input type="text" name="outline4" id="outline" placeholder="骨子を記載" style="width: 500px;"><br><br>
+
+    <label for="language">言語を選択</label>
+    <select id=language name="language" >
+        <option value="ja">日本語</option>
+        <option value="en">英語</option>
+    </select>
+
     <input type="submit" value="スピーチ原稿を生成">
     <input type="reset" value="リセット" onclick="resetSpeech()">
 

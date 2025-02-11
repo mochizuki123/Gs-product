@@ -14,16 +14,18 @@ $pdo = db_conn();
 
 //speech_textテーブルとusersテーブルを結合（JOIN）これにより、speech_textテーブルのデータとusersテーブルのデータを組み合わせて取得
 
+// SQL クエリを準備  speech_text テーブルの id カラムを選択し、それを id というエイリアス名で取得
 $stmt = $pdo->prepare('
 SELECT 
     speech_text.id as id,
     speech_text.speech_text as speech_text, 
-    users.user_name as user_name
+    users.user_name as user_name,
+    speech_text.created_at as created_at
 FROM 
     speech_text
 JOIN 
     users ON speech_text.user_id = users.user_id');  //利用方法？
-$status = $stmt->execute();
+$status = $stmt->execute();//クエリを実行
 
 //３．つぶやき表示
 $view = '';
@@ -37,6 +39,8 @@ if (!$status) {
         
         $view .= '</a>';
         $view .= "　";
+        $view .= '<span class="created_at">' . h($r['created_at']) . '</span>';
+        
 
         if ($_SESSION['kanri_flg'] === 1) {
             $view .= '<a class="btn btn-danger" href="delete.php?id=' . $r['id'] . '">';

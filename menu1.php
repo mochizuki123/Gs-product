@@ -148,11 +148,15 @@
                 "初めて大勢の人前で話をした時のこと",
                 "初めて給料をもらった時のこと",
                 "初めて一人暮らしした時のこと"
+            ],
+            
+            論理的に説明する: [
+                "美味しいカレーの作り方",
+                "テーブルトピックスのメリット",
+                "高校球児は坊主頭がよいか、髪型を自由にしてよいか",
+                "あなたに必要な健康法について"
             ]
-            // 趣味: ["野球", "釣り", "読書", "ゲーム", "料理"],
-            // スポーツ: ["サッカー", "バスケットボール", "ランニング", "水泳", "テニス"],
-            // 音楽: ["ロック", "ポップ", "ジャズ", "クラシック", "ヒップホップ"],
-            // 旅行: ["温泉", "ビーチ", "山登り", "海外旅行", "キャンプ"]
+            
         };
         
         const themeSelect = document.getElementById('themeSelect');
@@ -270,7 +274,7 @@
         $("#stopRecord").prop("disabled", true);
         $('#load_gif').css('display', 'block'); 
         stopTimer(); // タイマーを停止
-        resetTimer(); // タイマーリセット
+        // resetTimer(); // タイマーリセット
       });
     </script>
   
@@ -381,11 +385,21 @@
                 </div> -->
                 
                 <div>
-                    <input type="submit" value="保存">
+                    <input type="submit" value="保存"  style="display: inline-block;">
+                    <input type="reset" value="リセット" onclick="resetSpeech()" style="display: inline-block;">
+
                 </div>
             </fieldset>
+        
         </div>
     </form>
-
   </body>
 </html>
+
+<script>
+    function resetSpeech() {
+        resetTimer(); // タイマーリセット
+        document.getElementById('response').innerHTML = ''; // レスポンス内容をクリア
+    }
+</script>
+
