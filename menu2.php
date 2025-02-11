@@ -82,6 +82,7 @@
     <input type="text" name="outline" id="outline" placeholder="骨子を記載" style="width: 500px;"><br><br>
     
     <input type="submit" value="スピーチ原稿を生成">
+    <input type="reset" value="リセット" onclick="resetSpeech()">
 
  </form>
  <!-- GET パラメータの response の値を表示 htmlspecialchars($_GET['response']) は、HTML特殊文字をエスケープして、XSS（クロスサイトスクリプティング）攻撃を防ぎ-->
@@ -91,6 +92,13 @@
     <p><?php echo htmlspecialchars($_GET['response']); ?></p>
 
 <?php endif; ?>
+<!-- セットボタンがクリックされたときに、スピーチ原稿の内容を表示している<p>タグの中身をクリア -->
+<script>
+    function resetSpeech() {
+        document.querySelector('p').innerHTML = '';
+    }
+</script>
+
 
 
 </body>
