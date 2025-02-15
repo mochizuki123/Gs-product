@@ -364,13 +364,13 @@
         }
     </script> -->
 
-<form method="POST" action="insert.php" enctype="multipart/form-data">
+<form method="POST" action="insert1.php" enctype="multipart/form-data">
         <div class="comment">
             <fieldset>
                 <legend>振り返りメモ</legend>
                 <div>
-                    <label for="speech_text"></label>
-                    <textarea id="speech_text" name="speech_text" rows="2" cols="80"></textarea>
+                    <label for="text_prompt"></label>
+                    <textarea id="text_prompt" name="text_prompt" rows="2" cols="80"></textarea>
                 </div>
                 
                 <!-- <div>

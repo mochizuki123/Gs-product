@@ -49,7 +49,7 @@ curl_setopt($ch, CURLOPT_POST, true);
 curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($data));
 
 // APIリクエストを送信
-$response = curl_exec($ch);
+$text_ready = curl_exec($ch);
 
 // エラーチェック
 // if (curl_errno($ch)) {
@@ -67,7 +67,7 @@ curl_close($ch);
 // curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($request_data));
 // $response = curl_exec($ch);
 // curl_close($ch);
-$result = json_decode($response, true);
+$result = json_decode($text_ready, true);
 if (isset($result['choices'][0]['message']['content'])) {
     $response_text = $result['choices'][0]['message']['content'];
 } else {
