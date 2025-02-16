@@ -60,7 +60,13 @@ form-container クラスが適用された要素は、親の container 要素内
 .response-container {
     flex: 1;
     padding-left: 30px;
+    padding-right: 20px;
     border-left: 1px solid #ccc; /* 縦線を追加 */
+}
+
+.button-container {
+    display: flex;
+    gap: 10px;
 }
 </style>
 
@@ -79,7 +85,7 @@ form-container クラスが適用された要素は、親の container 要素内
 </div>
 </nav>
       
-<h1>スピーチ原稿の生成</h1>
+<h2>スピーチ原稿の生成</h2>
 <div class="container">
     <div class="form-container">
 
@@ -115,22 +121,27 @@ form-container クラスが適用された要素は、親の container 要素内
         <input type="text" name="outline3" id="outline" placeholder="骨子を記載" style="width: 500px;"><br>
         <label for="outline">スピーチの骨子④</label>
         <input type="text" name="outline4" id="outline" placeholder="骨子を記載" style="width: 500px;"><br><br>
-
-        <label for="language">言語を選択</label>
-        <select id=language name="language" >
-            <option value="ja">日本語</option>
-            <option value="en">英語</option>
-        </select>
-
+        
         <input type="submit" value="スピーチ原稿を生成">
-        <input type="reset" value="リセット" onclick="resetSpeech()">
-
+        
     </form>
 
-    <form action="insert2.php" method="POST">
-        <input type="hidden" name="text_ready" value="<?php echo isset($_GET['response']) ? htmlspecialchars($_GET['response']) : ''; ?>">
-        <input type="submit" value="原稿を保存">
+        <!-- <label for="language">言語を選択</label>
+            <select id=language name="language" >
+                <option value="ja">日本語</option>
+                <option value="en">英語</option>
+            </select> -->
 
+    <div class="button-container"> 
+        <form action="insert2.php" method="POST">
+            
+            <input type="hidden" name="text_ready" value="<?php echo isset($_GET['response']) ? htmlspecialchars($_GET['response']) : ''; ?>">     
+            <input type="submit" value="原稿を保存">
+        </form>
+    </div>
+
+    <form>
+        <input type="reset" value="リセット" onclick="resetSpeech()">
     </form>
 
 </div>

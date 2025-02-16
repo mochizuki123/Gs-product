@@ -7,10 +7,8 @@ session_start();
 require_once 'funcs.php';
 loginCheck();
 
-//２．つぶやき登録SQL作成
+//２．登録SQL作成
 $pdo = db_conn();
-//contents table + user table 結合
-// php myadmin で実行するSQL文
 
 //speech_textテーブルとusersテーブルを結合（JOIN）これにより、speech_textテーブルのデータとusersテーブルのデータを組み合わせて取得
 
@@ -45,7 +43,7 @@ if (!$status_ready) {
         $view .= '<span class="created_at">' . h($r['created_at']) . '</span>';
         
         if ($_SESSION['kanri_flg'] === 1) {
-            $view .= '<a class="btn btn-danger" href="delete.php?id=' . $r['id'] . '">';
+            $view .= '<a class="btn btn-danger" href="delete2.php?id=' . $r['id'] . '">';
             $view .= '削除';
             $view .= '</a>';
         }

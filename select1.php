@@ -9,8 +9,6 @@ loginCheck();
 
 //２．つぶやき登録SQL作成
 $pdo = db_conn();
-//contents table + user table 結合
-// php myadmin で実行するSQL文
 
 //speech_textテーブルとusersテーブルを結合（JOIN）これにより、speech_textテーブルのデータとusersテーブルのデータを組み合わせて取得
 
@@ -25,20 +23,9 @@ FROM
     speech_text_prompt
 JOIN 
     users ON speech_text_prompt.user_id = users.user_id');  //利用方法？
-// $status = $stmt->execute();//クエリを実行
 
-// $stmt_ready = $pdo->prepare('
-// SELECT 
-//     speech_text_ready.id as id,
-//     speech_text_ready.text_ready as text_ready, 
-//     users.user_name as user_name,
-//     speech_text_ready.created_at as created_at
-// FROM 
-//     speech_text_ready
-// JOIN 
-//     users ON speech_text_ready.user_id = users.user_id');  //利用方法？
-$status_ready = $stmt_ready->execute();//クエリを実行
-
+    $status = $stmt->execute();//クエリを実行
+    // $status_ready = $stmt_ready->execute();//クエリを実行
 
 //３．登録するspeech 情報の表示
 $view = '';
@@ -56,7 +43,7 @@ if (!$status) {
         
 
         if ($_SESSION['kanri_flg'] === 1) {
-            $view .= '<a class="btn btn-danger" href="delete.php?id=' . $r['id'] . '">';
+            $view .= '<a class="btn btn-danger" href="delete1.php?id=' . $r['id'] . '">';
             $view .= '削除';
             $view .= '</a>';
         }
@@ -65,26 +52,6 @@ if (!$status) {
     }
 }
 
-// if (!$status_ready) {
-//     sql_error($stmt_ready);
-// } else {
-//     while ($r = $stmt_ready->fetch(PDO::FETCH_ASSOC)) {
-//         $view .= '<div class="record"><p>';
-//         $view .= '<a href="detail.php?id=' . $r["id"] . '">';
-//         $view .= $r["id"] . "." . "　" . h($r['text_ready']) . " @ " . $r['user_name']; 
-        
-//         $view .= '</a>';
-//         $view .= "　";
-//         $view .= '<span class="created_at">' . h($r['created_at']) . '</span>';
-        
-//         if ($_SESSION['kanri_flg'] === 1) {
-//             $view .= '<a class="btn btn-danger" href="delete.php?id=' . $r['id'] . '">';
-//             $view .= '削除';
-//             $view .= '</a>';
-//         }
-//         $view .= '</p></div>';
-//     }
-// }
 
 
 ?>
