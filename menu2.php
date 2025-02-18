@@ -79,7 +79,7 @@ form-container クラスが適用された要素は、親の container 要素内
     </div>
     <ul class="nav navbar-nav">
         <li><a href="index.php">Menu</a></li>
-        <li><a href="about.php">About</a></li>
+        <li><a href="select2.php">Scripts</a></li>
         <li><a href="logout.php">Log out</a></li>       
     </ul>
 </div>
@@ -90,6 +90,7 @@ form-container クラスが適用された要素は、親の container 要素内
     <div class="form-container">
 
     <form action="upload2.php" method="post">
+        <label for="title">スピーチタイトル</label>    
         <label for="purpose">スピーチの目的</label>
         <select name="purpose" id="purpose">
         <option value="inform">情報提供</option>

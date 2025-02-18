@@ -8,15 +8,6 @@ require_once 'funcs.php';
 // echo "funcs.php included<br>";
 
 loginCheck();
-// echo "loginCheck passed<br>";
-
-//1. menu1 から振り返りコメント取得
-// if (isset($_POST['text_prompt'])) {
-//     $text_prompt = $_POST['text_prompt'];
-//     echo "text_prompt: $text_prompt<br>";
-// } else {
-//     exit('Error: content is not set.');
-// }
 
 $user_id = $_SESSION['user_id'];  //セッションの中のuser_id抜き出し
 if (isset($_SESSION['user_id'])) {
