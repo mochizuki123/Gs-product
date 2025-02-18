@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>キーワードランダム選定</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+
+        input {
+            margin-right: 10px;
+        }
+
+        .result {
+            margin-top: 20px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>テーマに関連するキーワードをランダムに選定</h1>
+    <input type="text" id="themeInput" placeholder="テーマを入力してください">
+    <button id="generateButton">キーワードを生成</button>
+    <div class="result" id="result"></div>
+
+    <script>
+        // テーマをキーにして、関連キーワードの配列を値として保持
+        const keywordMap = {
+            趣味: ["野球", "釣り", "読書", "ゲーム", "料理"],
+            スポーツ: ["サッカー", "バスケットボール", "ランニング", "水泳", "テニス"],
+            音楽: ["ロック", "ポップ", "ジャズ", "クラシック", "ヒップホップ"],
+            旅行: ["温泉", "ビーチ", "山登り", "海外旅行", "キャンプ"]
+        };
+
+        // キーワードをランダムに選定する関数
+        //keywordMap オブジェクトから、引数 theme に対応するキーワードの配列を取得し、keywords 変数に格納します。 --> -->
+//もし keywords が存在しない場合（つまり、指定されたテーマが keywordMap に存在しない場合）、エラーメッセージ「該当するテーマが見つかりませんでした。別のテーマを試してください。」を返します。
+//keywords が存在する場合、配列の長さに基づいてランダムなインデックス randomIndex を生成します。
+//randomIndex を使用して、keywords 配列からランダムなキーワードを取得し、それを返します。
+        function getRandomKeyword(theme) {
+            const keywords = keywordMap[theme];
+            if (!keywords) {
+                return "該当するテーマが見つかりませんでした。別のテーマを試してください。";
+            }
+            const randomIndex = Math.floor(Math.random() * keywords.length);
+            return keywords[randomIndex];
+        }
+
+        // ボタンのクリックイベントリスナー
+        document.getElementById("generateButton").addEventListener("click", () => {
+            const theme = document.getElementById("themeInput").value.trim();
+            const result = getRandomKeyword(theme);
+            document.getElementById("result").textContent = result;
+        });
+    </script>
+</body>
+
+</html>
