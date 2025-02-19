@@ -15,9 +15,16 @@ if (isset($_SESSION['user_id'])) {
     echo "user_id: $user_id<br>";
 } else {
     exit('Error: user_id is not set in session.');
+}   
+
+//1. menu2 からタイトルとスピーチ原稿と取得
+if (isset($_POST['title'])) {
+    $title = $_POST['title'];
+    echo "title: $title<br>";
+} else {
+    exit('Error: title is not set.');
 }
 
-//1. menu2 からスピーチ原稿取得
 if (isset($_POST['text_ready'])) {
     $text_ready = $_POST['text_ready'];
     echo "text_ready: $text_ready<br>";
@@ -35,12 +42,16 @@ $pdo = db_conn();
 // var_dump($user_id);
 
 //３．データベースの speech_text テーブルに新しいレコードを挿入するための準備を行っています。
-//NOW() 関数は、現在の日時を created_at カラムに挿入
-$stmt = $pdo->prepare('INSERT INTO speech_text_ready(user_id, text_ready, created_at) VALUES(:user_id, :text_ready, NOW());');
+$stmt = $pdo->prepare('INSERT INTO speech_text_ready(user_id, title, text_ready, created_at) VALUES(:user_id, :title, :text_ready, NOW());');
+
+$stmt->bindValue(':title', $title, PDO::PARAM_STR);
 $stmt->bindValue(':text_ready', $text_ready, PDO::PARAM_STR);
 $stmt->bindValue(':user_id', $user_id, PDO::PARAM_STR);  // bindValue追加
+
 // $stmt->bindValue(':image', $image, PDO::PARAM_STR);  // bindValue追加
 $status = $stmt->execute(); //実行
+
+
 
 //４．つぶやき登録処理後
 if (!$status) {

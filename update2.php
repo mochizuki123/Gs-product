@@ -12,8 +12,9 @@ $id     = $_POST['id'];
 $pdo = db_conn();
 
 //３．つぶやき登録SQL作成
-$stmt = $pdo->prepare('UPDATE speech_text_ready SET text_ready=:content WHERE id=:id;');
+$stmt = $pdo->prepare('UPDATE speech_text_ready SET text_ready=:content, updated_at=:updated_at WHERE id=:id;');
 $stmt->bindValue(':content', $content, PDO::PARAM_STR);
+$stmt->bindValue(':updated_at', date('Y-m-d H:i'), PDO::PARAM_STR);
 $stmt->bindValue(':id', $id, PDO::PARAM_INT);
 $status = $stmt->execute(); //実行
 

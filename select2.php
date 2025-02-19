@@ -1,3 +1,10 @@
+<style>
+.table th, .table td{
+    padding: 10px;
+    text-align: left;
+}
+</style>
+
 <?php
 // エラーを出力する
 ini_set('display_errors', '1');
@@ -16,10 +23,12 @@ $pdo = db_conn();
 
 $stmt_ready = $pdo->prepare('
 SELECT 
+    speech_text_ready.title as title,
     speech_text_ready.id as id,
     speech_text_ready.text_ready as text_ready, 
     users.user_name as user_name,
-    speech_text_ready.created_at as created_at
+    speech_text_ready.created_at as created_at,
+    speech_text_ready.updated_at as updated_at
 FROM 
     speech_text_ready
 JOIN 
@@ -34,20 +43,38 @@ if (!$status_ready) {
     sql_error($stmt_ready);
 } else {
     while ($r = $stmt_ready->fetch(PDO::FETCH_ASSOC)) {
-        $view .= '<div class="record"><p>';
-        $view .= '<a href="detail.php?id=' . $r["id"] . '">';
-        $view .= $r["id"] . "." . "　" . h($r['text_ready']) . " @ " . $r['user_name']; 
+        // $view .= '<div class="record"><p>';
+        // $view .= '<a href="detail.php?id=' . $r["id"] . '">';
+        // $view .= $r["id"] . "." . "　" . h($r['title']) . " @ " . $r['user_name']; 
         
-        $view .= '</a>';
-        $view .= "　";
-        $view .= '<span class="created_at">' . h($r['created_at']) . '</span>';
+        // $view .= '</a>';
+        // $view .= "　";
+        // $view .= '<span class="created_at">' . h($r['created_at']) . '</span>';
         
+        // if ($_SESSION['kanri_flg'] === 1) {
+        //     $view .= '<a class="btn btn-danger" href="delete2.php?id=' . $r['id'] . '">';
+        //     $view .= '削除';
+        //     $view .= '</a>';
+        // }
+        // $view .= '</p></div>';
+    $view .= '<table class="table">';
+    $view .= '<thead><tr><th>ID</th><th>タイトル</th><th>ユーザー名</th><th>作成日時</th><th>更新日時</th><th>操作</th></tr></thead>';
+    $view .= '<tbody>';
+    while ($r = $stmt_ready->fetch(PDO::FETCH_ASSOC)) {
+        $view .= '<tr>';
+        $view .= '<td>' . $r["id"] . '</td>';
+        $view .= '<td><a href="detail.php?id=' . $r["id"] . '">' . h($r['title']) . '</a></td>';
+        $view .= '<td>' . h($r['user_name']) . '</td>';
+        $view .= '<td>' . h($r['created_at']) . '</td>';
+        $view .= '<td>' . h($r['updated_at']) . '</td>';
+        $view .= '<td>';
         if ($_SESSION['kanri_flg'] === 1) {
-            $view .= '<a class="btn btn-danger" href="delete2.php?id=' . $r['id'] . '">';
-            $view .= '削除';
-            $view .= '</a>';
+            $view .= '<a class="btn btn-danger" href="delete2.php?id=' . $r['id'] . '">削除</a>';
         }
-        $view .= '</p></div>';
+        $view .= '</td>';
+        $view .= '</tr>';
+    }
+    
     }
 }
 
