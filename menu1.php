@@ -308,7 +308,7 @@
             <fieldset>
                 <legend>振り返りメモ</legend>
                 <div>
-                    <label for="text_prompt"></label>
+                    <label for="comment"></label>
                     <textarea id="comment" name="comment" rows="2" cols="80"></textarea>
                 </div>
                 
@@ -330,7 +330,7 @@
     // comment をフォーム送信用に response の値を隠しフィールドに設定
     function setResponseContent() {
             const responseContent = document.getElementById('response').innerHTML;
-            document.getElementById('comment').value = responseContent;
+            document.getElementById('text_prompt').value = responseContent;
         }
 
     function resetSpeech() {

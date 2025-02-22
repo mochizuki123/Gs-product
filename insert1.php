@@ -10,13 +10,20 @@ require_once 'funcs.php';
 loginCheck();
 // echo "loginCheck passed<br>";
 
-// 1. menu1 から振り返りコメント取得
+// 1. menu1 からコメントとスピーチテキスト取得
 if (isset($_POST['text_prompt'])) {
     $text_prompt = $_POST['text_prompt'];
     echo "text_prompt: $text_prompt<br>";
 } else {
-    exit('Error: content is not set.');
+    exit('Error: text_prompt is not set.');
 }
+
+// if (isset($_POST['comment'])) {
+//     $comment = $_POST['comment'];
+//     echo "comment: $comment<br>";
+// } else {
+//     exit('Error: comment is not set.');
+// }
 
 $user_id = $_SESSION['user_id'];  //セッションの中のuser_id抜き出し
 if (isset($_SESSION['user_id'])) {

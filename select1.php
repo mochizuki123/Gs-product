@@ -24,6 +24,7 @@ $stmt = $pdo->prepare('
 SELECT 
     speech_text_prompt.id as id,
     speech_text_prompt.text_prompt as text_prompt, 
+    speech_text_prompt.comment as comment, 
     users.user_name as user_name,
     speech_text_prompt.created_at as created_at
 FROM 
@@ -41,7 +42,7 @@ if (!$status) {
 } else {
     while ($r = $stmt->fetch(PDO::FETCH_ASSOC)) {
     $view .= '<table class="table">';
-    $view .= '<thead><tr><th>ID</th><th>コメント</th><th>ユーザー名</th><th>作成日時</th><th>更新日時</th><th>操作</th></tr></thead>';
+    $view .= '<thead><tr><th>ID</th><th>コメント</th><th>ユーザー名</th><th>作成日時</th><th>操作</th></thead>';
     $view .= '<tbody>';
     while ($r = $stmt->fetch(PDO::FETCH_ASSOC)) {
         $view .= '<tr>';
@@ -49,6 +50,7 @@ if (!$status) {
         $view .= '<td><a href="detail.php?id=' . $r["id"] . '">' . h($r['text_prompt']) . '</a></td>';
         $view .= '<td>' . h($r['user_name']) . '</td>';
         $view .= '<td>' . h($r['created_at']) . '</td>';
+        
         
         $view .= '<td>';
         if ($_SESSION['kanri_flg'] === 1) {
