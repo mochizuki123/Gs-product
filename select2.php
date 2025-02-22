@@ -43,20 +43,7 @@ if (!$status_ready) {
     sql_error($stmt_ready);
 } else {
     while ($r = $stmt_ready->fetch(PDO::FETCH_ASSOC)) {
-        // $view .= '<div class="record"><p>';
-        // $view .= '<a href="detail.php?id=' . $r["id"] . '">';
-        // $view .= $r["id"] . "." . "　" . h($r['title']) . " @ " . $r['user_name']; 
         
-        // $view .= '</a>';
-        // $view .= "　";
-        // $view .= '<span class="created_at">' . h($r['created_at']) . '</span>';
-        
-        // if ($_SESSION['kanri_flg'] === 1) {
-        //     $view .= '<a class="btn btn-danger" href="delete2.php?id=' . $r['id'] . '">';
-        //     $view .= '削除';
-        //     $view .= '</a>';
-        // }
-        // $view .= '</p></div>';
     $view .= '<table class="table">';
     $view .= '<thead><tr><th>ID</th><th>タイトル</th><th>ユーザー名</th><th>作成日時</th><th>更新日時</th><th>操作</th></tr></thead>';
     $view .= '<tbody>';

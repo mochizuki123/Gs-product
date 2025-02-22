@@ -35,7 +35,7 @@ $data = [
         ["role" => "system", "content" => "You are an assistant that helps users create speeches."],
         ["role" => "user", "content" => "スピーチの目的: $purpose\n字数の上限: $char_limit\n伝えたいメッセージ: $message\nスピーチの骨子①: $outline1\nスピーチの骨子②: $outline2\nスピーチの骨子③: $outline3\nスピーチの骨子④: $outline4"]
     ],
-    "max_tokens" => 1500,
+    "max_tokens" => 5000,
     // "language" => $language // 言語をAPIリクエストに含める
 ];
 

@@ -1,3 +1,10 @@
+<style>
+.table th, .table td{
+    padding: 10px;
+    text-align: left;
+}
+</style>
+
 <?php
 // エラーを出力する
 ini_set('display_errors', '1');
@@ -33,26 +40,26 @@ if (!$status) {
     sql_error($stmt);
 } else {
     while ($r = $stmt->fetch(PDO::FETCH_ASSOC)) {
-        $view .= '<div class="record"><p>';
-        $view .= '<a href="detail.php?id=' . $r["id"] . '">';
-        $view .= $r["id"] . "." . "　" . h($r['text_prompt']) . " @ " . $r['user_name']; 
+    $view .= '<table class="table">';
+    $view .= '<thead><tr><th>ID</th><th>コメント</th><th>ユーザー名</th><th>作成日時</th><th>更新日時</th><th>操作</th></tr></thead>';
+    $view .= '<tbody>';
+    while ($r = $stmt->fetch(PDO::FETCH_ASSOC)) {
+        $view .= '<tr>';
+        $view .= '<td>' . $r["id"] . '</td>';
+        $view .= '<td><a href="detail.php?id=' . $r["id"] . '">' . h($r['text_prompt']) . '</a></td>';
+        $view .= '<td>' . h($r['user_name']) . '</td>';
+        $view .= '<td>' . h($r['created_at']) . '</td>';
         
-        $view .= '</a>';
-        $view .= "　";
-        $view .= '<span class="created_at">' . h($r['created_at']) . '</span>';
-        
-
+        $view .= '<td>';
         if ($_SESSION['kanri_flg'] === 1) {
-            $view .= '<a class="btn btn-danger" href="delete1.php?id=' . $r['id'] . '">';
-            $view .= '削除';
-            $view .= '</a>';
+            $view .= '<a class="btn btn-danger" href="delete1.php?id=' . $r['id'] . '">削除</a>';
         }
-        // $view .= '<img src="' . h($r['image']) . '" class="image-class">';
-        // $view .= '</p></div>';
+        $view .= '</td>';
+        $view .= '</tr>';
+    }
+    
     }
 }
-
-
 
 ?>
 

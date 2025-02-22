@@ -70,6 +70,7 @@
         <label for="message">伝えたいメッセージ</label>
         <input type="text" name="message" id="message" placeholder="メッセージを記載" style="width: 500px;"><br><br>
         
+        
         <label for="outline">スピーチの骨子①</label>
         <input type="text" name="outline1" id="outline" placeholder="骨子を記載" style="width: 500px;"><br>
         <label for="outline">スピーチの骨子②</label>
@@ -96,7 +97,7 @@
     <!-- <form action="insert2.php" method="POST"> -->
             <!-- <input type="hidden" name="title" value="<?php echo isset($_POST['title']) ? htmlspecialchars($_POST['title']) : ''; ?>">      -->
             <input type="hidden" name="title" id="hiddenTitle">          
-            <input type="hidden" name="text_ready" value="<?php echo isset($_GET['response']) ? htmlspecialchars($_GET['response']) : ''; ?>">     
+            <input type="hidden" name="text_ready" value="<?php echo isset($_POST['response']) ? htmlspecialchars($_POST['response']) : ''; ?>">     
             <input type="submit" value="原稿を保存">
         </form>
     

@@ -6,107 +6,6 @@
     <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="css/menu1.css">
     
-  <style>
-.navbar {
-    background-color: grey ;
-    color: white;
-    padding: 10px 0;
-    height: 50px;
-}
-
-.nav.navbar-nav {
-    display: flex;
-    flex-direction: row;
-    justify-content: right;
-}
-
-.navbar-nav li {
-    display: inline-block;
-    margin-right: 15px;
-}
-
-.navbar-nav li a {
-    text-decoration: none;
-    padding: 10px 15px;
-    color: white;
-}
-
-.navbar-nav li a:hover {
-    background-color: #ddd;
-}
-.selection {
-      /* text-align: center; */
-      margin-left: 150px;
-      font-family: Arial, sans-serif;
-      padding: 20px;
-  }
-
-  input {
-      margin-right: 10px;
-  }
-
-  #generateButton:active {
-      -webkit-transform: translateY(4px);
-      transform: translateY(4px);
-      border-bottom: none;
-  }
-
-  /* 選択テーマの表示位置 */
-  .result {
-      font-size: 20px;
-      margin-top: 40px;
-      margin-left: 10%;
-      font-weight: bold;
-  }
-
-  .rec_control {
-      position: fixed;
-      bottom: 0;
-      width: 70%;
-      z-index: 1;
-  }
-
-  .main_content {
-      width: 70%;
-  }
-
-  #response {
-      position: fixed;
-      right: 0;
-      top: 0;
-      padding: 4em 2em;
-      font-size: 12px;
-      width: 30%;
-      overflow-y: scroll;
-      -webkit-overflow-scrolling: touch;
-      height: 100%;
-      border-left: 1px solid #eee;
-      z-index: 1;
-      background: #fdfdfd;
-  }
-
-  #myStopwatch {
-      /* text-align: center;  */
-      font-size: 24px;
-      /* 文字サイズを調整 */
-      position: absolute;
-      margin-top: 5%;
-      left: 30%;
-      /* transform: translate(-50%, -50%); */
-      /* 中央に配置 */
-  }
-
-  .comment {
-      /* display: flex;
-          justify-content: center;
-          align-items: center;
-          height: 100vh; */
-
-      margin-top: 100px;
-      margin-left: 100px;
-      font-size: 15px;
-  }
-</style>
 
 </head>  
   <body>
@@ -147,15 +46,55 @@
                 "初めて仕事をした時のこと",
                 "初めて大勢の人前で話をした時のこと",
                 "初めて給料をもらった時のこと",
-                "初めて一人暮らしした時のこと"
+                "初めて一人暮らしした時のこと",
+                "始めてトーストマスターズの例会を訪問した時のこと",
+                "あなたがこれまでの人生で、「やっちまった」という出来事",
+                "あなたの思い出の曲と、それにまつわるストーリー",
+                "コロナ禍であなたが経験したことや、感じたこと",
+                "あなたが限界に挑戦したエピソードと、そこから学んだこと",
+                "皆に一度は聞いて欲しいお勧めのスピーチと、その理由"
+
             ],
             
             論理的に説明する: [
                 "美味しいカレーの作り方",
                 "テーブルトピックスのメリット",
                 "高校球児は坊主頭がよいか、髪型を自由にしてよいか",
-                "あなたに必要な健康法について"
-            ]
+                "あなたに必要な健康法について",
+                "あなたの故郷の良さを親善大使として、アピールしてください",
+                "あなたが日本の学校教育に導入したい施策",
+                "あなたが新しいスマホアプリを創るとしたら、どんなものを誰のために作る？",
+                "AI が人の仕事を奪うという懸念があります。あなたの意見は？",
+                "あなたが一番好きな本を紹介してください",
+                "あなたが一番好きな映画を紹介してください",
+                "あなたが一番好きな音楽を紹介してください",
+                "あなたが一番好きなアーティストを紹介してください",
+                "あなたが一番好きな食べ物を紹介してください",
+                "あなたが一番好きな場所を紹介してください",
+                "あなたが一番好きなスポーツを紹介してください",
+                "あなたが一番好きなアニメを紹介してください",
+                "あなたが皆に一度は訪れてほしいお店"
+            ],
+
+            説得をする:[
+                "こどもへ、読書の良さを伝えてください",
+                "友人へ、健康的な生活習慣の重要性を説得してください",
+                "家族へ、環境保護のための行動を促してください",
+                "上司へ、リモートワークの必要性を説得してください",
+                "家族へ、ボランティア活動の価値を伝えてください",
+                "ご近所さんへ、コミュニティ活動への参加を促してください",
+                "消費者へ、新製品の購入を説得してください",
+                "学生へ、勉強の重要性を説得してください",
+                "親へ、ペットを飼うことの利点を説得してください",
+                "同僚へ、チームビルディングの重要性を説得してください",
+                "上司へ、新しい技術の導入を説得してください",
+                "友人へ、スポーツ活動の利点を説得してください",
+                "家族へ、リサイクルの重要性を説得してください",
+                "消費者へ、エコ製品の購入を説得してください",
+                "こどもへ、時間管理の重要性を説得してください",
+                "親へ、留学の利点を説得してください",
+                "友人へ、趣味を始めることの利点を説得してください"                
+            ],
             
         };
         
@@ -364,42 +303,164 @@
         }
     </script> -->
 
-<form method="POST" action="insert1.php" enctype="multipart/form-data">
+    <form method="POST" action="insert1.php" enctype="multipart/form-data">
         <div class="comment">
             <fieldset>
                 <legend>振り返りメモ</legend>
                 <div>
                     <label for="text_prompt"></label>
-                    <textarea id="text_prompt" name="text_prompt" rows="2" cols="80"></textarea>
+                    <textarea id="comment" name="comment" rows="2" cols="80"></textarea>
                 </div>
-                
-                <!-- <div>
-                    <label for="speech_file">内容：</label>
-                    <input type="file" name="speech_file" id="speech_file">
-                    <textarea id="speech_file" name="speech_file" rows="1" cols="10"></textarea>
-                </div> -->
-                
-                <!-- <div>
-                    <label for="image">画像：</label>
-                    <input type="file" name="image" id="image">    
-                </div> -->
                 
                 <div>
                     <input type="submit" value="保存"  style="display: inline-block;">
                     <input type="reset" value="リセット" onclick="resetSpeech()" style="display: inline-block;">
-
                 </div>
             </fieldset>
-        
         </div>
+                <div>
+                    <input type="hidden" id="text_prompt" name="text_prompt">
+
+                </div>
     </form>
   </body>
 </html>
 
 <script>
+    // comment をフォーム送信用に response の値を隠しフィールドに設定
+    function setResponseContent() {
+            const responseContent = document.getElementById('response').innerHTML;
+            document.getElementById('comment').value = responseContent;
+        }
+
     function resetSpeech() {
-        resetTimer(); // タイマーリセット
-        document.getElementById('response').innerHTML = ''; // レスポンス内容をクリア
-    }
+            resetTimer(); // タイマーリセット
+            document.getElementById('response').innerHTML = ''; // レスポンス内容をクリア
+        }
 </script>
+
+      <style>
+.navbar {
+    background-color: grey ;
+    color: white;
+    padding: 10px 0;
+    height: 50px;
+}
+
+.nav.navbar-nav {
+    display: flex;
+    flex-direction: row;
+    justify-content: right;
+}
+
+.navbar-nav li {
+    display: inline-block;
+    margin-right: 15px;
+}
+
+.navbar-nav li a {
+    text-decoration: none;
+    padding: 10px 15px;
+    color: white;
+}
+
+.navbar-nav li a:hover {
+    background-color: #ddd;
+}
+.selection {
+      /* text-align: center; */
+      margin-left: 150px;
+      font-family: Arial, sans-serif;
+      padding: 20px;
+  }
+
+  input {
+      margin-right: 10px;
+  }
+
+  #generateButton:active {
+      -webkit-transform: translateY(4px);
+      transform: translateY(4px);
+      border-bottom: none;
+  }
+
+  /* 選択テーマの表示位置 */
+  .result {
+      font-size: 20px;
+      margin-top: 40px;
+      margin-left: 20px;
+      font-weight: bold;
+  }
+
+  .rec_control {
+      /* position: fixed; */
+      /* bottom: 0; */
+      margin-top: 2%;
+      width: 70%;
+      /* z-index: 1; */
+  }
+
+  .main_content {
+      width: 70%;
+  }
+
+  #response {
+      position: fixed;
+      right: 0;
+      top: 0;
+      padding: 4em 2em;
+      font-size: 12px;
+      width: 30%;
+      overflow-y: scroll;
+      -webkit-overflow-scrolling: touch;
+      height: 100%;
+      border-left: 1px solid #eee;
+      z-index: 1;
+      background: #fdfdfd;
+  }
+
+  #myStopwatch {
+      /* text-align: center;  */
+      font-size: 24px;
+      /* 文字サイズを調整 */
+      position: absolute;
+      margin-top: 5%;
+      left: 32%;
+      /* transform: translate(-50%, -50%); */
+      /* 中央に配置 */
+  }
+
+  .comment {
+      /* display: flex;
+          justify-content: center;
+          align-items: center;
+          height: 100vh; */
+
+      margin-top: 100px;
+      margin-left: 100px;
+      font-size: 15px;
+  }
+  /* レスポンシブデザインの調整 */
+@media screen and (max-width: 600px) {
+    .navbar-default {
+        padding: 10px 5px;
+    }
+
+    .rec_control {
+        position: static;
+        margin-top: 20px;
+        width: 100%;
+        text-align: center;
+    }
+    #response {
+        position: static;
+        width: 100%;
+        height: auto;
+        border-left: none;
+        border-top: 1px solid #eee;
+        padding: 1em;
+        overflow-y: visible;
+    }
+}
+</style>
 

@@ -51,17 +51,25 @@ if (!$status) {
     <form method="POST" action="update2.php" enctype="multipart/form-data">
         <div class="jumbotron">
             <fieldset>
-                <legend>[編集]</legend>
+                <legend>[編集用]</legend>
                 <div>
-                    <label for="content">内容：</label>
-                    <textarea id="content" name="content" rows="20" cols="100"><?= h($row['text_ready']) ?></textarea>
-                </div>
-                <div>
-                    <input type="submit" value="更新">
+                    <input class="reserve" type="submit" value="更新">
                     <input type="hidden" name="id" value="<?= $id ?>">
                 </div>
+                <div>
+                    <label for="content"></label>
+                    <textarea id="content" name="content" rows="60" cols="100"><?= h($row['text_ready']) ?></textarea>
+                </div>
+   
             </fieldset>
         </div>
     </form>
 </body>
 </html>
+
+<style>
+.reserve{
+    margin-bottom:10px;
+}
+
+</style>
