@@ -75,9 +75,11 @@ if (isset($result['choices'][0]['message']['content'])) {
     $response_text = "Error: Invalid response from API.";
 }
 
-// index.php にリダイレクトして結果を表示
-header("Location: menu2.php?response=" . urlencode($response_text));
+// menu2.php にリダイレクトして結果を表示. タイトルも一緒に GET パラメータとして渡す
+
+header("Location: menu2.php?response=" . urlencode($response_text) . "&title=" . urlencode($title));
 exit();
+
 
 ?>
 

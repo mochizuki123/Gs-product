@@ -21,8 +21,8 @@ if (isset($_SESSION['user_id'])) {
 if (isset($_POST['title'])) {
     $title = $_POST['title'];
     echo "title: $title<br>";
-} else {
-    exit('Error: title is not set.');
+// } else {
+//     exit('Error: title is not set.');
 }
 
 if (isset($_POST['text_ready'])) {
