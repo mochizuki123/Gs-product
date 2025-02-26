@@ -282,14 +282,28 @@
                 }
 
                 timer.innerHTML = hr + ':' + min + ':' + sec;
-
+                // タイマーの進行に応じて背景色を変更
+                changeBackgroundColor(hr, min, sec);
                 setTimeout("timerCycle()", 1000);
             }
         }
 
         function resetTimer() {
             timer.innerHTML = '00:00:00';
+            document.body.style.backgroundColor = '#ffffff';
         }
+
+        function changeBackgroundColor(hr, min, sec) {
+            if(hr == 0 && sec <60) {
+                document.body.style.backgroundColor = 'white';
+            } else if (sec < 90) {
+                document.body.style.backgroundColor = 'green';
+            } else if (sec <120) {
+                document.body.style.backgroundColor = 'yellow';
+            } else if (sec <150) {
+                document.body.style.backgroundColor = 'red';
+            }
+        } 
 
     </script>
 
@@ -309,7 +323,7 @@
                 <legend>振り返りメモ</legend>
                 <div>
                     <label for="text_prompt"></label>
-                    <textarea id="comment" name="comment" rows="2" cols="80"></textarea>
+                    <textarea id="text_prompt" name="text_prompt" rows="2" cols="80"></textarea>
                 </div>
                 
                 <div>
@@ -318,20 +332,20 @@
                 </div>
             </fieldset>
         </div>
-                <div>
+                <!-- <div>
                     <input type="hidden" id="text_prompt" name="text_prompt">
 
-                </div>
+                </div> -->
     </form>
   </body>
 </html>
 
 <script>
     // comment をフォーム送信用に response の値を隠しフィールドに設定
-    function setResponseContent() {
-            const responseContent = document.getElementById('response').innerHTML;
-            document.getElementById('comment').value = responseContent;
-        }
+    // function setResponseContent() {
+    //         const responseContent = document.getElementById('response').innerHTML;
+    //         document.getElementById('comment').value = responseContent;
+    //     }
 
     function resetSpeech() {
             resetTimer(); // タイマーリセット

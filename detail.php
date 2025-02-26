@@ -52,10 +52,13 @@ if (!$status) {
         <div class="jumbotron">
             <fieldset>
                 <legend>[編集用]</legend>
+               
                 <div>
                     <input class="reserve" type="submit" value="更新">
                     <input type="hidden" name="id" value="<?= $id ?>">
+                    <!-- <input class="comment" type="text" style="width: 60%;"> -->
                 </div>
+                
                 <div>
                     <label for="content"></label>
                     <textarea id="content" name="content" rows="60" cols="100"><?= h($row['text_ready']) ?></textarea>

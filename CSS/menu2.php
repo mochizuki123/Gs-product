@@ -33,7 +33,6 @@
     </div>
     <ul class="nav navbar-nav">
         <li><a href="index.php">Menu</a></li>
-        <li><a href="menu3.php">Theme finding</a></li>
         <li><a href="select2.php">Scripts</a></li>
         <li><a href="logout.php">Log out</a></li>       
     </ul>
@@ -53,7 +52,6 @@
         <option value="inform">情報提供</option>
         <option value="entertain">楽しませる</option>
         <option value="motivate">動機付ける</option>
-        <option value="persuade">説得する</option>
         </select> <br><br>
 
         <label for="char_limit">字数の上限</label>
@@ -96,10 +94,8 @@
     <div class="button-container"> 
     <form action="insert2.php" method="POST" id="saveForm">    
     <!-- <form action="insert2.php" method="POST"> -->
-            <input type="hidden" name="title" id="hiddenTitle" value="<?php echo isset($_GET['title']) ? htmlspecialchars($_GET['title']) : ''; ?>">     
-            <!-- <input type="hidden" name="title" id="hiddenTitle">      -->
-            <!-- <input type="hidden" name="text_ready" id="hiddenTextReady">      -->
-            <!-- URLのクエリパラメータからGET -->
+            <!-- <input type="hidden" name="title" value="<?php echo isset($_POST['title']) ? htmlspecialchars($_POST['title']) : ''; ?>">      -->
+            <input type="hidden" name="title" id="hiddenTitle">          
             <input type="hidden" name="text_ready" value="<?php echo isset($_GET['response']) ? htmlspecialchars($_GET['response']) : ''; ?>">     
             <input type="submit" value="原稿を保存">
         </form>
@@ -117,12 +113,11 @@
 
     <script>
     // フォーム送信時に title の値を隠しフィールドに設定
-    // document.getElementById('saveForm').addEventListener('submit', function() {
-    //     var title = document.getElementById('title').value;
-    //     //console.log('Title:', title);
-    //     document.getElementById('hiddenTitle').value = title;
-    // });
-
+    document.getElementById('saveForm').addEventListener('submit', function() {
+        var title = document.getElementById('title').value;
+        console.log('Title:', title); // 追加
+        document.getElementById('hiddenTitle').value = title;
+    });
 
     // ナビゲーションメニューのトグル
     const toggler = document.querySelector(".toggle");

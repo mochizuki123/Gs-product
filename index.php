@@ -82,7 +82,7 @@
 <div class="menu-container">
         <button class="menu-button" onclick="location.href='menu1.php'">即興スピーチ</button>
         <button class="menu-button" onclick="location.href='menu2.php'">準備スピーチ</button>
-        <button class="menu-button" onclick="location.href='menu2.php'">論評スピーチ</button>
+        <button class="menu-button" onclick="location.href='menu3.php'">テーマ検討</button>
         <!-- <button class="menu-button" onclick="location.href='menu3.php'">メニュー3</button> -->
     </div>
 </body>
