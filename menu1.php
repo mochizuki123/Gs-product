@@ -338,22 +338,7 @@
                 </div> -->
     </form>
   </body>
-</html>
-
-<script>
-    // comment をフォーム送信用に response の値を隠しフィールドに設定
-    // function setResponseContent() {
-    //         const responseContent = document.getElementById('response').innerHTML;
-    //         document.getElementById('comment').value = responseContent;
-    //     }
-
-    function resetSpeech() {
-            resetTimer(); // タイマーリセット
-            document.getElementById('response').innerHTML = ''; // レスポンス内容をクリア
-        }
-</script>
-
-      <style>
+<style>
 .navbar {
     background-color: grey ;
     color: white;
@@ -475,6 +460,132 @@
         padding: 1em;
         overflow-y: visible;
     }
+
+    /* サイドバー */
+ 
+    .overlay {
+    width: 100%;
+    height: 100vh;
+    position: fixed;
+    left: 0;
+    top: 0;
+    background-color: rgba(0,0,0,.3);
+    z-index: 190;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 200ms ease-in;
+    }
+    nav.nav {
+    width: 270px;
+    height: 100vh;
+    background-color: #FFF;
+    left: -270px;
+    top: 0;
+    position: fixed;
+    padding: 20px 0;
+    transition: all 200ms ease-in-out;
+    z-index: 199;
+    }
+    nav.nav ul {
+        border: none;
+        padding: 0;
+    }
+    .toggle {
+    position: relative;
+    left: 100%;
+    width: 50px;
+    height: 50px;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    cursor: pointer;
+    }
+
+    span.toggler,
+    span.toggler:before,
+    span.toggler:after {
+        content: '';
+        display: block;
+        height: 3px;
+        width: 25px;
+        border-radius: 3px;
+        background-color: #ffffff;
+        position: absolute;
+        pointer-events: none;
+    }
+
+    span.toggler:before{
+        bottom: 9px;
+    }
+    span.toggler:after {
+        top: 9px;
+    }
+    span.deleteclass {
+        background-color: transparent;
+    }
+    span.deleteclass::before {
+        bottom: 0;
+        transform: rotate(45deg);
+    }
+    span.deleteclass::after {
+        top: 0;
+        transform: rotate(-45deg);
+    }
+
+    .logo {
+    text-align: center;
+    margin-bottom: 30px;
+    }
+    .logo  a{
+    text-decoration: none;
+    color: #888;
+    font-size: 2rem;
+    }
+    .nav ul li {
+    display: block;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    }
+    .nav ul li a {
+    padding: 10px 20px;
+    display: block;
+    color: #313131;
+    font-size: 1rem;
+    text-decoration: none;
+    transition: all 200ms ease;
+    }
+    .nav ul li a:hover {
+    background-color: #f1f1f1;
+    }
+
+    /* Show Nav */
+    .show-nav .nav {
+    left: 0;
+    box-shadow: 0 2px 4px rgba(0,0,0,.6);
+    }
+    .show-nav .overlay {
+    opacity: 1;
+    visibility: visible;
+    }
+
 }
 </style>
+
+</html>
+
+<script>
+    // comment をフォーム送信用に response の値を隠しフィールドに設定
+    // function setResponseContent() {
+    //         const responseContent = document.getElementById('response').innerHTML;
+    //         document.getElementById('comment').value = responseContent;
+    //     }
+
+    function resetSpeech() {
+            resetTimer(); // タイマーリセット
+            document.getElementById('response').innerHTML = ''; // レスポンス内容をクリア
+        }
+</script>
 

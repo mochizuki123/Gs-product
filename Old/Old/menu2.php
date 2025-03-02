@@ -33,124 +33,98 @@
     </div>
     <ul class="nav navbar-nav">
         <li><a href="index.php">Menu</a></li>
-        <li><a href="menu3.php">Theme finding</a></li>
         <li><a href="select2.php">Scripts</a></li>
         <li><a href="logout.php">Log out</a></li>       
     </ul>
 </div>
 </nav>
-
-
-<?php
-session_start(); // セッション開始
-ini_set('display_errors', '1');
-error_reporting(E_ALL);
-
-// セッションデータの取得
-$speech_data = $_SESSION['speech_data'] ?? [];
-$title = $speech_data['title'] ?? '';
-$purpose = $speech_data['purpose'] ?? '';
-$char_limit = $speech_data['char_limit'] ?? '';
-$message = $speech_data['message'] ?? '';
-$outline1 = $speech_data['outline1'] ?? '';
-$outline2 = $speech_data['outline2'] ?? '';
-$outline3 = $speech_data['outline3'] ?? '';
-$outline4 = $speech_data['outline4'] ?? '';
-$response_text = $speech_data['response'] ?? '';
-
-// セッションをクリア（必要なら）
-unset($_SESSION['speech_data']);
-?>
-
+      
 <h2>スピーチ原稿の生成</h2>
 <div class="container">
     <div class="form-container">
-        <form action="upload2.php" method="post">
-            <label for="title">スピーチタイトル</label>
-            <input type="text" name="title" id="title" placeholder="スピーチタイトルを記載" style="width: 300px;"
-                value="<?php echo htmlspecialchars($title); ?>">  <br> 
 
-            <label for="purpose">スピーチの目的</label>
-            <select name="purpose" id="purpose">
-                <option value="inform" <?php echo ($purpose == 'inform') ? 'selected' : ''; ?>>情報提供</option>
-                <option value="entertain" <?php echo ($purpose == 'entertain') ? 'selected' : ''; ?>>楽しませる</option>
-                <option value="motivate" <?php echo ($purpose == 'motivate') ? 'selected' : ''; ?>>動機付ける</option>
-                <option value="persuade" <?php echo ($purpose == 'persuade') ? 'selected' : ''; ?>>説得する</option>
-            </select> <br><br>
+    <form action="upload2.php" method="post">
+        <label for="title">スピーチタイトル</label>    
+        <input type="text" name="title" id="title" placeholder="スピーチタイトルを記載" style="width: 300px;"><br>    
+            
+        <label for="purpose">スピーチの目的</label>
+        <select name="purpose" id="purpose">
+        <option value="inform">情報提供</option>
+        <option value="entertain">楽しませる</option>
+        <option value="motivate">動機付ける</option>
+        <option value="persuade">説得する</option>
+        </select> <br><br>
 
-            <label for="char_limit">字数の上限</label>
-            <select name="char_limit" id="char_limit">
-                <?php
-                $limits = [0.2, 0.5, 1, 3, 5, 7];
-                foreach ($limits as $limit) {
-                    $selected = ($char_limit == $limit) ? 'selected' : '';
-                    echo "<option value=\"$limit\" $selected>{$limit}分</option>";
-                }
-                ?>
-            </select> <br><br>
+        <label for="char_limit">字数の上限</label>
+        <select name="char_limit" id="char_limit">
+        <option value="20">20字</option>
+        <option value="50">50字</option>
+        <option value="100">100字</option>
+        <option value="300">300字</option>
+        <option value="500">500字</option>
+        <option value="1000">1000字</option>
+        <option value="1500">1500字</option>
+        <option value="2000">2000字</option>
+        </select> <br><br>
+        <!-- <input type="text" id="char_limit" name="char_limit" placeholder="文字数上限を記載"><br><br> -->
 
-            <label for="message">伝えたいメッセージ</label>
-            <input type="text" name="message" id="message" placeholder="メッセージを記載" style="width: 500px;"
-                value="<?php echo htmlspecialchars($message); ?>"><br><br>
+        <label for="message">伝えたいメッセージ</label>
+        <input type="text" name="message" id="message" placeholder="メッセージを記載" style="width: 500px;"><br><br>
+        
+        
+        <label for="outline">スピーチの骨子①</label>
+        <input type="text" name="outline1" id="outline" placeholder="骨子を記載" style="width: 500px;"><br>
+        <label for="outline">スピーチの骨子②</label>
+        <input type="text" name="outline2" id="outline" placeholder="骨子を記載" style="width: 500px;"><br>
+        <label for="outline">スピーチの骨子③</label>
+        <input type="text" name="outline3" id="outline" placeholder="骨子を記載" style="width: 500px;"><br>
+        <label for="outline">スピーチの骨子④</label>
+        <input type="text" name="outline4" id="outline" placeholder="骨子を記載" style="width: 500px;"><br><br>
+        
+        <input type="submit" value="スピーチ原稿を生成">
+        
+    </form>
 
-            <label for="outline1">スピーチの骨子①</label>
-            <input type="text" name="outline1" id="outline1" placeholder="骨子を記載" style="width: 500px;"
-                value="<?php echo htmlspecialchars($outline1); ?>"><br>
-            <label for="outline2">スピーチの骨子②</label>
-            <input type="text" name="outline2" id="outline2" placeholder="骨子を記載" style="width: 500px;"
-                value="<?php echo htmlspecialchars($outline2); ?>"><br>
-            <label for="outline3">スピーチの骨子③</label>
-            <input type="text" name="outline3" id="outline3" placeholder="骨子を記載" style="width: 500px;"
-                value="<?php echo htmlspecialchars($outline3); ?>"><br>
-            <label for="outline4">スピーチの骨子④</label>
-            <input type="text" name="outline4" id="outline4" placeholder="骨子を記載" style="width: 500px;"
-                value="<?php echo htmlspecialchars($outline4); ?>"><br><br> 
+        <!-- <label for="language">言語を選択</label>
+            <select id=language name="language" >
+                <option value="ja">日本語</option>
+                <option value="en">英語</option>
+            </select> -->
 
-            <input type="submit" value="スピーチ原稿を生成">
-        </form>
-    
+    <!--  フォーム送信時にJavaScriptでtitleの値を隠しフィールドに設定しています。-->
 
     <div class="button-container"> 
-        <form action="insert2.php" method="POST" id="saveForm">    
-        <!-- <form action="insert2.php" method="POST"> -->
-                <input type="hidden" name="title" id="hiddenTitle" value="<?php echo isset($_GET['title']) ? htmlspecialchars($_GET['title']) : ''; ?>">     
-                <input type="hidden" name="text_ready" id="hiddenTextReady" value="<?php echo isset($_GET['response']) ? htmlspecialchars($_GET['response']) : ''; ?>">    
-                <input type="submit" value="原稿を保存">
+    <form action="insert2.php" method="POST" id="saveForm">    
+    <!-- <form action="insert2.php" method="POST"> -->
+             
+            <input type="hidden" name="title" id="hiddenTitle">          
+            <input type="hidden" name="text_ready" value="<?php echo isset($_POST['response']) ? htmlspecialchars($_POST['response']) : ''; ?>">     
+                <!-- <input type="hidden" name="text_ready" id="hiddenTextReady"> -->
 
-                
-</form>
-                <!-- <input type="hidden" name="title" id="hiddenTitle">      -->
-                <!-- <input type="hidden" name="text_ready" id="hiddenTextReady">      -->
-                <!-- URLのクエリパラメータからGET -->
-                
-        </form>    
-    </div>
-
-        <form>
-            <input type="reset" value="リセット" onclick="resetSpeech()">
+            <input type="submit" value="原稿を保存">
         </form>
-    </div>    
     
-    <div class= "response-container"> 
-        <?php if (!empty($response_text)): ?>
-        <h3>スピーチ原稿案</h3>
-        <p id='response'><?php echo nl2br(htmlspecialchars($response_text)); ?></p>
-        <?php endif; ?>
     </div>
+
+    <form>
+        <input type="reset" value="リセット" onclick="resetSpeech()">
+    </form>
 
 
 </div>
+ <!-- GET パラメータの response の値を表示 htmlspecialchars($_GET['response']) は、HTML特殊文字をエスケープして、XSS（クロスサイトスクリプティング）攻撃を防ぎ-->
+ <!-- response パラメータは、upload.php からリダイレクトされた際に設定 -->
 
     <script>
     // フォーム送信時に title の値を隠しフィールドに設定
     document.getElementById('saveForm').addEventListener('submit', function() {
-    var title = document.getElementById('title').value;
-    var textReady = document.getElementById('response').innerText; // 生成されたtext_readyの値を取得
-      document.getElementById('hiddenTitle').value = title;
-    document.getElementById('hiddenTextReady').value = textReady;
+        var title = document.getElementById('title').value;
+        var textReady = document.getElementById('response').innerText; // 生成されたtext_readyの値を取得
+        console.log('Title:', title); // 追加
+        document.getElementById('hiddenTitle').value = title;
+        document.getElementById('hiddenTextReady').value = textReady;
     });
 
-    
     // ナビゲーションメニューのトグル
     const toggler = document.querySelector(".toggle");
     window.addEventListener("click", event => {
@@ -166,6 +140,16 @@ unset($_SESSION['speech_data']);
 
    
    </script>
+
+
+ <div class= "response-container"> 
+    <?php if (isset($_GET['response'])): ?>
+        <h2> スピーチ原稿</h2>
+        <p><?php echo htmlspecialchars($_GET['response']); ?></p>
+</div>
+
+<?php endif; ?>
+
 
 <script>
 

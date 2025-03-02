@@ -18,37 +18,6 @@ $request_data = array(
     'interest' => $interest
 );
 
-//$request_data から、関連した社会の話題やイベントに関する情報を取得
-//その上で、$request_dataと関連した社会の話題やイベントに関する情報を含むスピーチテーマを生成
-
-// APIリクエスト用のデータ(関連した社会の話題やイベントに関する情報)
-// $data_for_info = [
-//     "model" => "gpt-4o",
-//     "messages" => [
-//         ['role' => 'system', 'content' => 'you are an assistant that helps users search information to create speeches. '], 
-//         ['role' => 'user', 'content' => '経験 : $exprience\n興味 : $interest ']
-//     ],
-//     "max_tokens" => 5000,
-// ];
-
-// $ch = curl_init($url);
-// curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-// curl_setopt($ch, CURLOPT_HTTPHEADER, [
-//     "Content-Type: application/json",
-//     "Authorization: Bearer " . $api_key
-// ]);
-// curl_setopt($ch, CURLOPT_POST, true);
-// curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($data_for_info));
-
-// $info_ready = curl_exec($ch);
-// curl_close($ch);
-
-// $info_result = json_decode($info_ready, true);
-// if (isset($info_result['choices'][0]['message']['content'])) {
-//     $info_text = $info_result['choices'][0]['message']['content'];
-// } else {
-//     $info_text = "Error: Invalid response from API.";
-// }
 
 // APIリクエスト用のデータ(スピーチテーマを生成)
 $data = [

@@ -33,6 +33,7 @@
     </div>
     <ul class="nav navbar-nav">
         <li><a href="index.php">Menu</a></li>
+        <li><a href="menu3.php">Theme finding</a></li>
         <li><a href="select2.php">Scripts</a></li>
         <li><a href="logout.php">Log out</a></li>       
     </ul>
@@ -44,43 +45,69 @@
     <div class="form-container">
 
     <form action="upload2.php" method="post">
-        <label for="title">スピーチタイトル</label>    
-        <input type="text" name="title" id="title" placeholder="スピーチタイトルを記載" style="width: 300px;"><br>    
+    <label for="title">スピーチタイトル</label>
+    <input type="text" name="title" id="title" placeholder="スピーチタイトルを記載" style="width: 300px;" 
+    value="<?php echo isset($_GET['title']) ? htmlspecialchars($_GET['title']) : ''; ?>">  <br> 
             
+        <!-- <input type="text" name="title" id="title" placeholder="スピーチタイトルを記載" style="width: 300px;"><br>     -->
+        <!-- フォームの各フィールドにvalue属性を追加（フォーム送信時にサーバへ送信）し、$_GETパラメータから値を取得するように変更します。 -->
+        
         <label for="purpose">スピーチの目的</label>
         <select name="purpose" id="purpose">
-        <option value="inform">情報提供</option>
+        <option value="inform" <?php echo (isset($_GET['purpose']) && $_GET['purpose'] == 'inform') ? 'selected' : ''; ?>>情報提供</option>
+        <option value="entertain" <?php echo (isset($_GET['purpose']) && $_GET['purpose'] == 'entertain') ? 'selected' : ''; ?>>楽しませる</option>
+        <option value="motivate" <?php echo (isset($_GET['purpose']) && $_GET['purpose'] == 'motivate') ? 'selected' : ''; ?>>動機付ける</option>
+        <option value="persuade" <?php echo (isset($_GET['purpose']) && $_GET['purpose'] == 'persuade') ? 'selected' : ''; ?>>説得する</option> 
+        <!-- <option value="inform">情報提供</option>
         <option value="entertain">楽しませる</option>
         <option value="motivate">動機付ける</option>
-        <option value="persuade">説得する</option>
+        <option value="persuade">説得する</option> -->
         </select> <br><br>
 
         <label for="char_limit">字数の上限</label>
         <select name="char_limit" id="char_limit">
-        <option value="20">20字</option>
+        <option value="20" <?php echo (isset($_GET['char_limit']) && $_GET['char_limit'] == '20') ? 'selected' : ''; ?>>20字</option>
+        <option value="50" <?php echo (isset($_GET['char_limit']) && $_GET['char_limit'] == '50') ? 'selected' : ''; ?>>50字</option>
+        <option value="100" <?php echo (isset($_GET['char_limit']) && $_GET['char_limit'] == '100') ? 'selected' : ''; ?>>100字</option>
+        <option value="300" <?php echo (isset($_GET['char_limit']) && $_GET['char_limit'] == '300') ? 'selected' : ''; ?>>300字</option>
+        <option value="500" <?php echo (isset($_GET['char_limit']) && $_GET['char_limit'] == '500') ? 'selected' : ''; ?>>500字</option>
+        <option value="1000" <?php echo (isset($_GET['char_limit']) && $_GET['char_limit'] == '1000') ? 'selected' : ''; ?>>1000字</option>
+        <option value="1500" <?php echo (isset($_GET['char_limit']) && $_GET['char_limit'] == '1500') ? 'selected' : ''; ?>>1500字</option>
+        <option value="2000" <?php echo (isset($_GET['char_limit']) && $_GET['char_limit'] == '2000') ? 'selected' : ''; ?>>2000字</option>
+        <!-- <option value="20">20字</option>
         <option value="50">50字</option>
         <option value="100">100字</option>
         <option value="300">300字</option>
         <option value="500">500字</option>
         <option value="1000">1000字</option>
         <option value="1500">1500字</option>
-        <option value="2000">2000字</option>
+        <option value="2000">2000字</option> -->
         </select> <br><br>
         <!-- <input type="text" id="char_limit" name="char_limit" placeholder="文字数上限を記載"><br><br> -->
 
         <label for="message">伝えたいメッセージ</label>
-        <input type="text" name="message" id="message" placeholder="メッセージを記載" style="width: 500px;"><br><br>
         
-        
-        <label for="outline">スピーチの骨子①</label>
+        <input type="text" name="message" id="message" placeholder="メッセージを記載" style="width: 500px;" value="<?php echo isset($_GET['message']) ? htmlspecialchars($_GET['message']) : ''; ?>"><br><br>
+    
+        <label for="outline">スピーチの骨子①</label> 
+        <input type="text" name="outline1" id="outline1" placeholder="骨子を記載" style="width: 500px;" value="<?php echo isset($_GET['outline1']) ? htmlspecialchars($_GET['outline1']) : ''; ?>"><br>
+        <label for="outline">スピーチの骨子②</label>
+        <input type="text" name="outline2" id="outline2" placeholder="骨子を記載" style="width: 500px;" value="<?php echo isset($_GET['outline2']) ? htmlspecialchars($_GET['outline2']) : ''; ?>"><br>
+        <label for="outline">スピーチの骨子③</label>
+        <input type="text" name="outline3" id="outline3" placeholder="骨子を記載" style="width: 500px;" value="<?php echo isset($_GET['outline3']) ? htmlspecialchars($_GET['outline3']) : ''; ?>"><br>
+        <label for="outline">スピーチの骨子④</label>
+        <input type="text" name="outline4" id="outline4" placeholder="骨子を記載" style="width: 500px;" value="<?php echo isset($_GET['outline4']) ? htmlspecialchars($_GET['outline4']) : ''; ?>"><br><br> 
+
+        <!-- <input type="text" name="message" id="message" placeholder="メッセージを記載" style="width: 500px;"><br><br> 
+        <!-- <label for="outline">スピーチの骨子①</label>
         <input type="text" name="outline1" id="outline" placeholder="骨子を記載" style="width: 500px;"><br>
         <label for="outline">スピーチの骨子②</label>
         <input type="text" name="outline2" id="outline" placeholder="骨子を記載" style="width: 500px;"><br>
         <label for="outline">スピーチの骨子③</label>
         <input type="text" name="outline3" id="outline" placeholder="骨子を記載" style="width: 500px;"><br>
         <label for="outline">スピーチの骨子④</label>
-        <input type="text" name="outline4" id="outline" placeholder="骨子を記載" style="width: 500px;"><br><br>
-        
+        <input type="text" name="outline4" id="outline" placeholder="骨子を記載" style="width: 500px;"><br><br> 
+         -->
         <input type="submit" value="スピーチ原稿を生成">
         
     </form>
@@ -96,11 +123,11 @@
     <div class="button-container"> 
     <form action="insert2.php" method="POST" id="saveForm">    
     <!-- <form action="insert2.php" method="POST"> -->
-             
-            <input type="hidden" name="title" id="hiddenTitle">          
-            <input type="hidden" name="text_ready" value="<?php echo isset($_POST['response']) ? htmlspecialchars($_POST['response']) : ''; ?>">     
-                <!-- <input type="hidden" name="text_ready" id="hiddenTextReady"> -->
-
+            <input type="hidden" name="title" id="hiddenTitle" value="<?php echo isset($_GET['title']) ? htmlspecialchars($_GET['title']) : ''; ?>">     
+            <!-- <input type="hidden" name="title" id="hiddenTitle">      -->
+            <!-- <input type="hidden" name="text_ready" id="hiddenTextReady">      -->
+            <!-- URLのクエリパラメータからGET -->
+            <input type="hidden" name="text_ready" value="<?php echo isset($_GET['response']) ? htmlspecialchars($_GET['response']) : ''; ?>">     
             <input type="submit" value="原稿を保存">
         </form>
     
@@ -117,13 +144,12 @@
 
     <script>
     // フォーム送信時に title の値を隠しフィールドに設定
-    document.getElementById('saveForm').addEventListener('submit', function() {
-        var title = document.getElementById('title').value;
-        var textReady = document.getElementById('response').innerText; // 生成されたtext_readyの値を取得
-        console.log('Title:', title); // 追加
-        document.getElementById('hiddenTitle').value = title;
-        document.getElementById('hiddenTextReady').value = textReady;
-    });
+    // document.getElementById('saveForm').addEventListener('submit', function() {
+    //     var title = document.getElementById('title').value;
+    //     //console.log('Title:', title);
+    //     document.getElementById('hiddenTitle').value = title;
+    // });
+
 
     // ナビゲーションメニューのトグル
     const toggler = document.querySelector(".toggle");
