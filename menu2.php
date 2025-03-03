@@ -109,16 +109,17 @@ unset($_SESSION['speech_data']);
             <input type="submit" value="スピーチ原稿を生成">
         </form>
     
-
     <div class="button-container"> 
         <form action="insert2.php" method="POST" id="saveForm">    
         <!-- <form action="insert2.php" method="POST"> -->
-                <input type="hidden" name="title" id="hiddenTitle" value="<?php echo isset($_GET['title']) ? htmlspecialchars($_GET['title']) : ''; ?>">     
-                <input type="hidden" name="text_ready" id="hiddenTextReady" value="<?php echo isset($_GET['response']) ? htmlspecialchars($_GET['response']) : ''; ?>">    
+        <input type="hidden" name="title" id="hiddenTitle" value="<?php echo htmlspecialchars($title); ?>">     
+        <input type="hidden" name="text_ready" id="hiddenTextReady" value="<?php echo htmlspecialchars($response_text); ?>">           
+        <!-- <input type="hidden" name="title" id="hiddenTitle" value="<?php echo isset($_GET['title']) ? htmlspecialchars($_GET['title']) : ''; ?>">     
+        <input type="hidden" name="text_ready" id="hiddenTextReady" value="<?php echo isset($_GET['response']) ? htmlspecialchars($_GET['response']) : ''; ?>">     -->
                 <input type="submit" value="原稿を保存">
 
                 
-</form>
+        </form>
                 <!-- <input type="hidden" name="title" id="hiddenTitle">      -->
                 <!-- <input type="hidden" name="text_ready" id="hiddenTextReady">      -->
                 <!-- URLのクエリパラメータからGET -->
