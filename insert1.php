@@ -15,8 +15,16 @@ if (isset($_POST['text_prompt'])) {
     $text_prompt = $_POST['text_prompt'];
     echo "text_prompt: $text_prompt<br>";
 } else {
-    exit('Error: content is not set.');
+    exit('Error: text_prompt is not set.');
 }
+
+if (isset($_POST['response_prompt'])) {
+    $response_prompt = $_POST['response_prompt'];
+    echo "response_prompt: $response_prompt<br>";
+} else {
+    exit('Error: respnose_prompt is not set.');
+}
+
 
 $user_id = $_SESSION['user_id'];  //セッションの中のuser_id抜き出し
 if (isset($_SESSION['user_id'])) {
@@ -45,10 +53,11 @@ $pdo = db_conn();
 
 //３．データベースの speech_text テーブルに新しいレコードを挿入するための準備を行っています。
 //NOW() 関数は、現在の日時を created_at カラムに挿入
-$stmt = $pdo->prepare('INSERT INTO speech_text_prompt(user_id, text_prompt, created_at) VALUES(:user_id, :text_prompt, NOW());');
+$stmt = $pdo->prepare('INSERT INTO speech_text_prompt(user_id, text_prompt, response_prompt, created_at) VALUES(:user_id, :text_prompt, :response_prompt, NOW());');
 
 $stmt->bindValue(':text_prompt', $text_prompt, PDO::PARAM_STR);
 $stmt->bindValue(':user_id', $user_id, PDO::PARAM_STR);  // bindValue追加
+$stmt->bindValue(':response_prompt', $response_prompt, PDO::PARAM_STR);  // bindValue追加
 // $stmt->bindValue(':image', $image, PDO::PARAM_STR);  // bindValue追加
 $status = $stmt->execute(); //実行
 

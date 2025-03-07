@@ -1,3 +1,18 @@
+<?php
+session_start(); // セッション開始
+ini_set('display_errors', '1');
+error_reporting(E_ALL);
+
+// セッションデータの取得（speech_data 配列から取り出す）
+$speech_data = $_SESSION['speech_data'] ?? [];
+$text_prompt = isset($speech_data['text_prompt']) ? $speech_data['text_prompt'] : '';
+$prompt_response = isset($speech_data['response_data']) ? $speech_data['response_data'] : '';
+
+
+// セッションをクリア（必要なら）
+// unset($_SESSION['speech_data']);
+?> 
+
 <!DOCTYPE html>
 <html>
   <head>
@@ -5,8 +20,246 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
     <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="css/menu1.css">
-    
 
+ <style>
+.navbar {
+    background-color: grey ;
+    color: white;
+    padding: 10px 0;
+    height: 50px;
+}
+
+.nav.navbar-nav {
+    display: flex;
+    flex-direction: row;
+    justify-content: right;
+}
+
+.navbar-nav li {
+    display: inline-block;
+    margin-right: 15px;
+}
+
+.navbar-nav li a {
+    text-decoration: none;
+    padding: 10px 15px;
+    color: white;
+}
+
+.navbar-nav li a:hover {
+    background-color: #ddd;
+}
+.selection {
+      /* text-align: center; */
+      margin-left: 150px;
+      font-family: Arial, sans-serif;
+      padding: 20px;
+  }
+
+  input {
+      margin-right: 10px;
+  }
+
+  #generateButton:active {
+      -webkit-transform: translateY(4px);
+      transform: translateY(4px);
+      border-bottom: none;
+  }
+
+  /* 選択テーマの表示位置 */
+  .result {
+      font-size: 20px;
+      margin-top: 40px;
+      margin-left: 20px;
+      font-weight: bold;
+  }
+
+  .rec_control {
+      /* position: fixed; */
+      /* bottom: 0; */
+      margin-top: 2%;
+      width: 70%;
+      /* z-index: 1; */
+  }
+
+  .main_content {
+      width: 70%;
+  }
+
+  #response {
+      position: fixed;
+      right: 0;
+      top: 0;
+      padding: 4em 2em;
+      font-size: 12px;
+      width: 30%;
+      overflow-y: scroll;
+      -webkit-overflow-scrolling: touch;
+      height: 100%;
+      border-left: 1px solid #eee;
+      z-index: 1;
+      background: #fdfdfd;
+  }
+
+  #myStopwatch {
+      /* text-align: center;  */
+      font-size: 24px;
+      /* 文字サイズを調整 */
+      position: absolute;
+      margin-top: 5%;
+      left: 32%;
+      /* transform: translate(-50%, -50%); */
+      /* 中央に配置 */
+  }
+
+  .comment {
+      /* display: flex;
+          justify-content: center;
+          align-items: center;
+          height: 100vh; */
+
+      margin-top: 100px;
+      margin-left: 100px;
+      font-size: 15px;
+  }
+
+  
+
+  /* レスポンシブデザインの調整 */
+@media screen and (max-width: 600px) {
+    .navbar-default {
+        padding: 10px 5px;
+    }
+
+    .rec_control {
+        position: static;
+        margin-top: 20px;
+        width: 100%;
+        text-align: center;
+    }
+    #response {
+        position: static;
+        width: 100%;
+        height: auto;
+        border-left: none;
+        border-top: 1px solid #eee;
+        padding: 1em;
+        overflow-y: visible;
+    }
+
+    /* サイドバー */
+ 
+    .overlay {
+    width: 100%;
+    height: 100vh;
+    position: fixed;
+    left: 0;
+    top: 0;
+    background-color: rgba(0,0,0,.3);
+    z-index: 190;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 200ms ease-in;
+    }
+    nav.nav {
+    width: 270px;
+    height: 100vh;
+    background-color: #FFF;
+    left: -270px;
+    top: 0;
+    position: fixed;
+    padding: 20px 0;
+    transition: all 200ms ease-in-out;
+    z-index: 199;
+    }
+    nav.nav ul {
+        border: none;
+        padding: 0;
+    }
+    .toggle {
+    position: relative;
+    left: 100%;
+    width: 50px;
+    height: 50px;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    cursor: pointer;
+    }
+
+    span.toggler,
+    span.toggler:before,
+    span.toggler:after {
+        content: '';
+        display: block;
+        height: 3px;
+        width: 25px;
+        border-radius: 3px;
+        background-color: #ffffff;
+        position: absolute;
+        pointer-events: none;
+    }
+
+    span.toggler:before{
+        bottom: 9px;
+    }
+    span.toggler:after {
+        top: 9px;
+    }
+    span.deleteclass {
+        background-color: transparent;
+    }
+    span.deleteclass::before {
+        bottom: 0;
+        transform: rotate(45deg);
+    }
+    span.deleteclass::after {
+        top: 0;
+        transform: rotate(-45deg);
+    }
+
+    .logo {
+    text-align: center;
+    margin-bottom: 30px;
+    }
+    .logo  a{
+    text-decoration: none;
+    color: #888;
+    font-size: 2rem;
+    }
+    .nav ul li {
+    display: block;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    }
+    .nav ul li a {
+    padding: 10px 20px;
+    display: block;
+    color: #313131;
+    font-size: 1rem;
+    text-decoration: none;
+    transition: all 200ms ease;
+    }
+    .nav ul li a:hover {
+    background-color: #f1f1f1;
+    }
+
+    /* Show Nav */
+    .show-nav .nav {
+    left: 0;
+    box-shadow: 0 2px 4px rgba(0,0,0,.6);
+    }
+    .show-nav .overlay {
+    opacity: 1;
+    visibility: visible;
+    }
+
+}
+</style>
+   
 </head>  
   <body>
   <nav class="navbar navbar-default">
@@ -155,7 +408,7 @@
       <div id="response_now" class="mb-5 mx-auto fw-bold"></div>
       
       <div class="pt-4 text-center">
-        テーマに沿って会話を始めてみよう。
+        テーマに沿ってお話しください。
       </div>
     </div>
     
@@ -196,6 +449,9 @@
               processData: false,
               contentType: false,
               success: function(response) {
+                // 重複を防ぐため、表示領域の内容を置き換えます
+                // $('#response').html(response);
+                // $('#load_gif').css('display', 'none');  
                 $('#response').prepend(response);
                 $('#load_gif').css('display', 'none'); 
               }
@@ -317,275 +573,46 @@
         }
     </script> -->
 
-    <form method="POST" action="insert1.php" enctype="multipart/form-data">
+    
+    <form id="saveForm" method="POST" action="insert1.php" enctype="multipart/form-data">
         <div class="comment">
             <fieldset>
                 <legend>振り返りメモ</legend>
                 <div>
                     <label for="text_prompt"></label>
-                    <textarea id="text_prompt" name="text_prompt" rows="2" cols="80"></textarea>
+                    <textarea name="text_prompt" id="text_prompt" rows="2" cols="80"><?php echo htmlspecialchars($text_prompt); ?></textarea>
+
                 </div>
-                
+                    <p class="response-prompt"><input type="hidden" name="response_prompt" id="hiddenResponsePrompt" value="<?php echo htmlspecialchars($prompt_response); ?>">            
                 <div>
                     <input type="submit" value="保存"  style="display: inline-block;">
                     <input type="reset" value="リセット" onclick="resetSpeech()" style="display: inline-block;">
                 </div>
             </fieldset>
+             <!-- <div class= "response-container">
+                    <?php if (!empty($prompt_response)): ?>
+                    <h3>スピーチ原稿案</h3>
+                    <p id='response'><?php echo nl2br(htmlspecialchars($prompt_response)); ?></p>
+                    <?php endif; ?>
+                </div>  -->
+
         </div>
-                <!-- <div>
-                    <input type="hidden" id="text_prompt" name="text_prompt">
-
-                </div> -->
+                
     </form>
-  </body>
-<style>
-.navbar {
-    background-color: grey ;
-    color: white;
-    padding: 10px 0;
-    height: 50px;
-}
-
-.nav.navbar-nav {
-    display: flex;
-    flex-direction: row;
-    justify-content: right;
-}
-
-.navbar-nav li {
-    display: inline-block;
-    margin-right: 15px;
-}
-
-.navbar-nav li a {
-    text-decoration: none;
-    padding: 10px 15px;
-    color: white;
-}
-
-.navbar-nav li a:hover {
-    background-color: #ddd;
-}
-.selection {
-      /* text-align: center; */
-      margin-left: 150px;
-      font-family: Arial, sans-serif;
-      padding: 20px;
-  }
-
-  input {
-      margin-right: 10px;
-  }
-
-  #generateButton:active {
-      -webkit-transform: translateY(4px);
-      transform: translateY(4px);
-      border-bottom: none;
-  }
-
-  /* 選択テーマの表示位置 */
-  .result {
-      font-size: 20px;
-      margin-top: 40px;
-      margin-left: 20px;
-      font-weight: bold;
-  }
-
-  .rec_control {
-      /* position: fixed; */
-      /* bottom: 0; */
-      margin-top: 2%;
-      width: 70%;
-      /* z-index: 1; */
-  }
-
-  .main_content {
-      width: 70%;
-  }
-
-  #response {
-      position: fixed;
-      right: 0;
-      top: 0;
-      padding: 4em 2em;
-      font-size: 12px;
-      width: 30%;
-      overflow-y: scroll;
-      -webkit-overflow-scrolling: touch;
-      height: 100%;
-      border-left: 1px solid #eee;
-      z-index: 1;
-      background: #fdfdfd;
-  }
-
-  #myStopwatch {
-      /* text-align: center;  */
-      font-size: 24px;
-      /* 文字サイズを調整 */
-      position: absolute;
-      margin-top: 5%;
-      left: 32%;
-      /* transform: translate(-50%, -50%); */
-      /* 中央に配置 */
-  }
-
-  .comment {
-      /* display: flex;
-          justify-content: center;
-          align-items: center;
-          height: 100vh; */
-
-      margin-top: 100px;
-      margin-left: 100px;
-      font-size: 15px;
-  }
-  /* レスポンシブデザインの調整 */
-@media screen and (max-width: 600px) {
-    .navbar-default {
-        padding: 10px 5px;
-    }
-
-    .rec_control {
-        position: static;
-        margin-top: 20px;
-        width: 100%;
-        text-align: center;
-    }
-    #response {
-        position: static;
-        width: 100%;
-        height: auto;
-        border-left: none;
-        border-top: 1px solid #eee;
-        padding: 1em;
-        overflow-y: visible;
-    }
-
-    /* サイドバー */
- 
-    .overlay {
-    width: 100%;
-    height: 100vh;
-    position: fixed;
-    left: 0;
-    top: 0;
-    background-color: rgba(0,0,0,.3);
-    z-index: 190;
-    opacity: 0;
-    visibility: hidden;
-    transition: all 200ms ease-in;
-    }
-    nav.nav {
-    width: 270px;
-    height: 100vh;
-    background-color: #FFF;
-    left: -270px;
-    top: 0;
-    position: fixed;
-    padding: 20px 0;
-    transition: all 200ms ease-in-out;
-    z-index: 199;
-    }
-    nav.nav ul {
-        border: none;
-        padding: 0;
-    }
-    .toggle {
-    position: relative;
-    left: 100%;
-    width: 50px;
-    height: 50px;
-    color: #fff;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 20px;
-    cursor: pointer;
-    }
-
-    span.toggler,
-    span.toggler:before,
-    span.toggler:after {
-        content: '';
-        display: block;
-        height: 3px;
-        width: 25px;
-        border-radius: 3px;
-        background-color: #ffffff;
-        position: absolute;
-        pointer-events: none;
-    }
-
-    span.toggler:before{
-        bottom: 9px;
-    }
-    span.toggler:after {
-        top: 9px;
-    }
-    span.deleteclass {
-        background-color: transparent;
-    }
-    span.deleteclass::before {
-        bottom: 0;
-        transform: rotate(45deg);
-    }
-    span.deleteclass::after {
-        top: 0;
-        transform: rotate(-45deg);
-    }
-
-    .logo {
-    text-align: center;
-    margin-bottom: 30px;
-    }
-    .logo  a{
-    text-decoration: none;
-    color: #888;
-    font-size: 2rem;
-    }
-    .nav ul li {
-    display: block;
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    }
-    .nav ul li a {
-    padding: 10px 20px;
-    display: block;
-    color: #313131;
-    font-size: 1rem;
-    text-decoration: none;
-    transition: all 200ms ease;
-    }
-    .nav ul li a:hover {
-    background-color: #f1f1f1;
-    }
-
-    /* Show Nav */
-    .show-nav .nav {
-    left: 0;
-    box-shadow: 0 2px 4px rgba(0,0,0,.6);
-    }
-    .show-nav .overlay {
-    opacity: 1;
-    visibility: visible;
-    }
-
-}
-</style>
-
-</html>
+</div>
 
 <script>
-    // comment をフォーム送信用に response の値を隠しフィールドに設定
-    // function setResponseContent() {
-    //         const responseContent = document.getElementById('response').innerHTML;
-    //         document.getElementById('comment').value = responseContent;
-    //     }
-
-    function resetSpeech() {
+        document.getElementById('saveForm').addEventListener('submit', function() {
+            const responseContent = document.getElementById('response').innerHTML;
+            // document.getElementById('hiddenTextPrompt').value = textContent;
+            document.getElementById('hiddenResponsePrompt').value = responseContent;
+        });
+       function resetSpeech() {
             resetTimer(); // タイマーリセット
             document.getElementById('response').innerHTML = ''; // レスポンス内容をクリア
         }
 </script>
 
+
+    
+    
