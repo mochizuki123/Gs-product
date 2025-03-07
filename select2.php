@@ -96,7 +96,7 @@ if (!$status_ready) {
     while ($r = $stmt_ready->fetch(PDO::FETCH_ASSOC)) {
         $view .= '<tr>';
         $view .= '<td>' . $r["id"] . '</td>';
-        $view .= '<td><a href="detail.php?id=' . $r["id"] . '">' . h($r['title']) . '</a></td>';
+        $view .= '<td><a href="detail2.php?id=' . $r["id"] . '">' . h($r['title']) . '</a></td>';
         $view .= '<td>' . h($r['user_name']) . '</td>';
         $view .= '<td>' . h($r['created_at']) . '</td>';
         $view .= '<td>' . h($r['updated_at']) . '</td>';

@@ -14,7 +14,15 @@ $openai_api_key = "sk-proj-Xxxs3OJPMtrfFBZdiHNPnQknOkONgJ_qhzmdCk2loGBqHhlGTNcNI
 //     } else {
 //         $language = "ja"; // デフォルトは日本語
 //     }
-    
+
+$text_prompt = $_POST['text_prompt'] ?? '';
+// 初期化（認識結果の変数）
+$prompt_response = '';
+
+// $prompt_response = $_POST['prompt_response'];
+
+
+
 // 音声データをアップロード
 if (!empty($_FILES['voice']['tmp_name'])) {
     $upload_dir = 'voice_upload/';
@@ -25,7 +33,7 @@ if (!empty($_FILES['voice']['tmp_name'])) {
     $upload_file = $upload_dir . basename($_FILES['voice']['name']);
     
     if (move_uploaded_file($_FILES['voice']['tmp_name'], $upload_file)) {
-        echo '<div class="d-none">ファイルがアップロードされました: ' . $upload_file.'</div>';
+        // echo '<div class="d-none">ファイルがアップロードされました: ' . $upload_file.'</div>';
         
         // 音声データをテキストに変換（speech to text）
         $ch = curl_init();
@@ -58,7 +66,8 @@ if (!empty($_FILES['voice']['tmp_name'])) {
         } else {    
                 $response_data = json_decode($response, true);
             if (isset($response_data['text'])) {
-                echo '<div style="font-size: 18px;">' . $response_data['text']. '</div>';
+                $prompt_response = $response_data['text'];
+                // echo '<div style="font-size: 18px;">' . $response_data['text']. '</div>';
             } else {
                 echo 'テキストが見つかりませんでした。';
             }
@@ -74,4 +83,19 @@ if (!empty($_FILES['voice']['tmp_name'])) {
 } else {
     echo "音声ファイルが選択されていません。";
 }
+
+echo $prompt_response;
+// echo '<div style="font-size: 18px;">' . $prompt_response . '</div>';
+
+
+
+// セッションに保存
+$_SESSION['speech_data'] = [
+    'text_prompt' => $text_prompt,
+    'response_data' => $prompt_response
+    // 'prompt_response' => $prompt_response,
+    
+];
+
+
 ?>
