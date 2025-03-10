@@ -12,7 +12,9 @@ $id     = $_POST['id'];
 $pdo = db_conn();
 
 //３．つぶやき登録SQL作成
-$stmt = $pdo->prepare('UPDATE contents SET content=:content WHERE id=:id;');
+//speech_text_prompt テーブルの response_prompt 列の情報をPOSTされた$content で更新
+$stmt = $pdo->prepare('UPDATE speech_text_prompt SET response_prompt=:content, updated_at=:updated_at WHERE id=:id;');
+$stmt->bindValue(':updated_at', date('Y-m-d H:i'), PDO::PARAM_STR);
 $stmt->bindValue(':content', $content, PDO::PARAM_STR);
 $stmt->bindValue(':id', $id, PDO::PARAM_INT);
 $status = $stmt->execute(); //実行
@@ -21,5 +23,5 @@ $status = $stmt->execute(); //実行
 if ($status === false) {
     sql_error($stmt);
 } else {
-    redirect('select.php');
+    redirect('select1.php');
 }

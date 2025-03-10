@@ -48,7 +48,7 @@ if (!$status) {
         </nav>
     </header>
     <!-- Head[End] -->
-    <form method="POST" action="update1.php" enctype="multipart/form-data">
+    <form method="POST" action="update1_comment.php" enctype="multipart/form-data">
         <div class="jumbotron">
             <fieldset>
                 <legend>[編集用]</legend>

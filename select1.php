@@ -42,12 +42,13 @@ if (!$status) {
 } else {
     while ($r = $stmt->fetch(PDO::FETCH_ASSOC)) {
     $view .= '<table class="table">';
-    $view .= '<thead><tr><th>ID</th><th>コメント</th><th>即興スピーチ</th><th>ユーザー名</th><th>作成日時</th><th>更新日時</th><th>操作</th></tr></thead>';
+    $view .= '<thead><tr><th>ID</th><th>コメント</th><th>即興スピーチ</th><th>ユーザー名</th><th>作成日時</th><th>操作</th></tr></thead>';
     $view .= '<tbody>';
     while ($r = $stmt->fetch(PDO::FETCH_ASSOC)) {
         $view .= '<tr>';
         $view .= '<td>' . $r["id"] . '</td>';
-        $view .= '<td><a href="detail1_text.php?id=' . $r["id"] . '">' . '振り返りコメント' . '</a></td>';
+        // $view .= '<td><a href="detail1_text.php?id=' . $r["id"] . '">' . h($r['text_prompt']) . '</a></td>';
+        $view .= '<td><a href="detail1_text.php?id=' . $r["id"] . '">' . '振返りコメント' . '</a></td>';
         $view .= '<td><a href="detail1_response.php?id=' . $r["id"] . '">' . 'スピーチテキスト' . '</a></td>';
         
         $view .= '<td>' . h($r['user_name']) . '</td>';

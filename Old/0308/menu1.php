@@ -69,7 +69,7 @@ $prompt_response = isset($speech_data['response_data']) ? $speech_data['response
   /* 選択テーマの表示位置 */
   .result {
       font-size: 20px;
-      margin-top: 10px;
+      margin-top: 40px;
       margin-left: 20px;
       font-weight: bold;
   }
@@ -106,7 +106,7 @@ $prompt_response = isset($speech_data['response_data']) ? $speech_data['response
       font-size: 24px;
       /* 文字サイズを調整 */
       position: absolute;
-      margin-top: 5%;
+      margin-top: 2%;
       left: 32%;
       /* transform: translate(-50%, -50%); */
       /* 中央に配置 */
@@ -118,13 +118,10 @@ $prompt_response = isset($speech_data['response_data']) ? $speech_data['response
           align-items: center;
           height: 100vh; */
 
-      margin-top: 100px;
+      margin-top: 50px;
       margin-left: 100px;
       font-size: 15px;
   }
-
-  
-
   /* レスポンシブデザインの調整 */
 @media screen and (max-width: 600px) {
     .navbar-default {
@@ -271,7 +268,7 @@ $prompt_response = isset($speech_data['response_data']) ? $speech_data['response
         </div>
         <ul class="nav navbar-nav">
             <li><a href="index.php">Menu</a></li>
-            <li><a href="select1.php">スピーチ記録</a></li>
+            <li><a href="about.php">About</a></li>
             <li><a href="logout.php">Log out</a></li>
             
         </ul>
@@ -305,19 +302,18 @@ $prompt_response = isset($speech_data['response_data']) ? $speech_data['response
                 "あなたの思い出の曲と、それにまつわるストーリー",
                 "コロナ禍であなたが経験したことや、感じたこと",
                 "あなたが限界に挑戦したエピソードと、そこから学んだこと",
-                "皆に一度は聞いて欲しいお勧めのスピーチと、その理由"
-
+                "皆に一度は聞いて欲しいお勧めのスピーチと、その理由",
+                "あなたがお勧めする趣味について教えてください"  
             ],
             
             論理的に説明する: [
-                "美味しいカレーの作り方",
-                "テーブルトピックスのメリット",
+                
                 "高校球児は坊主頭がよいか、髪型を自由にしてよいか",
-                "あなたに必要な健康法について",
                 "あなたの故郷の良さを親善大使として、アピールしてください",
+                "あなたが一番買いたいペットと理由を教えてください",
+                
                 "あなたが日本の学校教育に導入したい施策",
                 "あなたが新しいスマホアプリを創るとしたら、どんなものを誰のために作る？",
-                "AI が人の仕事を奪うという懸念があります。あなたの意見は？",
                 "あなたが一番好きな本を紹介してください",
                 "あなたが一番好きな映画を紹介してください",
                 "あなたが一番好きな音楽を紹介してください",
@@ -338,7 +334,6 @@ $prompt_response = isset($speech_data['response_data']) ? $speech_data['response
                 "ご近所さんへ、コミュニティ活動への参加を促してください",
                 "消費者へ、新製品の購入を説得してください",
                 "学生へ、勉強の重要性を説得してください",
-                "親へ、ペットを飼うことの利点を説得してください",
                 "同僚へ、チームビルディングの重要性を説得してください",
                 "上司へ、新しい技術の導入を説得してください",
                 "友人へ、スポーツ活動の利点を説得してください",
@@ -346,7 +341,7 @@ $prompt_response = isset($speech_data['response_data']) ? $speech_data['response
                 "消費者へ、エコ製品の購入を説得してください",
                 "こどもへ、時間管理の重要性を説得してください",
                 "親へ、留学の利点を説得してください",
-                "友人へ、趣味を始めることの利点を説得してください"                
+                              
             ],
             
         };
@@ -452,8 +447,8 @@ $prompt_response = isset($speech_data['response_data']) ? $speech_data['response
                 // 重複を防ぐため、表示領域の内容を置き換えます
                 // $('#response').html(response);
                 // $('#load_gif').css('display', 'none');  
-                $('#response').prepend(response);
-                $('#load_gif').css('display', 'none'); 
+                // // $('#response').prepend(response);
+                // $('#load_gif').css('display', 'none'); 
               }
             });
             audioChunks = [];
@@ -550,22 +545,17 @@ $prompt_response = isset($speech_data['response_data']) ? $speech_data['response
         }
 
         function changeBackgroundColor(hr, min, sec) {
-        // 経過秒数を計算
-        const totalSec = parseInt(hr) * 3600 + parseInt(min) * 60 + parseInt(sec);
-        
-        if (totalSec < 60) {
-            document.body.style.backgroundColor = 'white';
-        } else if (totalSec < 90) {
-            document.body.style.backgroundColor = 'green';
-        } else if (totalSec < 120) {
-            document.body.style.backgroundColor = 'yellow';
-        } else if (totalSec < 150) {
-            document.body.style.backgroundColor = 'red';
-        } else {
-            // 例えば、150秒を超えたらさらに別の色にするなど
-            document.body.style.backgroundColor = 'blue';
-        }
-    }    
+            if(hr == 0 && sec <60) {
+                document.body.style.backgroundColor = 'white';
+            } else if (sec < 90) {
+                document.body.style.backgroundColor = 'green';
+            } else if (sec <120) {
+                document.body.style.backgroundColor = 'yellow';
+            } else if (sec <150) {
+                document.body.style.backgroundColor = 'red';
+            }
+        } 
+
     </script>
 
   <!-- 現在時刻の表示 -->
@@ -588,7 +578,7 @@ $prompt_response = isset($speech_data['response_data']) ? $speech_data['response
                     <textarea name="text_prompt" id="text_prompt" rows="2" cols="80"><?php echo htmlspecialchars($text_prompt); ?></textarea>
 
                 </div>
-                    <p class="response-prompt"><input type="hidden" name="response_prompt" id="hiddenResponsePrompt" value="<?php echo htmlspecialchars($prompt_response); ?>">            
+                    <input type="hidden" name="response_prompt" id="hiddenResponsePrompt" value="<?php echo htmlspecialchars($prompt_response); ?>">            
                 <div>
                     <input type="submit" value="保存"  style="display: inline-block;">
                     <input type="reset" value="リセット" onclick="resetSpeech()" style="display: inline-block;">
@@ -615,17 +605,7 @@ $prompt_response = isset($speech_data['response_data']) ? $speech_data['response
        function resetSpeech() {
             resetTimer(); // タイマーリセット
             document.getElementById('response').innerHTML = ''; // レスポンス内容をクリア
-    
-            // generateButton のリセット
-        const generateButton = document.getElementById('generateButton');
-        generateButton.disabled = false; // ボタンを有効にする
-        generateButton.textContent = 'お題を生成'; // ボタンのテキストをリセット
-
-        // result のリセット
-        document.getElementById('result').textContent = ''; // 結果表示をクリア
-   
-    
-    }
+        }
 </script>
 
 
