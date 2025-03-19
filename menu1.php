@@ -23,7 +23,7 @@ $prompt_response = isset($speech_data['response_data']) ? $speech_data['response
 
  <style>
 .navbar {
-    background-color: grey ;
+    background-color:rgb(21, 96, 130) ;
     color: white;
     padding: 10px 0;
     height: 50px;

@@ -49,15 +49,19 @@ curl_setopt($ch, CURLOPT_HTTPHEADER, [
 curl_setopt($ch, CURLOPT_POST, true);
 curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($data));
 
+//SSL証明書の検証をスキップし、エラーを回避一時的に追加
+curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+
+
 // APIリクエストを送信
 $text_ready = curl_exec($ch);
 
 // エラーチェック
-// if (curl_errno($ch)) {
-//     $error_msg = curl_error($ch);
-//     curl_close($ch);
-//     die("cURL error: $error_msg");
-// }
+if (curl_errno($ch)) {
+    $error_msg = curl_error($ch);
+    curl_close($ch);
+    die("cURL error: $error_msg");
+}
 
 curl_close($ch);
 $result = json_decode($text_ready, true);

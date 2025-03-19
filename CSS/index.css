@@ -1,9 +1,18 @@
 
-.nav.navbar-nav {
+
+.navbar {
+    background-color: rgb(51, 51, 152);
+    color: white;
+    padding: 10px 0;
+    height: 50px;
+}
+
+/* .nav.navbar-nav {
+    background-color: blue;
     display: flex;
     flex-direction: row;
     justify-content: right;
-}
+} */
 
 .navbar-nav li {
             display: inline-block;

@@ -143,16 +143,6 @@ if (!$status_ready) {
         </ul>
     </div>
 
-
-<!-- 
-    <nav class="navbar navbar-default">
-            <div class="container-fluid">
-                <div class="navbar-header"><a class="navbar-brand" href="menu1.php">即興スピーチ</a></div>
-                <div class="navbar-header"><a class="navbar-brand" href="menu2.php">準備スピーチ</a></div>
-                <div class="navbar-header"><a class="navbar-brand" href="logout.php">ログアウト</a></div>
-                
-            </div>
-        </nav> -->
     </header>
     <!-- Head[End] -->
 
