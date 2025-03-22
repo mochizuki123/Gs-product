@@ -36,7 +36,7 @@ $text_theme = isset($_SESSION['text_theme']) ? $_SESSION['text_theme'] : '';
     <div class="container-fluid">
         <div class="navbar-header">
             <a class="navbar-brand" >
-                <img src="img/logo.png" alt="Logo" style="width:40px;">
+                <img src="img/company-logo2.png" alt="Logo" style="width:200px;">
             </a>
         </div>
         <ul class="nav navbar-nav">
@@ -266,6 +266,18 @@ $text_theme = isset($_SESSION['text_theme']) ? $_SESSION['text_theme'] : '';
 .button-container {
     display: flex;
     gap: 10px;
+    align-items: center;
+    margin-right: 10px;
+    height: 30px;
+    /* width: 100px; */
+    padding: 8px 12px;
+    cursor: pointer;
+}
+.transfer {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    margin-top: 10px;
     margin-right: 10px;
     height: 30px;
     /* width: 100px; */
@@ -295,8 +307,7 @@ list-style-type: none; /* 黒い点を省略 */
     border-radius: 5px;
     margin-top: 5px; */
 
- */
-.transfer {
+/* .transfer {
     height: 30px;
     width: 150px;
     box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
@@ -304,7 +315,7 @@ list-style-type: none; /* 黒い点を省略 */
     margin-top: 5px;
     margin-left: 10px;
     
-}
+} */
 
 .theme:hover, .save:hover, .reset:hover, .transfer:hover {
 background-color:rgb(209, 229, 243);
@@ -316,13 +327,6 @@ background-color:rgb(209, 229, 243);
     border-bottom: none;
 } */
  
-/* .arrow{
-    display: inline-flex;
-    font-size: 40px;
-    color: black;
-    /* margin-top: 10px; */
-    /* margin-left: 320px;*/ 
-
 .header {
     align-items: flex-start; /* 上部揃え */
 
@@ -355,6 +359,12 @@ body {
 .container {
     flex: 1;
 }
+
+.container-fluid{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
 
 footer {
     position: relative; /* ← 親要素を相対位置に */

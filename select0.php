@@ -68,6 +68,10 @@ body {
 }
 }
 /* 以下はスピーチテーブルのCSS */
+.preparedSpeech{
+    margin-left: 60px;
+    margin-top: 20px;
+}
 .preparedSpeech table {
     width: 80%;
     border-collapse: collapse; /* セルの境界線を重ねる */
@@ -121,16 +125,17 @@ $pdo = db_conn();
 
 $stmt_ready = $pdo->prepare('
 SELECT 
-    speech_text_ready.title as title,
-    speech_text_ready.id as id,
-    speech_text_ready.text_ready as text_ready, 
+    
+    diary_contents.id as id,
+    diary_contents.title as title,
+    diary_contents.text_diary as text_diary, 
     users.user_name as user_name,
-    speech_text_ready.created_at as created_at,
-    speech_text_ready.updated_at as updated_at
+    diary_contents.created_at as created_at,
+    diary_contents.updated_at as updated_at
 FROM 
-    speech_text_ready
+    diary_contents
 JOIN 
-    users ON speech_text_ready.user_id = users.user_id');  //利用方法？
+    users ON diary_contents.user_id = users.user_id');  //利用方法？
 $status_ready = $stmt_ready->execute();//クエリを実行
 
 
@@ -143,20 +148,21 @@ if (!$status_ready) {
     while ($r = $stmt_ready->fetch(PDO::FETCH_ASSOC)) {
         
     $view .= '<table class="table">';
-    $view .= '<thead><tr><th>ID</th><th>タイトル</th><th>ユーザー名</th><th>作成日時</th><th>更新日時</th><th>操作</th></tr></thead>';
+    $view .= '<thead><tr><th>ID</th><th>日付</th><th>タイトル</th><th>ユーザー名</th><th>日記</th><th>更新日時</th><th>操作</th></tr></thead>';
     $view .= '<tbody>';
     while ($r = $stmt_ready->fetch(PDO::FETCH_ASSOC)) {
         $view .= '<tr>';
         $view .= '<td>' . $r["id"] . '</td>';
-        $view .= '<td><a href="detail2.php?id=' . $r["id"] . '">' . h($r['title']) . '</a></td>';
-        $view .= '<td>' . h($r['user_name']) . '</td>';
         $view .= '<td>' . date('Y-m-d H:i', strtotime($r['created_at'])) . '</td>';
+        $view .= '<td>' . h($r['title']) . '</td>';
+        $view .= '<td>' . h($r['user_name']) . '</td>';
+        $view .= '<td><a href="detail0.php?id=' . $r["id"] . '">' .'日記' . '</a></td>';
+        // $view .= '<td><a href="detail3.php?id=' . h($r["id"]) . '">' . '生成テーマ' . '</a></td>';
         $view .= '<td>' . date('Y-m-d H:i', strtotime($r['updated_at'])) . '</td>';
-        // $view .= '<td>' . h($r['created_at']) . '</td>';
-        // $view .= '<td>' . h($r['updated_at']) . '</td>';
+        
         $view .= '<td>';
         if ($_SESSION['kanri_flg'] === 1) {
-            $view .= '<a class="btn btn-danger" href="delete2.php?id=' . $r['id'] . '">削除</a>';
+            $view .= '<a class="btn btn-danger" href="delete0.php?id=' . $r['id'] . '">削除</a>';
         }
         $view .= '</td>';
         $view .= '</tr>';
@@ -192,7 +198,7 @@ if (!$status_ready) {
         </div>
         <ul class="nav navbar-nav">
             <li><a href="index.php">Menu</a></li>
-            <li><a href="menu2.php">Prepared speech</a></li>
+            <li><a href="menu0.php">Diary</a></li>
             <li><a href="logout.php">Log out</a></li>       
         </ul>
     </div>
@@ -208,7 +214,7 @@ if (!$status_ready) {
     </style>
     
      <div class= 'preparedSpeech'>
-        <h3 class=title> 最近の準備スピーチ </h3>
+        <h3 class=title> 日記帳📚 </h3>
             <table>
                 <thead>
                     <tr>

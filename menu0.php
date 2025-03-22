@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="ja">
 <head>
@@ -21,6 +22,8 @@
     .navbar-nav li {
         display: inline-block;
         margin-right: 15px;
+        position: relative; /* 縦線用に相対位置を設定 */
+
     }
 
     .navbar-nav li a {
@@ -29,15 +32,58 @@
         color: white;
     }
 
+    .navbar-nav li:not(:last-child)::after {
+    content: "";
+    position: absolute;
+    right: -8px; /* 縦線の位置を調整 */
+    top: 50%;
+    transform: translateY(-50%);
+    width: 1px;
+    height: 20px; /* 縦線の高さを設定 */
+    background-color: white; /* 縦線の色を設定 */
+}
+
     .navbar-nav li a:hover {
         background-color: #ddd;
     }
 
     .navbar-header {
-                display: flex;
-                align-items: center; /* ロゴを中央揃え */
+        display: flex;
+        align-items: center; /* ロゴを中央揃え */
             }
 
+
+    .navbar-brand{
+      margin-left: 10px;
+    }
+
+    .navbar-brand img {
+        display: inline-block;
+        vertical-align: middle; /* ロゴを中央揃え */
+    }
+
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    margin: 0;
+} 
+        
+.container {
+    display: flex;
+    margin-left: 20px;
+}
+
+
+    #calendarInput {
+      position: fixed;
+      top: 10px;      /* 画面上部に配置 */
+      right: 10px;    /* 画面右側に配置 */
+      width: 1px;
+      height: 1px;
+      opacity: 0;
+    }
+  
     body {
       font-family: sans-serif;
       margin: 20px;
@@ -60,6 +106,16 @@
       cursor: pointer;
     }
 
+    .saveBtn{
+      margin-top: 10px;
+      margin-right: 10px;
+      /* padding: 8px 12px; */
+      cursor: pointer;
+      width: 100px;
+      height: 40px;
+ 
+    } 
+
     /* テキスト入力欄 */
     #diaryText {
       width: 100%;
@@ -79,13 +135,20 @@
       align-items: center;
       justify-content: center;
       overflow: hidden;
-      max-width: 40%;
+      width: 600px;
     }
     #imagePreview img {
       max-width: 100%;
       max-height: 100%;
     }
-  </style>
+
+    .container-fluid{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+</style>
 </head>
 <body>
 
@@ -93,18 +156,23 @@
     <div class="container-fluid">
     <div class="navbar-header">
         <a class="navbar-brand" >
-            <img src="img/logo.png" alt="Logo" style="width:40px;">
+            <img src="img/company-logo2.png" alt="Logo" style="width:200px;">
         </a>
     </div>
     <ul class="nav navbar-nav">
         <li><a href="index.php">Menu</a></li>
         <li><a href="menu3.php">Theme finding</a></li>
-        <li><a href="select2.php">Scripts</a></li>
+        <li><a href="select0.php">Diary log</a></li>
         <li><a href="logout.php">Log out</a></li>       
     </ul>
     </div>
 </nav>
 
+<?php
+session_start(); // セッション開始
+ini_set('display_errors', '1');
+error_reporting(E_ALL);
+?>
 
   <!-- 日付と時間を表示する部分（初期値を例として表示） -->
   <div id="dateTimeDisplay">2025/03/15 09:30 土曜日</div>
@@ -113,20 +181,29 @@
   <div class="button-container">
     <button id="calendarBtn">カレンダーから日付選択</button>
     <button id="uploadBtn">画像アップロード</button>
-    <button id="saveBtn">保存</button>
-  </div>
+    </div>
 
   <!-- 非表示の date入力（カレンダー表示用） -->
-  <input type="date" id="calendarInput" style="visibility: hidden; position: absolute;">
+  <input type="date" id="calendarInput" name='date'>
+  
+  <form action="insert0.php" method="post">
+  <!-- <form action="insert0.php" method="post" enctype="multipart/form-data"> -->
+  <label for="title">タイトル：</label>
+  <input type="text" id="title" name='title' placeholder="タイトルを入力" style="width: 500px; height: 40px;"> <br>
+  <!-- テキスト入力欄 -->
+  <label for="text_diary">日記</label><br>
+  <textarea id="diaryText" name='text_diary' placeholder="テキスト入力" style="width: 600px";></textarea>
   
   <!-- 非表示の file入力（画像アップロード用） -->
-  <input type="file" id="imageInput" accept="image/*" style="display: none;">
-
-  <!-- テキスト入力欄 -->
-  <textarea id="diaryText" placeholder="テキスト入力"></textarea>
-
+  <!-- <input type="file" id="imageInput" name='photo_diary'  accept="image/*" style="display: none;"> -->
+  
   <!-- 画像プレビュー表示欄 -->
   <div id="imagePreview">アップロード画像を表示</div>
+  
+  <button class='saveBtn' type='submit' id='saveBtn'>保存</button>
+  
+  
+</form>
 
   <script>
     // ========== カレンダーから日付を選択し、上段に表示する部分 ==========
@@ -134,8 +211,9 @@
     // ボタンと隠し date入力を取得
     const calendarBtn = document.getElementById('calendarBtn');
     const calendarInput = document.getElementById('calendarInput');
-
-    // ボタンクリック時に非表示の date入力をクリック → カレンダー表示
+    const dateTimeDisplay = document.getElementById('dateTimeDisplay');
+    
+    // ボタンクリック時にdate入力をクリック → カレンダー表示
     calendarBtn.addEventListener('click', () => {
       calendarInput.click();
     });
@@ -187,16 +265,6 @@
       }
     });
 
-    // ========== 保存ボタン（実際のセッション保存・DB保存はサーバ側処理が必要） ==========
-
-    const saveBtn = document.getElementById('saveBtn');
-    saveBtn.addEventListener('click', () => {
-      const diaryText = document.getElementById('diaryText').value;
-      const dateTime = document.getElementById('dateTimeDisplay').textContent;
-      // SESSIONやDBに保存する処理をここで行う（Ajaxやフォーム送信など）
-      // 例としてアラートで表示
-      alert("以下の内容を保存します\n" + "日付: " + dateTime + "\n本文: " + diaryText);
-    });
   </script>
 </body>
 </html>

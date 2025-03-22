@@ -1,8 +1,102 @@
 <style>
+
+.navbar {
+    background-color:rgb(21, 96, 130) ;
+    color: white;
+    padding: 10px 0;
+    height: 50px;
+    position: fixed; /* ナビゲーションバーを固定 */
+    width: 100%; /* 幅を100%に設定 */
+    top: 0; /* 上部に固定 */
+    z-index: 1000; /* 他の要素より前面に表示 */    
+}
+
+.nav.navbar-nav {
+    display: flex;
+    /* flex-direction: row; */
+    justify-content: right;
+    magin-top: 10px;
+    
+    /* align-items: center;  */
+}
+
+.navbar-nav li {
+    display: inline-block;
+    margin-right: 15px;
+    position: relative; /* 縦線用に相対位置を設定 */
+}
+
+
+.navbar-nav li a {
+    text-decoration: none;
+    padding: 5px 15px;
+    color: white;
+}
+
+.navbar-nav li a:hover {
+    background-color: #ddd;
+}
+
+.navbar-nav li:not(:last-child)::after {
+    content: "";
+    position: absolute;
+    right: -8px; /* 縦線の位置を調整 */
+    top: 50%;
+    transform: translateY(-50%);
+    width: 1px;
+    height: 20px; /* 縦線の高さを設定 */
+    background-color: white; /* 縦線の色を設定 */
+}
+
+.navbar-header {
+            display: flex;
+            align-items: center; /* ロゴを中央揃え */
+        }
+
+        .navbar-brand img {
+            vertical-align: middle; /* ロゴを中央揃え */
+        }
+
+
+/* 以下はスピーチテーブルのCSS */
 .table th, .table td{
     padding: 10px;
     text-align: left;
 }
+
+.promptSpeech table {
+    width: 80%;
+    border-collapse: collapse; /* セルの境界線を重ねる */
+    margin-top: 20px; /* 表の上部に余白を追加 */
+    /* margin-left: 40px; 表の上部に余白を追加 */
+    
+}
+
+.promptSpeech {
+    margin-left: 60px; /* 表の上部に余白を追加 */
+
+}
+
+.promptSpeech th, .promptSpeech td {
+    border: 1px solid #ddd; /* セルの境界線を追加 */
+    padding: 8px; /* セル内のパディングを追加 */
+    text-align: left; /* テキストを左揃え */
+}
+
+.promptSpeech th {
+    background-color: #f2f2f2; /* ヘッダーの背景色を設定 */
+    font-weight: bold; /* ヘッダーのフォントを太字に */
+}
+
+.promptSpeech tr:nth-child(even) {
+    background-color: #f9f9f9; /* 偶数行の背景色を設定 */
+}
+
+.promptSpeech tr:hover {
+    background-color: #ddd; /* ホバー時の背景色を設定 */
+}
+
+
 </style>
 
 <?php
@@ -50,9 +144,9 @@ if (!$status) {
         // $view .= '<td><a href="detail1_text.php?id=' . $r["id"] . '">' . h($r['text_prompt']) . '</a></td>';
         $view .= '<td><a href="detail1_text.php?id=' . $r["id"] . '">' . '振返りコメント' . '</a></td>';
         $view .= '<td><a href="detail1_response.php?id=' . $r["id"] . '">' . 'スピーチテキスト' . '</a></td>';
-        
+        $view .= '<td>' . date('Y-m-d H:i', strtotime($r['created_at'])) . '</td>';
         $view .= '<td>' . h($r['user_name']) . '</td>';
-        $view .= '<td>' . h($r['created_at']) . '</td>';
+        // $view .= '<td>' . h($r['created_at']) . '</td>';
         
         $view .= '<td>';
         if ($_SESSION['kanri_flg'] === 1) {
@@ -77,30 +171,59 @@ if (!$status) {
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>フリーアンケート表示</title>
     <!-- <link rel="stylesheet" href="css/login.css" /> -->
-    <link rel="stylesheet" href="css/common.css" />
-    <link rel="stylesheet" href="css/select.css" />
+    <!-- <link rel="stylesheet" href="css/common.css" />
+    <link rel="stylesheet" href="css/select.css" /> -->
 
 </head>
 
 <body id="main">
     <!-- Head[Start] -->
-    <header>
-        <nav class="navbar navbar-default">
-            <div class="container-fluid">
-                <div class="navbar-header"><a class="navbar-brand" href="menu1.php">即興スピーチ</a></div>
-                <div class="navbar-header"><a class="navbar-brand" href="menu2.php">準備スピーチ</a></div>
-                <div class="navbar-header"><a class="navbar-brand" href="logout.php">ログアウト</a></div>
-                
-            </div>
-        </nav>
-    </header>
-    <!-- Head[End] -->
-
-    <!-- Main[Start] -->
+        <!-- <nav class="nav navbar-nav"> -->
+            <!-- <ul class="nav navbar-nav">
+            <li><a href="index.php">Menu</a></li>
+            <li><a href="menu2.php">Prepared speech</a></li>
+            <li><a href="logout.php">Log out</a></li>       
+            </ul>         -->
+        <!-- </nav> -->
     <div>
-        <div class="container jumbotron"><?= $view ?></div>
+        <!-- <div class="container jumbotron"><?= $view ?></div> -->
+
+<nav class="navbar navbar-default">
+<div class="container-fluid">
+    <!-- <div class="navbar-header">
+        <a class="navbar-brand" >
+            <img src="img/logo.png" alt="Logo" style="width:40px;">
+        </a>
+    </div> -->
+    <ul class="nav navbar-nav">
+        <li><a href="index.php">Menu</a></li>
+        <li><a href="menu3.php">Theme finding</a></li>
+        <li><a href="select2.php">Scripts</a></li>
+        <li><a href="logout.php">Log out</a></li>       
+    </ul>
+</div>
+</nav>
+
+
     </div>
     <!-- Main[End] -->
+
+
+<div class= 'promptSpeech'>
+        <h3 class=title> 即興スピーチ </h3>
+            <table>
+                <thead>
+                    <tr>
+                        <!-- <th>タイトル</th>
+                        <th>ユーザー名</th>
+                        <th>作成日時</th> -->
+                    </tr>
+                </thead>
+                <tbody>
+                    <?= $view ?>
+                </tbody>
+            </table>
+    </div>
 
 </body>
 

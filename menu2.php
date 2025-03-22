@@ -33,7 +33,7 @@
 <div class="container-fluid">
     <div class="navbar-header">
         <a class="navbar-brand" >
-            <img src="img/logo.png" alt="Logo" style="width:40px;">
+            <img src="img/company-logo2.png" alt="Logo" style="width:200px;">
         </a>
     </div>
     <ul class="nav navbar-nav">
@@ -79,7 +79,7 @@ $response_text = $speech_data['response'] ?? '';
 unset($_SESSION['speech_data']);
 ?>
 
-<h2 class='header'>スピーチ骨子入力 <span class='arrow'> </span></h2>
+<h2 class='header'>スピーチ骨子入力✍ <span class='arrow'> </span></h2>
 <div class="container">
     <div class="form-container">
         <form action="upload2.php" method="post">
@@ -196,7 +196,6 @@ unset($_SESSION['speech_data']);
    </script>
 
 <style>
-
 .navbar {
     background-color: rgb(21, 96, 130) ;
     color: white;
@@ -206,20 +205,6 @@ unset($_SESSION['speech_data']);
     overflow: hidden; /* オーバーフローを隠す */
 }
 
-/* 背景にスピーチ関連のアイコンを配置 */
-/* .navbar::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" fill="white"><circle cx="20" cy="20" r="8"/><rect x="50" y="10" width="10" height="30"/><path d="M70 40 L90 60 L70 80 Z"/></svg>');
-    background-size: 120px;
-    background-repeat: repeat;
-    opacity: 0.2; /* 模様を薄くする */
-    z-index: 0;
-} */
 
 /* 他の要素の上に配置 */
 .nav.navbar-nav, .navbar-header {
@@ -241,6 +226,7 @@ unset($_SESSION['speech_data']);
 }
 
 .navbar-nav li a {
+    /* display: flex; */
     text-decoration: none;
     padding: 5px 15px;
     color: white;
@@ -266,17 +252,27 @@ unset($_SESSION['speech_data']);
             align-items: center; /* ロゴを中央揃え */
         }
 
-        .navbar-brand img {
+ .navbar-brand img {
             vertical-align: middle; /* ロゴを中央揃え */
         }
 
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    margin: 0;
+} 
+        
 .container {
     display: flex;
     margin-left: 20px;
 }
 
-/* フレックスアイテムが利用可能なスペースを均等に分割することを指定します。 
-form-container クラスが適用された要素は、親の container 要素内で他のフレックスアイテムと同じ割合でスペースを占有 */
+.container-fluid{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
 
 .form-container {
     display: flex;
@@ -313,6 +309,8 @@ footer {
     position: relative; /* ← 親要素を相対位置に */
     height: 60px; /* ← フッターの高さ（調整可） */
     background-color: #f8f8f8; /* フッターの背景色（適宜変更） */
+    margin-top: auto; /* ← フッターを下部に固定 */
+    
 }
 
 footer::before {
@@ -326,13 +324,6 @@ footer::before {
     opacity: 0.5; /* ← 線の薄さ（0.3〜0.7 で調整） */
 }
  
-/* .arrow{
-    display: inline-flex;
-    font-size: 40px;
-    color: black;
-    /* margin-top: 10px; */
-    margin-left: 340px;
-} */
 
 /* Drawer */
 /* .overlay {

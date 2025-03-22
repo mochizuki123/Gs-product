@@ -23,10 +23,12 @@ $prompt_response = isset($speech_data['response_data']) ? $speech_data['response
 
  <style>
 .navbar {
-    background-color:rgb(21, 96, 130) ;
+    background-color: rgb(21, 96, 130) ;
     color: white;
     padding: 10px 0;
-    height: 50px;
+    height: 70px;
+    position: relative; /* ナビゲーションバーを固定 */
+    overflow: hidden; /* オーバーフローを隠す */
 }
 
 .nav.navbar-nav {
@@ -38,6 +40,8 @@ $prompt_response = isset($speech_data['response_data']) ? $speech_data['response
 .navbar-nav li {
     display: inline-block;
     margin-right: 15px;
+    position: relative; /* 縦線用に相対位置を設定 */
+
 }
 
 .navbar-nav li a {
@@ -46,9 +50,22 @@ $prompt_response = isset($speech_data['response_data']) ? $speech_data['response
     color: white;
 }
 
+.navbar-nav li:not(:last-child)::after {
+    content: "";
+    position: absolute;
+    right: -8px; /* 縦線の位置を調整 */
+    top: 50%;
+    transform: translateY(-50%);
+    width: 1px;
+    height: 20px; /* 縦線の高さを設定 */
+    background-color: white; /* 縦線の色を設定 */
+}
+
 .navbar-nav li a:hover {
     background-color: #ddd;
 }
+
+
 .selection {
       /* text-align: center; */
       margin-left: 150px;
@@ -121,6 +138,12 @@ $prompt_response = isset($speech_data['response_data']) ? $speech_data['response
       margin-top: 100px;
       margin-left: 100px;
       font-size: 15px;
+  }
+
+  .container-fluid{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
   }
 
   
@@ -266,12 +289,12 @@ $prompt_response = isset($speech_data['response_data']) ? $speech_data['response
     <div class="container-fluid">
         <div class="navbar-header">
             <a class="navbar-brand" >
-              <img src="img/logo.png" alt="Logo" style="width:40px;">
+              <img src="img/company-logo2.png" alt="Logo" style="width:200px;">
             </a>
         </div>
         <ul class="nav navbar-nav">
             <li><a href="index.php">Menu</a></li>
-            <li><a href="select1.php">スピーチ記録</a></li>
+            <li><a href="select1.php">Speech log</a></li>
             <li><a href="logout.php">Log out</a></li>
             
         </ul>

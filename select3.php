@@ -53,8 +53,10 @@ if (!$status_ready) {
         $view .= '<td>' . h($r['interest']) . '</td>';
         // $view .= '<td>' . h($r['text_theme']) . '</td>';
         $view .= '<td><a href="detail3.php?id=' . h($r["id"]) . '">' . '生成テーマ' . '</a></td>';
-        $view .= '<td>' . h($r['created_at']) . '</td>';
-        $view .= '<td>' . h($r['updated_at']) . '</td>';
+        $view .= '<td>' . date('Y-m-d H:i', strtotime($r['created_at'])) . '</td>';
+        $view .= '<td>' . date('Y-m-d H:i', strtotime($r['updated_at'])) . '</td>';
+        // $view .= '<td>' . h($r['created_at']) . '</td>';
+        // $view .= '<td>' . h($r['updated_at']) . '</td>';
         $view .= '<td>';
         if ($_SESSION['kanri_flg'] === 1) {
         $view .= '<a class="btn btn-danger" href="delete3.php?id=' . h($r['id']) . '">削除</a>';

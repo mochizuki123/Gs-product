@@ -39,14 +39,20 @@
       align-items: center;
       justify-content: center;
       padding: 40px;
+      position: relative; /* 相対位置を設定 */
     }
 
     /* ロゴ画像を配置するエリア */
     .logo {
       margin-bottom: 30px;
+      position: absolute; /* 絶対位置を設定 */
+    top: 100px; /* 上からの位置を調整 */
+    left: 50%;
+    transform: translateX(-50%); /* 中央揃え */
+    z-index: 10; /* 前面に表示 */
     }
     .logo img {
-      max-width: 200px; /* ロゴ画像の最大幅を設定 */
+      /* max-width: 200px; ロゴ画像の最大幅を設定 */
       height: auto;
     }
 
@@ -64,7 +70,7 @@
     /* ログインフォーム全体のスタイル */
     .login-form {
       width: 100%;
-      max-width: 300px; /* フォームの最大幅を制限 */
+      /* max-width: 300px; フォームの最大幅を制限 */
       display: flex;
       flex-direction: column;
     }
@@ -106,8 +112,7 @@
     <!-- 右半分：透かし背景にロゴとログインフォームを配置 -->
     <div class="right-panel">
     <div class="logo">
-        <!-- 会社ロゴを入れる(logo.png などを差し替え) -->
-        <img src="logo.png" alt="Company Logo">
+         <img src='img/company-logo2.png' alt="Company Logo2" style="width:320px;">
       </div>
 
       
