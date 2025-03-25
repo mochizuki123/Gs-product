@@ -1,3 +1,8 @@
+<?php
+session_start(); // セッション開始
+ini_set('display_errors', '1');
+error_reporting(E_ALL);
+?>
 
 <!DOCTYPE html>
 <html lang="ja">
@@ -91,14 +96,22 @@ body {
     }
 
     /* 日付時刻表示 */
+    .dateTimeDisplay{
+      display: flex;
+      align-items: center;
+    }
     #dateTimeDisplay {
       font-size: 1.2rem;
       margin-bottom: 10px;
+
     }
 
     /* ボタン類 */
     .button-container {
-      margin-bottom: 10px;
+      display: flex;
+      /* justify-content: flex-end; */
+      /* margin-bottom: 10px; */
+
     }
     .button-container button {
       margin-right: 10px;
@@ -111,7 +124,7 @@ body {
       margin-right: 10px;
       /* padding: 8px 12px; */
       cursor: pointer;
-      width: 100px;
+      width: 200px;
       height: 40px;
  
     } 
@@ -148,6 +161,81 @@ body {
         align-items: center;
     }
 
+    .container {
+        display: flex;
+        margin-left: 20px;
+        position: relative;
+    }
+
+    .input-container {
+        flex: 1;
+    }
+
+    .calendar-container {
+          display: flex;
+        flex-direction: column;
+        /* min-height: 100vh; */
+        margin: 0;  
+      position: absolute;
+        top: 13%;
+        right: 20%;
+    }
+
+  .calendar th, .calendar td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: center;
+        }
+        .cal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        button {
+            padding: 5px 10px;
+            cursor: pointer;
+        }
+
+    .calendar-container {
+      display: flex;
+      justify-content: flex-end;
+    }
+  /* カーソルを日付に合わせると背景色を変更 */
+  .calendar td:hover {
+      background-color: #f0f8ff; /* 薄い青 */
+      cursor: pointer;
+  }
+
+  /* 選択した日付の背景色を強調 */
+  .calendar td.selected {
+      background-color: #87CEEB; /* スカイブルー */
+      color: white;
+      font-weight: bold;
+  }
+
+footer {
+    position: fixed; /* ← 画面の下部に固定 */
+    bottom: 0; /* ← 下端に配置 */
+    width: 100%; /* ← 幅を100%に設定 */
+    height: 60px; /* ← フッターの高さ（調整可） */
+    background-color: #f8f8f8; /* フッターの背景色（適宜変更） */
+    margin-top: auto; /* ← フッターを下部に固定 */
+}
+
+footer::before {
+    content: "";
+    position: absolute;
+    top: 0; /* ← 上端に配置（少し下げたければ 5px など） */
+    left: 0;
+    width: 100%;
+    height: 1px; /* ← 線の太さ */
+    background-color: #ccc; /* ← 線の色（調整可） */
+    opacity: 0.5; /* ← 線の薄さ（0.3〜0.7 で調整） */
+}
+
+
+
 </style>
 </head>
 <body>
@@ -168,42 +256,31 @@ body {
     </div>
 </nav>
 
-<?php
-session_start(); // セッション開始
-ini_set('display_errors', '1');
-error_reporting(E_ALL);
-?>
-
+<div class='input-container'>
   <!-- 日付と時間を表示する部分（初期値を例として表示） -->
-  <div id="dateTimeDisplay">2025/03/15 09:30 土曜日</div>
-
-  <!-- ボタン類 -->
-  <div class="button-container">
-    <button id="calendarBtn">カレンダーから日付選択</button>
-    <button id="uploadBtn">画像アップロード</button>
-    </div>
-
-  <!-- 非表示の date入力（カレンダー表示用） -->
-  <input type="date" id="calendarInput" name='date'>
+  <p>日付：</p>
+  <div class='dateTimeDisplay' id="dateTimeDisplay">2025/03/15 土曜日</div>
+  
   
   <form action="insert0.php" method="post">
-  <!-- <form action="insert0.php" method="post" enctype="multipart/form-data"> -->
-  <label for="title">タイトル：</label>
-  <input type="text" id="title" name='title' placeholder="タイトルを入力" style="width: 500px; height: 40px;"> <br>
-  <!-- テキスト入力欄 -->
-  <label for="text_diary">日記</label><br>
-  <textarea id="diaryText" name='text_diary' placeholder="テキスト入力" style="width: 600px";></textarea>
-  
-  <!-- 非表示の file入力（画像アップロード用） -->
-  <!-- <input type="file" id="imageInput" name='photo_diary'  accept="image/*" style="display: none;"> -->
-  
-  <!-- 画像プレビュー表示欄 -->
-  <div id="imagePreview">アップロード画像を表示</div>
-  
-  <button class='saveBtn' type='submit' id='saveBtn'>保存</button>
-  
-  
-</form>
+    <input type='hidden' id='hiddenDateTime' name='date'>
+    <label for="title">タイトル：</label>
+    <input type="text" id="title" name='title' placeholder="タイトルを入力" style="width: 500px; height: 40px;"> <br>
+    <!-- テキスト入力欄 -->
+    <label for="text_diary">日記</label><br>
+    <textarea id="diaryText" name='text_diary' placeholder="テキスト入力" style="width: 600px";></textarea>
+    
+    <!-- 非表示の file入力（画像アップロード用） -->
+    <input type="file" id="imageInput" name='photo_diary'  accept="image/*" style="display: none;">
+    
+    <!-- 画像プレビュー表示欄 -->
+    <div id="imagePreview">アップロード画像を表示</div>
+    
+    <div class="button-container">
+      <button class='saveBtn' type='submit' id='saveBtn'>保存</button> 
+      <button class='saveBtn'id="uploadBtn">画像アップロード</button>
+    </div>
+  </form>
 
   <script>
     // ========== カレンダーから日付を選択し、上段に表示する部分 ==========
@@ -212,6 +289,8 @@ error_reporting(E_ALL);
     const calendarBtn = document.getElementById('calendarBtn');
     const calendarInput = document.getElementById('calendarInput');
     const dateTimeDisplay = document.getElementById('dateTimeDisplay');
+    const hiddenDateTime = document.getElementById('hiddenDateTime');
+    
     
     // ボタンクリック時にdate入力をクリック → カレンダー表示
     calendarBtn.addEventListener('click', () => {
@@ -236,6 +315,8 @@ error_reporting(E_ALL);
 
         // 上段に表示
         document.getElementById('dateTimeDisplay').textContent = displayText;
+        hiddenDateTime.value = displayText; // 隠しフィールドに設定
+      }
       }
     });
 
@@ -266,5 +347,88 @@ error_reporting(E_ALL);
     });
 
   </script>
+</div>
+
+
+  <div class='calendar-container'>
+    <div class="cal-header">
+        <button onclick="prevMonth()">←</button>
+        <h2 id="monthYear"></h2>
+        <button onclick="nextMonth()">→</button>
+    </div>
+    <table class="calendar">
+        <thead>
+            <tr>
+                <th>日</th><th>月</th><th>火</th><th>水</th><th>木</th><th>金</th><th>土</th>
+            </tr>
+        </thead>
+        <tbody id="calendar-body"></tbody>
+    </table>
+    <script>
+     
+     let currentDate = new Date();
+     let selectedTd = null; // 選択した日付を記録
+
+        function renderCalendar() {
+            const year = currentDate.getFullYear();
+            const month = currentDate.getMonth();
+            document.getElementById("monthYear").innerText = `${year}年 ${month + 1}月`;
+
+            const firstDay = new Date(year, month, 1).getDay();
+            const lastDate = new Date(year, month + 1, 0).getDate();
+            let days = "";
+            
+            let date = 1;
+            for (let i = 0; i < 6; i++) {
+                let row = "<tr>";
+                for (let j = 0; j < 7; j++) {
+                    if (i === 0 && j < firstDay) {
+                        row += "<td></td>";
+                    } else if (date > lastDate) {
+                        break;
+                    } else {
+                      // --- 日付クリックすると、DateTimeDisplayに反映されるクリックイベントを追加 ---                    
+                    row += `<td onclick="updateDateTimeDisplay(${year}, ${month + 1}, ${date}, this)">${date}</td>`;
+                    date++;  
+                      // row += `<td>${date}</td>`;
+                      //   date++;
+                    }
+                }
+                row += "</tr>";
+                days += row;
+                if (date > lastDate) break;
+            }
+            document.getElementById("calendar-body").innerHTML = days;
+        }
+        
+        function prevMonth() {
+            currentDate.setMonth(currentDate.getMonth() - 1);
+            renderCalendar();
+        }
+
+        function nextMonth() {
+            currentDate.setMonth(currentDate.getMonth() + 1);
+            renderCalendar();
+        }
+
+// --- 選択した日付を dateTimeDisplay に表示する関数 ---
+    function updateDateTimeDisplay(year, month, day) {
+        const weekdays = ["日曜日","月曜日","火曜日","水曜日","木曜日","金曜日","土曜日"];
+        const selectedDate = new Date(year, month - 1, day);
+        const weekday = weekdays[selectedDate.getDay()];
+        
+        // --- ここで dateTimeDisplay に表示 ---
+        document.getElementById('dateTimeDisplay').textContent = `${year}/${month}/${day}/${weekday}`;
+    }
+
+        renderCalendar();
+    </script>
+
+  </div>
 </body>
+
+<footer>
+        <p>© AI SPEECH. All rights reserved</p> <!-- ← 任意のフッターコンテンツ -->
+</footer>
+
 </html>

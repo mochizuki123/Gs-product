@@ -127,10 +127,11 @@ $stmt_ready = $pdo->prepare('
 SELECT 
     
     diary_contents.id as id,
+    diary_contents.date as date,
     diary_contents.title as title,
     diary_contents.text_diary as text_diary, 
     users.user_name as user_name,
-    diary_contents.created_at as created_at,
+    diary_contents.created_at as created_at,    
     diary_contents.updated_at as updated_at
 FROM 
     diary_contents
@@ -148,21 +149,23 @@ if (!$status_ready) {
     while ($r = $stmt_ready->fetch(PDO::FETCH_ASSOC)) {
         
     $view .= '<table class="table">';
-    $view .= '<thead><tr><th>ID</th><th>日付</th><th>タイトル</th><th>ユーザー名</th><th>日記</th><th>更新日時</th><th>操作</th></tr></thead>';
+    $view .= '<thead><tr><th>ID</th><th>日付</th><th>タイトル</th><th>日記</th><th>更新日時</th><th>操作</th></tr></thead>';
     $view .= '<tbody>';
     while ($r = $stmt_ready->fetch(PDO::FETCH_ASSOC)) {
         $view .= '<tr>';
         $view .= '<td>' . $r["id"] . '</td>';
-        $view .= '<td>' . date('Y-m-d H:i', strtotime($r['created_at'])) . '</td>';
+        $view .= '<td>' . date('Y-m-d H:i', strtotime($r['date'])) . '</td>';
         $view .= '<td>' . h($r['title']) . '</td>';
-        $view .= '<td>' . h($r['user_name']) . '</td>';
+        // $view .= '<td>' . h($r['user_name']) . '</td>';
         $view .= '<td><a href="detail0.php?id=' . $r["id"] . '">' .'日記' . '</a></td>';
         // $view .= '<td><a href="detail3.php?id=' . h($r["id"]) . '">' . '生成テーマ' . '</a></td>';
         $view .= '<td>' . date('Y-m-d H:i', strtotime($r['updated_at'])) . '</td>';
         
         $view .= '<td>';
+        // var_dump('created_at');
         if ($_SESSION['kanri_flg'] === 1) {
             $view .= '<a class="btn btn-danger" href="delete0.php?id=' . $r['id'] . '">削除</a>';
+
         }
         $view .= '</td>';
         $view .= '</tr>';

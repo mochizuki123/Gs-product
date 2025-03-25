@@ -59,6 +59,8 @@ if (!empty($_FILES['voice']['tmp_name'])) {
             // 'language' => $language
         ];
         curl_setopt($ch, CURLOPT_POSTFIELDS, $post_fields);
+        //SSL証明書の検証をスキップし、エラーを回避一時的に追加
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
 
         $response = curl_exec($ch);
         if (curl_errno($ch)) {

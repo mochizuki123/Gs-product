@@ -55,7 +55,8 @@ SELECT
 FROM 
     speech_text_prompt
 JOIN 
-    users ON speech_text_prompt.user_id = users.user_id');  //利用方法？
+    users ON speech_text_prompt.user_id = users.user_id
+    ORDER BY speech_text_prompt.created_at DESC LIMIT 5');   //新しい順に5件表示
 
     // $status = $stmt->execute();//クエリを実行
     $status_ready = $stmt_ready->execute();//クエリを実行
@@ -65,11 +66,11 @@ $view2 = '';
 if ($status_ready) {
 
     $view2 .= '<table class="table">';
-    $view2 .= '<thead><tr><th>ID</th><th>コメント</th><th>即興スピーチ</th><th>ユーザー名</th><th>作成日時</th></tr></thead>';
+    $view2 .= '<thead><tr><th>コメント</th><th>即興スピーチ</th><th>ユーザー名</th><th>作成日時</th></tr></thead>';
     $view2 .= '<tbody>';
     while ($r = $stmt_ready->fetch(PDO::FETCH_ASSOC)) {
         $view2 .= '<tr>';
-        $view2 .= '<td>' . $r["id"] . '</td>';
+        // $view2 .= '<td>' . $r["id"] . '</td>';
         // $view2 .= '<td><a href="detail1_text.php?id=' . $r["id"] . '">' . h($r['text_prompt']) . '</a></td>';
         $view2 .= '<td><a href="detail1_text.php?id=' . $r["id"] . '">' . '振返りコメント' . '</a></td>';
         $view2 .= '<td><a href="detail1_response.php?id=' . $r["id"] . '">' . 'スピーチテキスト' . '</a></td>';
@@ -167,7 +168,7 @@ if ($status_ready) {
     border: 1px solid #ddd;
     border-radius: 5px;
     width: 200px;
-    height: 220px; /* 高さを調整 */
+    height: 240px; /* 高さを調整 */
     /* margin: 100px; */
     display: flex;
     flex-direction: column; /* 縦方向に配置 */
@@ -242,6 +243,28 @@ if ($status_ready) {
 .recent-preparedSpeech tr:hover, .recent-promptSpeech tr:hover {
     background-color: #ddd; /* ホバー時の背景色を設定 */
 }
+
+
+footer {
+    position: fixed; /* ← 画面の下部に固定 */
+    bottom: 0; /* ← 下端に配置 */
+    width: 100%; /* ← 幅を100%に設定 */
+    height: 60px; /* ← フッターの高さ（調整可） */
+    background-color: #f8f8f8; /* フッターの背景色（適宜変更） */
+    margin-top: auto; /* ← フッターを下部に固定 */
+}
+
+footer::before {
+    content: "";
+    position: absolute;
+    top: 0; /* ← 上端に配置（少し下げたければ 5px など） */
+    left: 0;
+    width: 100%;
+    height: 1px; /* ← 線の太さ */
+    background-color: #ccc; /* ← 線の色（調整可） */
+    opacity: 0.5; /* ← 線の薄さ（0.3〜0.7 で調整） */
+}
+ 
 </style>
 
 <body>
@@ -253,7 +276,7 @@ if ($status_ready) {
                  </a>
             </div>
             <ul class="navbar-nav">
-                <li><a href="about.php">About</a></li>
+                <li><a href="about.php">Tutorial</a></li>
                 <li><a href="logout.php">Log out</a></li>
                 
             </ul>
@@ -266,7 +289,7 @@ if ($status_ready) {
     <!-- 絵とテキストが重ならないように切り離す -->
     <button class="menu-button1" onclick="location.href='menu0.php'">
     <img src="img/index_diary.png" alt="ダイアリ―" class="btn-img">
-    <span>ダイアリ―</span>
+    <span>スピーチの種</span>
     </button>
 
     <button class="menu-button2" onclick="location.href='menu3.php'">
@@ -281,7 +304,7 @@ if ($status_ready) {
 
     <button class="menu-button4" onclick="location.href='menu1.php'">
     <img src="img/index_prompt.png" alt="即興スピーチ" class="btn-img">
-    <span>即興スピーチ</span>
+    <span>即興スピーチ（上級編）</span>
     </button>
 </div>
 
@@ -318,5 +341,12 @@ if ($status_ready) {
             </table>
     </div>
 </div>
+
 </body>
+
+<footer>
+        <p>© AI SPEECH. All rights reserved</p> <!-- ← 任意のフッターコンテンツ -->
+</footer>
+
+
 </html>

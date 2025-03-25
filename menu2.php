@@ -6,28 +6,11 @@
     <title>スピーチ原稿作成</title>
 </head>
 <body>
-<!-- ローディングオーバーレイ -->
+<!-- スピナー用　ローディングオーバーレイ -->
 <div id="loadingOverlay" style="display: none;">
   <div class="spinner"></div>
   <div class="loading-text">スピーチ生成中…</div>
 </div>
-
-<!-- <div class="overlay"></div>
-  <nav class="nav">
-    <div class="toggle">
-      <span id="deleteconpo" class="toggler"></span>
-    </div>
-    <div class="logo">
-      <a href="#">TIPS</a>
-    </div>
-    <ul>
-      <li><a href="#">スピーチの作り方TIPS</a></li>
-      <li><a href="#">スピーチの作り方TIPS</a></li>
-      <li><a href="#">スピーチの作り方TIPS</a></li>
-      <li><a href="#">スピーチの作り方TIPS</a></li>
-      <li><a href="#">スピーチの作り方TIPS</a></li>
-    </ul>
-  </nav> -->
 
 <nav class="navbar navbar-default">
 <div class="container-fluid">
@@ -38,8 +21,8 @@
     </div>
     <ul class="nav navbar-nav">
         <li><a href="index.php">Menu</a></li>
-        <li><a href="menu3.php">Theme finding</a></li>
-        <li><a href="select2.php">Scripts</a></li>
+        <li><a href="menu3.php">テーマ検討</a></li>
+        <li><a href="select2.php">スピーチ原稿</a></li>
         <li><a href="logout.php">Log out</a></li>       
     </ul>
 </div>
@@ -79,7 +62,7 @@ $response_text = $speech_data['response'] ?? '';
 unset($_SESSION['speech_data']);
 ?>
 
-<h2 class='header'>スピーチ骨子入力✍ <span class='arrow'> </span></h2>
+<h2 class='header'>スピーチ骨子入力　🖊 <span class='arrow'> </span></h2>
 <div class="container">
     <div class="form-container">
         <form action="upload2.php" method="post">
@@ -148,7 +131,7 @@ unset($_SESSION['speech_data']);
     </div>    
     
     <div class= "response-container"> 
-        <h2>スピーチ原稿案</h2>
+        <h2>スピーチ原稿案　📒</h2>
         <?php if (!empty($response_text)): ?>
     
         <p id='response'>
@@ -324,79 +307,6 @@ footer::before {
     opacity: 0.5; /* ← 線の薄さ（0.3〜0.7 で調整） */
 }
  
-
-/* Drawer */
-/* .overlay {
-  width: 100%;
-  height: 100vh;
-  position: fixed;
-  left: 0;
-  top: 0;
-  background-color: rgba(0,0,0,.3);
-  z-index: 190;
-  opacity: 0;
-  visibility: hidden;
-  transition: all 200ms ease-in;
-}
-nav.nav {
-  width: 270px;
-  height: 100vh;
-  background-color: #FFF;
-  left: -270px;
-  top: 0;
-  position: fixed;
-  padding: 20px 0;
-  transition: all 200ms ease-in-out;
-  z-index: 199;
-}
-nav.nav ul {
-    border: none;
-    padding: 0;
-}
-.toggle {
-  position: relative;
-  left: 100%;
-  width: 50px;
-  height: 50px;
-  color: #fff;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 20px;
-  cursor: pointer;
-}
-
-span.toggler,
-span.toggler:before,
-span.toggler:after {
-    content: '';
-    display: block;
-    height: 3px;
-    width: 25px;
-    border-radius: 3px;
-    background-color: #ffffff;
-    position: absolute;
-    pointer-events: none;
-}
-
-span.toggler:before{
-    bottom: 9px;
-}
-span.toggler:after {
-    top: 9px;
-}
-span.deleteclass {
-    background-color: transparent;
-}
-span.deleteclass::before {
-    bottom: 0;
-    transform: rotate(45deg);
-}
-span.deleteclass::after {
-    top: 0;
-    transform: rotate(-45deg);
-} */
-
 .logo {
   text-align: center;
   margin-bottom: 30px;
@@ -498,7 +408,9 @@ span.deleteclass::after {
   .loading-text {
     font-size: 20px;
     margin-top: 20px;
-  }
+
+
+}
 </style>
 
 <script>
@@ -523,8 +435,9 @@ span.deleteclass::after {
 </body>
 
 <footer>
-        <p>© 2025 xxx Website</p> <!-- ← 任意のフッターコンテンツ -->
+        <p>© 2025 AI SPEECH. All rights reserved</p> <!-- ← 任意のフッターコンテンツ -->
 </footer>
 
 
 </html>
+
