@@ -294,7 +294,7 @@ $prompt_response = isset($speech_data['response_data']) ? $speech_data['response
         </div>
         <ul class="nav navbar-nav">
             <li><a href="index.php">Menu</a></li>
-            <li><a href="select1.php">Speech log</a></li>
+            <li><a href="select1.php">即興スピーチ記録</a></li>
             <li><a href="logout.php">Log out</a></li>
             
         </ul>

@@ -1,20 +1,32 @@
 <style>
 
+.container-fluid{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
 .navbar {
-    background-color:rgb(21, 96, 130) ;
+    background-color: rgb(21, 96, 130) ;
     color: white;
     padding: 10px 0;
     height: 50px;
-    position: fixed; /* ナビゲーションバーを固定 */
-    width: 100%; /* 幅を100%に設定 */
-    top: 0; /* 上部に固定 */
-    z-index: 1000; /* 他の要素より前面に表示 */    
+    position: relative; /* ナビゲーションバーを固定 */
+    /* overflow: hidden; オーバーフローを隠す */
+}
+
+
+/* 他の要素の上に配置 */
+.nav.navbar-nav, .navbar-header {
+    position: relative;
+    z-index: 1;
 }
 
 .nav.navbar-nav {
     display: flex;
+    flex-direction: row;
     justify-content: right;
-    magin-top: 10px;
+    /* align-items: center;  */
 }
 
 .navbar-nav li {
@@ -23,15 +35,11 @@
     position: relative; /* 縦線用に相対位置を設定 */
 }
 
-
 .navbar-nav li a {
+    /* display: flex; */
     text-decoration: none;
     padding: 5px 15px;
     color: white;
-}
-
-.navbar-nav li a:hover {
-    background-color: #ddd;
 }
 
 .navbar-nav li:not(:last-child)::after {
@@ -45,28 +53,31 @@
     background-color: white; /* 縦線の色を設定 */
 }
 
+.navbar-nav li a:hover {
+    background-color: #ddd;
+}
+
 .navbar-header {
             display: flex;
             align-items: center; /* ロゴを中央揃え */
         }
 
-        .navbar-brand img {
+ .navbar-brand img {
             vertical-align: middle; /* ロゴを中央揃え */
         }
-body {
-    padding-top: 60px; /* ナビゲーションバーの高さ分の余白を追加 */
-}
+
 
 .table th, .table td{
     padding: 10px;
     text-align: left;
-
+}
 /* 反映されないので要修正 */
-.title {
+/* .title {
     margin-left: 60px;
     margin-top: 80px;
-}
-}
+} */
+
+
 /* 以下はスピーチテーブルのCSS */
 .preparedSpeech table {
     width: 80%;
@@ -116,7 +127,6 @@ loginCheck();
 $pdo = db_conn();
 
 //speech_textテーブルとusersテーブルを結合（JOIN）これにより、speech_textテーブルのデータとusersテーブルのデータを組み合わせて取得
-
 // 即興SP：SQL クエリを準備  speech_text_prompt テーブルの id カラムを選択し、それを id というエイリアス名で取得
 
 $stmt_ready = $pdo->prepare('
@@ -185,10 +195,11 @@ if (!$status_ready) {
     <header>
     <nav class="navbar navbar-default">
     <div class="container-fluid">
-        <div class="navbar-header">
-            <a class="navbar-brand" >
-                <!-- <img src="img/logo.png" alt="Logo" style="width:40px;"> -->
-            </a>
+                <div class="navbar-header">
+                <a class="navbar-brand" >
+                <img src="img/company-logo2.png" alt="Logo" style="width:200px;"></a>
+            </div>
+
         </div>
         <ul class="nav navbar-nav">
             <li><a href="index.php">Menu</a></li>
@@ -198,6 +209,7 @@ if (!$status_ready) {
     </div>
 
     </header>
+
     
     <!-- <div>
         <div class="container jumbotron"><?= $view ?></div>
