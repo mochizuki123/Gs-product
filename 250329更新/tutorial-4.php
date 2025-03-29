@@ -112,8 +112,6 @@ body {
       border-radius: 4px;
       cursor: pointer;
       font-size: 16px;
-      margin-bottom: 10px;
-    
     }
     .next-button:hover, .previous-button:hover {
       background-color: #0056b3;
@@ -127,7 +125,7 @@ body {
       border-radius: 4px;
       cursor: pointer;
       font-size: 16px;
-      
+      margin-bottom: 10px;
     }
     .previous-button:hover {
       background-color: #0056b3;
@@ -150,9 +148,42 @@ body {
         </ul>
     </div>
   </nav>
+
   <div class="tutorial-container">
-    <!-- 上段に表示したい任意の画像 -->
-    <img src= 'tutorial/tutorial-5.4.png' 
+  <!-- 上段に「次へ」ボタン -->
+    <button 
+      class="previous-button"
+      onclick="location.href='tutorial-3.php'">
+      戻る
+    </button>
+    <button 
+      class="next-button" 
+      onclick="location.href='tutorial-5.1.php'">
+      次へ
+    </button>
+
+  <!-- 上段に表示したい任意の画像 -->
+    <img src= 'tutorial/tutorial-4.1.png' 
+      alt="説明用の画像" 
+      class="tutorial-image"
+    />
+    
+    <img src= 'tutorial/tutorial-4.2.png' 
+      alt="説明用の画像" 
+      class="tutorial-image"
+    />
+    
+    <img src= 'tutorial/tutorial-4.3.png' 
+      alt="説明用の画像" 
+      class="tutorial-image"
+    />
+    
+    <img src= 'tutorial/tutorial-4.4.png' 
+      alt="説明用の画像" 
+      class="tutorial-image"
+    />
+    
+    <img src= 'tutorial/tutorial-4.5.png' 
       alt="説明用の画像" 
       class="tutorial-image"
     />
@@ -160,10 +191,14 @@ body {
     <!-- 下段に「次へ」ボタン -->
     <button 
       class="previous-button"
-      onclick="location.href='tutorial-5.3.php'">
+      onclick="location.href='tutorial-3.php'">
       戻る
     </button>
-    
+    <button 
+      class="next-button" 
+      onclick="location.href='tutorial-5.1.php'">
+      次へ
+    </button>
   </div>
 </body>
 </html>

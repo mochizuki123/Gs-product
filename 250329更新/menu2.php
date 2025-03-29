@@ -421,40 +421,9 @@ footer::before {
 
 <script>
     function resetSpeech() {
-        // セッションをクリアする PHP スクリプトを呼び出す
-        fetch('reset_session.php')
-            .then(response => response.text())
-            .then(data => {
-                console.log(data); // サーバーからのレスポンスを確認
-
-                // 入力フィールドをリセット
-                document.getElementById('title').value = '';
-                document.getElementById('message').value = '';
-                document.getElementById('outline1').value = '';
-                document.getElementById('outline2').value = '';
-                document.getElementById('outline3').value = '';
-                document.getElementById('outline4').value = '';
-
-                // ドキュメント内のスピーチ原稿案の表示部分をクリア
-                var responseElement = document.querySelector('.response-container p');
-                if(responseElement){
-                    responseElement.innerHTML = '';
-                }
-                // 文字数表示のクリア
-                var charCountElement = document.getElementById('charCount');
-                if(charCountElement){
-                    charCountElement.innerHTML = '';
-                }
-            })
-            .catch(error => console.error('Error:', error));
+        document.querySelector('.response-container p').innerHTML = '';
+        document.querySelector('#charCount').innerHTML = '';
     }
-
-    // function resetSpeech() {
-    //     document.getElementById('title').value = '';
-    //     document.getElementById('message').value = '';
-    //     document.querySelector('.response-container p').innerHTML = '';
-    //     document.querySelector('#charCount').innerHTML = '';
-    // }
 
       // スピナー用。　upload2.phpへ送信するフォームを取得
     const speechForm = document.querySelector("form[action='upload2.php']");

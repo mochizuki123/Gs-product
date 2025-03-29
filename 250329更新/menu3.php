@@ -6,6 +6,16 @@ session_start();
 require_once 'funcs.php';
 loginCheck();
 
+
+if (isset($_POST['reset'])){
+    unset($_SESSION['experience']);
+    unset($_SESSION['interest']);
+    unset($_SESSION['theme']);
+    unset($_SESSION['text_theme']);
+    header("Location:menu3.php");
+    exit();
+    }
+
 $experience = isset($_SESSION['experience']) ? $_SESSION['experience'] : '';
 $interest = isset($_SESSION['interest']) ? $_SESSION['interest'] : '';
 $theme = isset($_SESSION['theme']) ? $_SESSION['theme'] : '';
@@ -217,7 +227,19 @@ if (!$status_ready) {
             exit();
         }
 
-            // フォーム送信時に title の値を隠しフィールドに設定
+        
+     </script>   
+    </body>
+    <footer>
+            <p>© 2025 AI SPEECH. All rights reserved</p> <!-- ← 任意のフッターコンテンツ -->
+    </footer>
+
+
+    </html>
+
+
+<script>
+    // フォーム送信時に title の値を隠しフィールドに設定
     document.getElementById('saveForm').addEventListener('submit', function(e) {
     var themeValue = document.getElementById('theme').value;
     var textThemeValue = document.getElementById('response').innerText; // 生成されたtext_readyの値を取得
@@ -225,26 +247,19 @@ if (!$status_ready) {
     document.getElementById('hiddenTextTheme').value = textThemeValue;
     });
 
-    function resetSpeech() {
-        // サーバー側のセッションデータを削除
-        fetch('reset_session1.php')
-            .then(response => response.json())
-            .then(data => {
-                console.log(data.message);
-                // ユーザー側の入力欄をリセット
-                document.getElementById('theme').value = '';
-                document.getElementById('experience').value = '';
-                document.getElementById('interest').value = '';
-                // 表示部分（生成されたテーマ案など）があればクリア
-                var responseList = document.querySelector('.response-container ul');
-                if(responseList){
-                    responseList.innerHTML = '';
-                }
-            })
-            .catch(error => console.error('Error:', error));
-        }
     
-    // スピナー用。　upload2.phpへ送信するフォームを取得
+    function resetSpeech() {
+        document.getElementById('theme').value = '';
+        document.getElementById('experience').value = '';
+        document.getElementById('interest').value = '';
+        var responseList = document.querySelector('.response-container ul');
+        if(responseList) {
+            responseList.innerHTML = '';
+        }
+            // document.getElementById('resetForm').submit(); // リセット用のフォームを送信
+    }
+
+// スピナー用。　upload2.phpへ送信するフォームを取得
     const speechForm = document.querySelector("form[action='upload3.php']");
     if (speechForm) {
         speechForm.addEventListener("submit", function() {
@@ -253,14 +268,8 @@ if (!$status_ready) {
       document.getElementById("loadingOverlay").style.display = "flex";
     });
   }
-     </script>   
-</body>
-<footer>
-            <p>© 2025 AI SPEECH. All rights reserved</p> <!-- ← 任意のフッターコンテンツ -->
-</footer>
 
-
-</html>
+</script>
 
 <style>
 .navbar {

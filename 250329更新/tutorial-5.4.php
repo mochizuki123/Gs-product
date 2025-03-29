@@ -164,6 +164,11 @@ body {
       戻る
     </button>
     
+    <button 
+      class="next-button" 
+      onclick="location.href='tutorial-5.5.php'">
+      次へ
+    </button>
   </div>
 </body>
 </html>
