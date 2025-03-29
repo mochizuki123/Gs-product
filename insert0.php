@@ -17,9 +17,18 @@ if (isset($_SESSION['user_id'])) {
     exit('Error: user_id is not set in session.');
 }   
 
+if (isset($_POST['date'])) {
+    $date = $_POST['date'];
+    echo "date: $date<br>";
+} else {
+    exit('Error: date is not set.');
+}
+
+// echo($date);
+// exit;
 
 if (isset($_POST['title'])) {
-    $title = $_POST['title'];
+    $title = $_POST['title'];   
     echo "title: $title<br>";
 } else {
     exit('Error: title is not set.');
@@ -57,10 +66,10 @@ $pdo = db_conn();
 // var_dump($user_id);
 
 //３．データベースの speech_text テーブルに新しいレコードを挿入するための準備を行っています。
-$stmt = $pdo->prepare('INSERT INTO diary_contents(user_id, title, text_diary, created_at) VALUES(:user_id, :title, :text_diary, NOW());');
+$stmt = $pdo->prepare('INSERT INTO diary_contents(user_id, date, title, text_diary, created_at) VALUES(:user_id, :date, :title, :text_diary, NOW());');
 
-// $stmt->bindValue(':date', $date, PDO::PARAM_STR);
 $stmt->bindValue(':user_id', $user_id, PDO::PARAM_STR);  // bindValue追加
+$stmt->bindValue(':date', $date, PDO::PARAM_STR);
 $stmt->bindValue(':title', $title, PDO::PARAM_STR);
 $stmt->bindValue(':text_diary', $text_diary, PDO::PARAM_STR);
 

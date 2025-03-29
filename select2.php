@@ -161,9 +161,12 @@ if (!$status_ready) {
         $view .= '<td><a href="detail2.php?id=' . $r["id"] . '">' . h($r['title']) . '</a></td>';
         $view .= '<td>' . h($r['user_name']) . '</td>';
         $view .= '<td>' . date('Y-m-d H:i', strtotime($r['created_at'])) . '</td>';
-        $view .= '<td>' . date('Y-m-d H:i', strtotime($r['updated_at'])) . '</td>';
-        // $view .= '<td>' . h($r['created_at']) . '</td>';
-        // $view .= '<td>' . h($r['updated_at']) . '</td>';
+       if (!empty($r['updated_at'])) {
+            $view .= '<td>' . date('Y-m-d H:i', strtotime($r['updated_at'])) . '</td>';
+        } else {
+            $view .= '<td></td>'; // updated_at が空の場合は空欄にする
+        }
+
         $view .= '<td>';
         if ($_SESSION['kanri_flg'] === 1) {
             $view .= '<a class="btn btn-danger" href="delete2.php?id=' . $r['id'] . '">削除</a>';
@@ -195,15 +198,15 @@ if (!$status_ready) {
     <header>
     <nav class="navbar navbar-default">
     <div class="container-fluid">
-                <div class="navbar-header">
+            <div class="navbar-header">
                 <a class="navbar-brand" >
                 <img src="img/company-logo2.png" alt="Logo" style="width:200px;"></a>
             </div>
 
-        </div>
+        
         <ul class="nav navbar-nav">
             <li><a href="index.php">Menu</a></li>
-            <li><a href="menu2.php">Prepared speech</a></li>
+            <li><a href="menu2.php">準備スピーチ</a></li>
             <li><a href="logout.php">Log out</a></li>       
         </ul>
     </div>

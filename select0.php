@@ -1,3 +1,88 @@
+<?php
+// エラーを出力する
+ini_set('display_errors', '1');
+error_reporting(E_ALL);
+
+session_start();
+require_once 'funcs.php';
+loginCheck();
+
+//２．登録SQL作成
+$pdo = db_conn();
+
+//speech_textテーブルとusersテーブルを結合（JOIN）これにより、speech_textテーブルのデータとusersテーブルのデータを組み合わせて取得
+
+// 即興SP：SQL クエリを準備  speech_text_prompt テーブルの id カラムを選択し、それを id というエイリアス名で取得
+
+$stmt_ready = $pdo->prepare('
+SELECT 
+    
+    diary_contents.id as id,
+    diary_contents.date as date,
+    diary_contents.title as title,
+    diary_contents.text_diary as text_diary, 
+    users.user_name as user_name,
+    diary_contents.created_at as created_at,    
+    diary_contents.updated_at as updated_at
+FROM 
+    diary_contents
+JOIN 
+    users ON diary_contents.user_id = users.user_id');  //利用方法？
+$status_ready = $stmt_ready->execute();//クエリを実行
+
+
+//３．登録するspeech 情報の表示
+$view = '';
+
+if (!$status_ready) {
+    sql_error($stmt_ready);
+} else {
+    while ($r = $stmt_ready->fetch(PDO::FETCH_ASSOC)) {
+        
+    $view .= '<table class="table">';
+    $view .= '<thead><tr><th>ID</th><th>日付</th><th>タイトル</th><th>日記</th><th>更新日時</th><th>操作</th></tr></thead>';
+    $view .= '<tbody>';
+    while ($r = $stmt_ready->fetch(PDO::FETCH_ASSOC)) {
+        $view .= '<tr>';
+        $view .= '<td>' . $r["id"] . '</td>';
+        $view .= '<td>' . date('Y-m-d H:i', strtotime($r['date'])) . '</td>';
+        $view .= '<td>' . h($r['title']) . '</td>';
+        // $view .= '<td>' . h($r['user_name']) . '</td>';
+        $view .= '<td><a href="detail0.php?id=' . $r["id"] . '">' .'日記' . '</a></td>';
+        // $view .= '<td><a href="detail3.php?id=' . h($r["id"]) . '">' . '生成テーマ' . '</a></td>';
+        if (!empty($r['updated_at'])) {
+            $view .= '<td>' . date('Y-m-d H:i', strtotime($r['updated_at'])) . '</td>';
+        } else {
+            $view .= '<td></td>'; // updated_at が空の場合は空欄にする
+        }
+
+        $view .= '<td>';
+        // echo(strtotime($r['date']));
+        if ($_SESSION['kanri_flg'] === 1) {
+            $view .= '<a class="btn btn-danger" href="delete0.php?id=' . $r['id'] . '">削除</a>';
+
+        }
+        $view .= '</td>';
+        $view .= '</tr>';
+    }
+    
+    }
+}
+?>
+
+
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>フリーアンケート表示</title>
+    <!-- <link rel="stylesheet" href="css/login.css" /> -->
+    <!-- <link rel="stylesheet" href="css/common.css" />
+    <link rel="stylesheet" href="css/select.css" /> -->
+
 <style>
 
 .navbar {
@@ -53,6 +138,14 @@
         .navbar-brand img {
             vertical-align: middle; /* ロゴを中央揃え */
         }
+
+.container-fluid{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+}
+
+
 body {
     padding-top: 60px; /* ナビゲーションバーの高さ分の余白を追加 */
 }
@@ -104,89 +197,7 @@ body {
     background-color: #ddd; /* ホバー時の背景色を設定 */
 }
 
-
 </style>
-
-<?php
-// エラーを出力する
-ini_set('display_errors', '1');
-error_reporting(E_ALL);
-
-session_start();
-require_once 'funcs.php';
-loginCheck();
-
-//２．登録SQL作成
-$pdo = db_conn();
-
-//speech_textテーブルとusersテーブルを結合（JOIN）これにより、speech_textテーブルのデータとusersテーブルのデータを組み合わせて取得
-
-// 即興SP：SQL クエリを準備  speech_text_prompt テーブルの id カラムを選択し、それを id というエイリアス名で取得
-
-$stmt_ready = $pdo->prepare('
-SELECT 
-    
-    diary_contents.id as id,
-    diary_contents.date as date,
-    diary_contents.title as title,
-    diary_contents.text_diary as text_diary, 
-    users.user_name as user_name,
-    diary_contents.created_at as created_at,    
-    diary_contents.updated_at as updated_at
-FROM 
-    diary_contents
-JOIN 
-    users ON diary_contents.user_id = users.user_id');  //利用方法？
-$status_ready = $stmt_ready->execute();//クエリを実行
-
-
-//３．登録するspeech 情報の表示
-$view = '';
-
-if (!$status_ready) {
-    sql_error($stmt_ready);
-} else {
-    while ($r = $stmt_ready->fetch(PDO::FETCH_ASSOC)) {
-        
-    $view .= '<table class="table">';
-    $view .= '<thead><tr><th>ID</th><th>日付</th><th>タイトル</th><th>日記</th><th>更新日時</th><th>操作</th></tr></thead>';
-    $view .= '<tbody>';
-    while ($r = $stmt_ready->fetch(PDO::FETCH_ASSOC)) {
-        $view .= '<tr>';
-        $view .= '<td>' . $r["id"] . '</td>';
-        $view .= '<td>' . date('Y-m-d H:i', strtotime($r['date'])) . '</td>';
-        $view .= '<td>' . h($r['title']) . '</td>';
-        // $view .= '<td>' . h($r['user_name']) . '</td>';
-        $view .= '<td><a href="detail0.php?id=' . $r["id"] . '">' .'日記' . '</a></td>';
-        // $view .= '<td><a href="detail3.php?id=' . h($r["id"]) . '">' . '生成テーマ' . '</a></td>';
-        $view .= '<td>' . date('Y-m-d H:i', strtotime($r['updated_at'])) . '</td>';
-        
-        $view .= '<td>';
-        // var_dump('created_at');
-        if ($_SESSION['kanri_flg'] === 1) {
-            $view .= '<a class="btn btn-danger" href="delete0.php?id=' . $r['id'] . '">削除</a>';
-
-        }
-        $view .= '</td>';
-        $view .= '</tr>';
-    }
-    
-    }
-}
-?>
-
-
-<!DOCTYPE html>
-<html lang="ja">
-
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>フリーアンケート表示</title>
-    <!-- <link rel="stylesheet" href="css/login.css" /> -->
-    <!-- <link rel="stylesheet" href="css/common.css" />
-    <link rel="stylesheet" href="css/select.css" /> -->
 
 </head>
 
@@ -196,12 +207,12 @@ if (!$status_ready) {
     <div class="container-fluid">
         <div class="navbar-header">
             <a class="navbar-brand" >
-                <!-- <img src="img/logo.png" alt="Logo" style="width:40px;"> -->
-            </a>
+            <img src="img/company-logo2.png" alt="Logo" style="width:200px;">    
+                       </a>
         </div>
         <ul class="nav navbar-nav">
             <li><a href="index.php">Menu</a></li>
-            <li><a href="menu0.php">Diary</a></li>
+            <li><a href="menu0.php">スピーチの種</a></li>
             <li><a href="logout.php">Log out</a></li>       
         </ul>
     </div>
@@ -217,7 +228,7 @@ if (!$status_ready) {
     </style>
     
      <div class= 'preparedSpeech'>
-        <h3 class=title> 日記帳📚 </h3>
+        <h3 class=title> スピーチの種 📚 </h3>
             <table>
                 <thead>
                     <tr>
@@ -231,10 +242,6 @@ if (!$status_ready) {
                 </tbody>
             </table>
     </div>
-
-
-
-
 </body>
 
 </html>

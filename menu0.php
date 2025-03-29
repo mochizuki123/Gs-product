@@ -99,7 +99,9 @@ body {
     .dateTimeDisplay{
       display: flex;
       align-items: center;
+      /* margin-top:20px; */
     }
+    
     #dateTimeDisplay {
       font-size: 1.2rem;
       margin-bottom: 10px;
@@ -132,7 +134,7 @@ body {
     /* テキスト入力欄 */
     #diaryText {
       width: 100%;
-      height: 200px;
+      height: 270px;
       box-sizing: border-box;
       margin-bottom: 20px;
       font-size: 1rem;
@@ -169,6 +171,8 @@ body {
 
     .input-container {
         flex: 1;
+        margin-top:10px;
+        
     }
 
     .calendar-container {
@@ -249,8 +253,9 @@ footer::before {
     </div>
     <ul class="nav navbar-nav">
         <li><a href="index.php">Menu</a></li>
-        <li><a href="menu3.php">Theme finding</a></li>
-        <li><a href="select0.php">Diary log</a></li>
+        <li><a href="tutorial-2.php">Tutorial</a></li>
+        <li><a href="menu3.php">テーマ生成</a></li>
+        <li><a href="select0.php">スピーチの種 一覧</a></li>
         <li><a href="logout.php">Log out</a></li>       
     </ul>
     </div>
@@ -258,11 +263,8 @@ footer::before {
 
 <div class='input-container'>
   <!-- 日付と時間を表示する部分（初期値を例として表示） -->
-  <p>日付：</p>
-  <div class='dateTimeDisplay' id="dateTimeDisplay">2025/03/15 土曜日</div>
-  
-  
-  <form action="insert0.php" method="post">
+  <p style="display: inline;">日付：</p><div class='dateTimeDisplay' id="dateTimeDisplay" style="display: inline;"></div>
+  <form id='diaryForm' action="insert0.php" method="post">
     <input type='hidden' id='hiddenDateTime' name='date'>
     <label for="title">タイトル：</label>
     <input type="text" id="title" name='title' placeholder="タイトルを入力" style="width: 500px; height: 40px;"> <br>
@@ -278,17 +280,23 @@ footer::before {
     
     <div class="button-container">
       <button class='saveBtn' type='submit' id='saveBtn'>保存</button> 
-      <button class='saveBtn'id="uploadBtn">画像アップロード</button>
+      <button class='saveBtn' type='button' id="uploadBtn">画像アップロード</button>
     </div>
   </form>
 
-  <script>
-    // ========== カレンダーから日付を選択し、上段に表示する部分 ==========
 
-    // ボタンと隠し date入力を取得
-    const calendarBtn = document.getElementById('calendarBtn');
-    const calendarInput = document.getElementById('calendarInput');
-    const dateTimeDisplay = document.getElementById('dateTimeDisplay');
+  
+<script>
+  document.getElementById('diaryForm').addEventListener('submit', function(e) {
+    // hiddenDateTime の値が空かチェック
+    if (document.getElementById('hiddenDateTime').value.trim() === '') {
+      // 入力されていない場合、送信をキャンセルしてアラートを表示
+      e.preventDefault();
+      alert('日付が選択されていません。日付を入力してください。');
+    }
+  });
+
+const dateTimeDisplay = document.getElementById('dateTimeDisplay');
     const hiddenDateTime = document.getElementById('hiddenDateTime');
     
     
@@ -297,28 +305,42 @@ footer::before {
       calendarInput.click();
     });
 
-    // 日付を選択したら、上段の表示領域を更新
-    calendarInput.addEventListener('change', (e) => {
-      const selectedDate = e.target.value; // "YYYY-MM-DD"
-      if (selectedDate) {
-        const dateObj = new Date(selectedDate);
-        const year = dateObj.getFullYear();
-        const month = String(dateObj.getMonth() + 1).padStart(2, '0');
-        const day = String(dateObj.getDate()).padStart(2, '0');
+    function updateDateTimeDisplay(year, month, day) {
+    const weekdays = ["日曜日","月曜日","火曜日","水曜日","木曜日","金曜日","土曜日"];
+    const selectedDate = new Date(year, month - 1, day);
+    const weekday = weekdays[selectedDate.getDay()];
 
-        // 曜日を求める
-        const weekdays = ["日曜日","月曜日","火曜日","水曜日","木曜日","金曜日","土曜日"];
-        const weekday = weekdays[dateObj.getDay()];
+    // 日付の表示フォーマットは例として "YYYY/MM/DD (曜日)" とする
+    const displayText = `${year}/${month}/${day} (${weekday})`;
+    document.getElementById('dateTimeDisplay').textContent = displayText;
+    
+    // 隠しフィールドに値をセット（DB用なら "YYYY-MM-DD" 等、適切なフォーマットに変換）
+    const dbFormat = `${year}-${String(month).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
+    document.getElementById('hiddenDateTime').value = dbFormat;
+}
 
-        // ここでは時刻を仮で 09:30 に固定
-        const displayText = `${year}/${month}/${day} 09:30 ${weekday}`;
+    // // 日付を選択したら、上段の表示領域を更新
+    // calendarInput.addEventListener('change', (e) => {
+    //   const selectedDate = e.target.value; // "YYYY-MM-DD"
+    //   if (selectedDate) {
+    //     const dateObj = new Date(selectedDate);
+    //     const year = dateObj.getFullYear();
+    //     const month = String(dateObj.getMonth() + 1).padStart(2, '0');
+    //     const day = String(dateObj.getDate()).padStart(2, '0');
 
-        // 上段に表示
-        document.getElementById('dateTimeDisplay').textContent = displayText;
-        hiddenDateTime.value = displayText; // 隠しフィールドに設定
-      }
-      }
-    });
+    //     // 曜日を求める
+    //     const weekdays = ["日曜日","月曜日","火曜日","水曜日","木曜日","金曜日","土曜日"];
+    //     const weekday = weekdays[dateObj.getDay()];
+
+    //     // ここでは時刻を仮で 09:30 に固定
+    //     const displayText = `${year}/${month}/${day} 09:30 ${weekday}`;
+
+    //     // 上段に表示
+    //     document.getElementById('dateTimeDisplay').textContent = displayText;
+    //     hiddenDateTime.value = displayText; // 隠しフィールドに設定
+    //   }
+    //   }
+    // });
 
     // ========== 画像アップロードとプレビュー表示 ==========
 
@@ -411,15 +433,19 @@ footer::before {
             renderCalendar();
         }
 
-// --- 選択した日付を dateTimeDisplay に表示する関数 ---
-    function updateDateTimeDisplay(year, month, day) {
-        const weekdays = ["日曜日","月曜日","火曜日","水曜日","木曜日","金曜日","土曜日"];
-        const selectedDate = new Date(year, month - 1, day);
-        const weekday = weekdays[selectedDate.getDay()];
-        
-        // --- ここで dateTimeDisplay に表示 ---
-        document.getElementById('dateTimeDisplay').textContent = `${year}/${month}/${day}/${weekday}`;
-    }
+  function updateDateTimeDisplay(year, month, day) {
+    const weekdays = ["日曜日","月曜日","火曜日","水曜日","木曜日","金曜日","土曜日"];
+    const selectedDate = new Date(year, month - 1, day);
+    const weekday = weekdays[selectedDate.getDay()];
+
+    // 表示用のテキスト
+    const displayText = `${year}/${month}/${day} (${weekday})`;
+    document.getElementById('dateTimeDisplay').textContent = displayText;
+    
+    // DB用フォーマット（YYYY-MM-DD）に変換して隠しフィールドに設定
+    const dbFormat = `${year}-${String(month).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
+    document.getElementById('hiddenDateTime').value = dbFormat;
+}
 
         renderCalendar();
     </script>

@@ -1,26 +1,28 @@
 <style>
 
+
 .navbar {
-    background-color:rgb(21, 96, 130) ;
+    background-color: rgb(21, 96, 130) ;
     color: white;
     padding: 10px 0;
     height: 50px;
-    position: fixed; /* ナビゲーションバーを固定 */
-    width: 100%; /* 幅を100%に設定 */
-    top: 0; /* 上部に固定 */
-    z-index: 1000; /* 他の要素より前面に表示 */    
+    position: relative; /* ナビゲーションバーを固定 */
+    /* overflow: hidden; オーバーフローを隠す */
 }
+
 
 .nav.navbar-nav {
     display: flex;
     /* flex-direction: row; */
-    justify-content: right;
-    magin-top: 10px;
-    
+    justify-content: flex-end;
+    align-items: center; /* 縦方向の中央揃え */
+    margin-top: 0; /* 不要な余白を削除 */
+    padding-right: 20px; /* 右側に余白を追加（必要に応じて調整） */
     /* align-items: center;  */
 }
 
 .navbar-nav li {
+    margin-top: 10px;
     display: inline-block;
     margin-right: 15px;
     position: relative; /* 縦線用に相対位置を設定 */
@@ -56,6 +58,12 @@
         .navbar-brand img {
             vertical-align: middle; /* ロゴを中央揃え */
         }
+
+.container-fluid{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
 
 
 /* 以下はスピーチテーブルのCSS */
@@ -144,8 +152,8 @@ if (!$status) {
         // $view .= '<td><a href="detail1_text.php?id=' . $r["id"] . '">' . h($r['text_prompt']) . '</a></td>';
         $view .= '<td><a href="detail1_text.php?id=' . $r["id"] . '">' . '振返りコメント' . '</a></td>';
         $view .= '<td><a href="detail1_response.php?id=' . $r["id"] . '">' . 'スピーチテキスト' . '</a></td>';
-        $view .= '<td>' . date('Y-m-d H:i', strtotime($r['created_at'])) . '</td>';
         $view .= '<td>' . h($r['user_name']) . '</td>';
+        $view .= '<td>' . date('Y-m-d H:i', strtotime($r['created_at'])) . '</td>';
         // $view .= '<td>' . h($r['created_at']) . '</td>';
         
         $view .= '<td>';
@@ -190,15 +198,14 @@ if (!$status) {
 
 <nav class="navbar navbar-default">
 <div class="container-fluid">
-    <!-- <div class="navbar-header">
-        <a class="navbar-brand" >
-            <img src="img/logo.png" alt="Logo" style="width:40px;">
-        </a>
-    </div> -->
+    <div class="navbar-header">
+                <a class="navbar-brand" >
+                <img src="img/company-logo2.png" alt="Logo" style="width:200px;"></a>
+    </div>
     <ul class="nav navbar-nav">
         <li><a href="index.php">Menu</a></li>
-        <li><a href="menu3.php">Theme finding</a></li>
-        <li><a href="select2.php">Scripts</a></li>
+        <!-- <li><a href="menu3.php">テーマ生成</a></li> -->
+        <li><a href="menu1.php">即興スピーチ練習</a></li>
         <li><a href="logout.php">Log out</a></li>       
     </ul>
 </div>

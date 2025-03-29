@@ -276,7 +276,7 @@ footer::before {
                  </a>
             </div>
             <ul class="navbar-nav">
-                <li><a href="about.php">Tutorial</a></li>
+                <li><a href="tutorial-1.php">Tutorial</a></li>
                 <li><a href="logout.php">Log out</a></li>
                 
             </ul>

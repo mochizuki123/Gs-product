@@ -31,8 +31,8 @@ if (!$status) {
 <head>
     <meta charset="UTF-8">
     <title>準備スピーチ</title>
-    <link rel="stylesheet" href="css/common.css" />
-    <link rel="stylesheet" href="css/detail.css" />
+    <!-- <link rel="stylesheet" href="css/common.css" />
+    <link rel="stylesheet" href="css/detail.css" /> -->
 </head>
 
 <body>
@@ -41,10 +41,18 @@ if (!$status) {
     <header>
         <nav class="navbar navbar-default">
             <div class="container-fluid">
-                <div class="navbar-header"><a class="navbar-brand" href="select0.php">Diary log</a></div>
-                <div class="navbar-header"><a class="navbar-brand" href="logout.php">Log out</a></div>
-                <!-- <div class="navbar-header user-name"><p><?= $_SESSION['user_name'] ?></p></div> -->
+                <div class="navbar-header">
+                    <a class="navbar-brand" >
+                    <img src="img/company-logo2.png" alt="Logo" style="width:200px;"></a>
+                </div>    
+                <div> <ul class="nav navbar-nav">
+                        <li><a href="index.php">Menu</a></li>
+                        <li><a href="select0.php">スピーチの種一覧</a></li>
+                        <li><a href="logout.php">Log out</a></li>       
+                      </ul>    
+                </div>
             </div>
+
         </nav>
     </header>
     <!-- Head[End] -->
@@ -61,7 +69,7 @@ if (!$status) {
                 
                 <div>
                     <label for="content"></label>
-                    <textarea id="content" name="content" rows="60" cols="100"><?= h($row['text_diary']) ?></textarea>
+                    <textarea class="content" name="content" rows="60" cols="100"><?= h($row['text_diary']) ?></textarea>
                 </div>
    
             </fieldset>
@@ -74,5 +82,89 @@ if (!$status) {
 .reserve{
     margin-bottom:10px;
 }
+
+.container-fluid{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+.navbar {
+    background-color: rgb(21, 96, 130) ;
+    color: white;
+    padding: 10px 0;
+    height: 50px;
+    position: relative; /* ナビゲーションバーを固定 */
+    overflow: hidden; /* オーバーフローを隠す */
+}
+
+
+/* 他の要素の上に配置 */
+.nav.navbar-nav, .navbar-header {
+    position: relative;
+    z-index: 1;
+}
+
+.nav.navbar-nav {
+    display: flex;
+    flex-direction: row;
+    justify-content: right;
+    /* align-items: center;  */
+}
+
+.navbar-nav li {
+    display: inline-block;
+    margin-right: 15px;
+    position: relative; /* 縦線用に相対位置を設定 */
+}
+
+.navbar-nav li a {
+    /* display: flex; */
+    text-decoration: none;
+    padding: 5px 15px;
+    color: white;
+}
+
+.navbar-nav li:not(:last-child)::after {
+    content: "";
+    position: absolute;
+    right: -8px; /* 縦線の位置を調整 */
+    top: 50%;
+    transform: translateY(-50%);
+    width: 1px;
+    height: 20px; /* 縦線の高さを設定 */
+    background-color: white; /* 縦線の色を設定 */
+}
+
+.navbar-nav li a:hover {
+    background-color: #ddd;
+}
+
+.navbar-header {
+            display: flex;
+            align-items: center; /* ロゴを中央揃え */
+        }
+
+ .navbar-brand img {
+            vertical-align: middle; /* ロゴを中央揃え */
+        }
+
+.reserve{
+    margin-bottom:10px;
+}
+
+.title{
+    font-size: 20px;
+    font-weight: bold;
+    /* margin-bottom: 10px; */
+}
+
+.content{
+    font-family: "Noto Sans JP", sans-serif;
+    font-size: 16px;
+    line-height: 1.6;
+    background-color:rgb(239, 244, 247);
+}
+
 
 </style>

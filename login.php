@@ -60,7 +60,7 @@
     .logo {
       margin-bottom: 30px;
       position: absolute;
-      top: 100px;       /* 上からの位置を調整 */
+      top: 90px;       /* 上からの位置を調整 */
       left: 50%;
       transform: translateX(-50%);
       z-index: 10;
@@ -71,8 +71,16 @@
       height: auto;
     }
 
+    .product{
+      font-size: 20px;
+      font-weight: bold;
+      color: #0070C9;
+    }
+
     /* ログインフォームを囲むボックス */
     .login-box {
+      margin-top:180px;
+      height: 400px; /* 必要に応じて調整 */
       background: #fff;
       padding: 30px;
       border-radius: 10px;
@@ -85,6 +93,7 @@
 
     /* ログインフォーム */
     .login-form {
+      margin-top: 10px;
       width: 100%;
       display: flex;
       flex-direction: column;
@@ -257,6 +266,7 @@
 
       <!-- ログインボックス -->
       <div class="login-box">
+        <p class='product'>-スピーチ作成支援アプリ-</p>
         <form class="login-form" action="login_act.php" method="post">
           <label for="userId">ID</label>
           <input type="text" id="userId" name="user_id" placeholder="IDを入力">
@@ -280,13 +290,12 @@
     <!-- メッセージセクション -->
     <div class="message-section">
       <p>
-        結婚式、送別会のようなカジュアルなシーンから、営業、ピッチなど<br>
+        送別会、朝礼のようなカジュアルなシーンから、営業、ピッチ、結婚式など<br>
         様々なライフシーンで私たちは人前でスピーチをする機会があります。
       </p>
       <p>
-        <span style="color: red;">アイスピーチ</span>は、優れたスピーチから多くのインスピレーションを受けた作者が、<br>
-        テクノロジーを活用して、人を勇気づけたり、感動させるスピーチを<br>
-        作り出す支援をしたいという想いから、作りました。
+        <span style="color: red;">アイスピーチ</span>はAIと人の協創により、聴衆を勇気づけたり、<br>
+        感動させるスピーチ作りを支援したいという想いから、生まれました。
       </p>
     </div>
 
@@ -296,34 +305,41 @@
   
       <div class="problems-container">
         <div class="problem-box">
-          <p>伝えたいことがあるが、言葉にできない。</p>
+          <p>スピーチのネタが<br>
+            思いつかない！</p>
+        </div>
+        
+        <div class="problem-box">
+        <p>伝えたいことがあるが、言葉にできない！</p>
+          </div>
+        <div class="problem-box">
+          <p>スピーチ原稿を<br>
+            つくる時間が無い！</p>
         </div>
         <div class="problem-box">
-          <p>スピーチ原稿をつくる時間が無い</p>
-        </div>
-        <div class="problem-box">
-          <p>自分のアイディアや、原稿を他人と共有し、フィードバックを受けたい</p>
-        </div>
-        <div class="problem-box">
-          <p>過去につくったスピーチ原稿がみあたらない</p>
+          <p>即興で話せるようになりたい！</p>
         </div>
 
         <p class="problems-note">
-        <span style="color: red;">アイスピーチ</span>が、AIと人のコラボレーションにより、あなたのスピーチ作成に寄り添い、支援します
+        <span style="color: red;">アイスピーチ</span>は以下の機能を通じて、あなたのスピーチ作成や準備を支援します！
         </p>
  
         <div class="solution-container">
         <div class="solution-box">
-          <p>日常の出来事を記録するダイアリ―機能</p>
+          <p>スピーチの種となる日常の出来事を記録するダイアリ―機能</p>
         </div>
         <div class="solution-box">
-          <p>AIとの協創によるスピーチのテーマと原稿生成機能</p>
+          <p>AIとの協創による<br>
+            スピーチテーマの <br>
+            生成機能</p>
         </div>
         <div class="solution-box">
-          <p>作成したスピーチ原稿を共有する機能</p>
+          <p>スピーチ原稿を自動<br>
+            作成・保存・共有<br>
+            する機能</p>
         </div>
         <div class="solution-box">
-          <p>磨き上げたスピーチを記憶とともに保存する機能</p>
+          <p>即興スピーチを練習する機能</p>
         </div>
       </div>
  

@@ -15,7 +15,7 @@ $openai_api_key = "sk-proj-Xxxs3OJPMtrfFBZdiHNPnQknOkONgJ_qhzmdCk2loGBqHhlGTNcNI
 //         $language = "ja"; // デフォルトは日本語
 //     }
 
-$text_prompt = $_POST['text_prompt'] ?? '';
+// $text_prompt = $_POST['text_prompt'] ?? '';
 // 初期化（認識結果の変数）
 $prompt_response = '';
 
@@ -93,7 +93,7 @@ echo $prompt_response;
 
 // セッションに保存
 $_SESSION['speech_data'] = [
-    'text_prompt' => $text_prompt,
+    // 'text_prompt' => $text_prompt,
     'response_data' => $prompt_response
     // 'prompt_response' => $prompt_response,
     

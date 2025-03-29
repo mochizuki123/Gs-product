@@ -58,8 +58,13 @@ $outline3 = $speech_data['outline3'] ?? '';
 $outline4 = $speech_data['outline4'] ?? '';
 $response_text = $speech_data['response'] ?? '';
 
+// ★ $response_text をセッションに追加（upload2.phpで使うため） ★
+// $_SESSION['speech_data']['response'] = $response_text;
+
 // セッションをクリア（必要なら）
-unset($_SESSION['speech_data']);
+// unset($_SESSION['speech_data']);
+
+
 ?>
 
 <h2 class='header'>スピーチ骨子入力　🖊 <span class='arrow'> </span></h2>
@@ -169,7 +174,7 @@ unset($_SESSION['speech_data']);
     function updateCharCount() {
         var responseText = document.getElementById('response').innerText;
         var charCount = responseText.length;
-        document.getElementById('charCount').innerText = '['charCount + '文字]';
+        document.getElementById('charCount').innerText = '['+ charCount + '文字]';
 
     }
 
@@ -416,7 +421,7 @@ footer::before {
 <script>
     function resetSpeech() {
         document.querySelector('.response-container p').innerHTML = '';
-        document.querySelector('charCount').innerHTML = '';
+        document.querySelector('#charCount').innerHTML = '';
     }
 
       // スピナー用。　upload2.phpへ送信するフォームを取得
@@ -431,6 +436,36 @@ footer::before {
 
 
 </script>
+
+    <!-- 音声変換用フォーム -->
+    <!-- <div class="container">
+    <form action="upload2-voice.php" method="post"> -->
+        <!-- ユーザーに表示する入力フィールドは不要なのでhiddenにする -->
+        <!-- <input type="hidden" name="text" value="<?php echo htmlspecialchars($response_text); ?>">
+        <button type="submit" class="btn btn-primary">音声に変換</button>
+    </form> -->
+
+        <!-- <?php if ($audioFile): ?>
+            <h2>変換結果:</h2>
+            <audio controls>
+            <source src="<?php echo htmlspecialchars($audioFile); ?>" type="audio/mpeg">
+            お使いのブラウザはaudioタグをサポートしていません。
+            </audio>
+
+            <?php endif; ?> -->
+
+<!-- <?php        
+if (!isset($audioFile)) {
+    $audioFile = '';
+}
+?> -->
+
+      <!-- <form method="post">
+        <input type="hidden" name="clear_session" value="1">
+        <button type="submit" class="btn btn-danger">セッションをクリア</button>
+      </form> -->
+    </div>
+
 
 </body>
 

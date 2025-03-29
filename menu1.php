@@ -5,7 +5,7 @@ error_reporting(E_ALL);
 
 // セッションデータの取得（speech_data 配列から取り出す）
 $speech_data = $_SESSION['speech_data'] ?? [];
-$text_prompt = isset($speech_data['text_prompt']) ? $speech_data['text_prompt'] : '';
+// $text_prompt = isset($speech_data['text_prompt']) ? $speech_data['text_prompt'] : '';
 $prompt_response = isset($speech_data['response_data']) ? $speech_data['response_data'] : '';
 
 
@@ -294,6 +294,7 @@ $prompt_response = isset($speech_data['response_data']) ? $speech_data['response
         </div>
         <ul class="nav navbar-nav">
             <li><a href="index.php">Menu</a></li>
+            <li><a href="tutorial-5.php">Tutorial</a></li>
             <li><a href="select1.php">即興スピーチ記録</a></li>
             <li><a href="logout.php">Log out</a></li>
             
@@ -316,7 +317,7 @@ $prompt_response = isset($speech_data['response_data']) ? $speech_data['response
     <script>
         // テーマをキーにして、関連キーワードの配列を値として保持
         const keywordMap = {
-            ストーリー: [
+            ストーリーを語る: [
                 "初めて自転車に乗った時のこと",
                 "初めて海外に行った時のこと",
                 "初めて仕事をした時のこと",
@@ -412,6 +413,7 @@ $prompt_response = isset($speech_data['response_data']) ? $speech_data['response
                 const selectedTheme = $("#themeSelect").val();
                 const keyword = getRandomKeyword(selectedTheme);
                 $("#result").text(keyword);
+                $("#themeHidden").val(selectedTheme); // 選択したテーマをhidden inputにセット
             });
         });
     </script>
@@ -568,6 +570,10 @@ $prompt_response = isset($speech_data['response_data']) ? $speech_data['response
         }
 
         function resetTimer() {
+            hr = 0;
+            min = 0;
+            sec = 0;
+            stoptime = true; // タイマーが走っていない状態にする
             timer.innerHTML = '00:00:00';
             document.body.style.backgroundColor = '#ffffff';
         }
@@ -611,7 +617,11 @@ $prompt_response = isset($speech_data['response_data']) ? $speech_data['response
                     <textarea name="text_prompt" id="text_prompt" rows="2" cols="80"><?php echo htmlspecialchars($text_prompt); ?></textarea>
 
                 </div>
-                    <p class="response-prompt"><input type="hidden" name="response_prompt" id="hiddenResponsePrompt" value="<?php echo htmlspecialchars($prompt_response); ?>">            
+                    <!-- お題を保持するhidden form -->
+                <input type='hidden' name='theme' id='themeHidden' value='' >
+                <p class="response-prompt"><input type="hidden" name="response_prompt" id="hiddenResponsePrompt" value="<?php echo htmlspecialchars($prompt_response); ?>">            
+
+
                 <div>
                     <input type="submit" value="保存"  style="display: inline-block;">
                     <input type="reset" value="リセット" onclick="resetSpeech()" style="display: inline-block;">

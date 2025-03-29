@@ -97,7 +97,8 @@ if (!$status_ready) {
         </div>
         <ul class="nav navbar-nav">
             <li><a href="index.php">Menu</a></li>
-            <li><a href="menu2.php">Prepared speech</a></li>
+            <li><a href="tutorial-3.php">Tutrial</a></li>
+            <li><a href="menu2.php">準備スピーチ</a></li>
             <li><a href="logout.php">Log out</a></li>       
         </ul>
     </div>
