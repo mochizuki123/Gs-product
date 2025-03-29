@@ -1,4 +1,11 @@
 <style>
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+}
 
 
 .navbar {
@@ -104,6 +111,26 @@
     background-color: #ddd; /* ホバー時の背景色を設定 */
 }
 
+footer {
+    position: relative; /* ← 親要素を相対位置に */
+    height: 60px; /* ← フッターの高さ（調整可） */
+    background-color: rgb(131, 202, 235) ;
+    color: white; /* フッターの文字色（適宜変更） */
+    /* background-color: #f8f8f8; フッターの背景色（適宜変更） */
+    margin-top: auto; /* ← フッターを下部に固定 */
+    
+}
+
+footer::before {
+    content: "";
+    position: absolute;
+    top: 0; /* ← 上端に配置（少し下げたければ 5px など） */
+    left: 0;
+    width: 100%;
+    height: 1px; /* ← 線の太さ */
+    background-color: #ccc; /* ← 線の色（調整可） */
+    opacity: 0.5; /* ← 線の薄さ（0.3〜0.7 で調整） */
+}
 
 </style>
 
@@ -125,6 +152,7 @@ $pdo = db_conn();
 $stmt = $pdo->prepare('
 SELECT 
     speech_text_prompt.id as id,
+    speech_text_prompt.generated_topic as generated_topic,
     speech_text_prompt.text_prompt as text_prompt, 
     speech_text_prompt.response_prompt as response_prompt, 
     users.user_name as user_name,
@@ -144,12 +172,12 @@ if (!$status) {
 } else {
     while ($r = $stmt->fetch(PDO::FETCH_ASSOC)) {
     $view .= '<table class="table">';
-    $view .= '<thead><tr><th>ID</th><th>コメント</th><th>即興スピーチ</th><th>ユーザー名</th><th>作成日時</th><th>操作</th></tr></thead>';
+    $view .= '<thead><tr><th>ID</th><th>お題</th><th>コメント</th><th>即興スピーチ</th><th>ユーザー名</th><th>作成日時</th><th>操作</th></tr></thead>';
     $view .= '<tbody>';
     while ($r = $stmt->fetch(PDO::FETCH_ASSOC)) {
         $view .= '<tr>';
         $view .= '<td>' . $r["id"] . '</td>';
-        // $view .= '<td><a href="detail1_text.php?id=' . $r["id"] . '">' . h($r['text_prompt']) . '</a></td>';
+        $view .= '<td>' . $r["generated_topic"] . '</td>';      
         $view .= '<td><a href="detail1_text.php?id=' . $r["id"] . '">' . '振返りコメント' . '</a></td>';
         $view .= '<td><a href="detail1_response.php?id=' . $r["id"] . '">' . 'スピーチテキスト' . '</a></td>';
         $view .= '<td>' . h($r['user_name']) . '</td>';
@@ -204,7 +232,7 @@ if (!$status) {
     </div>
     <ul class="nav navbar-nav">
         <li><a href="index.php">Menu</a></li>
-        <!-- <li><a href="menu3.php">テーマ生成</a></li> -->
+        <li><a href="tutorial-5.4.php">Tutorial</a></li>
         <li><a href="menu1.php">即興スピーチ練習</a></li>
         <li><a href="logout.php">Log out</a></li>       
     </ul>
@@ -233,5 +261,8 @@ if (!$status) {
     </div>
 
 </body>
+<footer>
+        <p>© 2025 AI SPEECH. All rights reserved</p> 
+</footer> 
 
 </html>

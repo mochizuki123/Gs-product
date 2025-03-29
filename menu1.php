@@ -5,7 +5,7 @@ error_reporting(E_ALL);
 
 // セッションデータの取得（speech_data 配列から取り出す）
 $speech_data = $_SESSION['speech_data'] ?? [];
-// $text_prompt = isset($speech_data['text_prompt']) ? $speech_data['text_prompt'] : '';
+$text_prompt = isset($speech_data['text_prompt']) ? $speech_data['text_prompt'] : '';
 $prompt_response = isset($speech_data['response_data']) ? $speech_data['response_data'] : '';
 
 
@@ -22,6 +22,7 @@ $prompt_response = isset($speech_data['response_data']) ? $speech_data['response
     <link rel="stylesheet" href="css/menu1.css">
 
  <style>
+
 .navbar {
     background-color: rgb(21, 96, 130) ;
     color: white;
@@ -170,121 +171,31 @@ $prompt_response = isset($speech_data['response_data']) ? $speech_data['response
         overflow-y: visible;
     }
 
-    /* サイドバー */
- 
-    .overlay {
-    width: 100%;
-    height: 100vh;
-    position: fixed;
-    left: 0;
-    top: 0;
-    background-color: rgba(0,0,0,.3);
-    z-index: 190;
-    opacity: 0;
-    visibility: hidden;
-    transition: all 200ms ease-in;
-    }
-    nav.nav {
-    width: 270px;
-    height: 100vh;
-    background-color: #FFF;
-    left: -270px;
-    top: 0;
-    position: fixed;
-    padding: 20px 0;
-    transition: all 200ms ease-in-out;
-    z-index: 199;
-    }
-    nav.nav ul {
-        border: none;
-        padding: 0;
-    }
-    .toggle {
-    position: relative;
-    left: 100%;
-    width: 50px;
-    height: 50px;
-    color: #fff;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 20px;
-    cursor: pointer;
-    }
 
-    span.toggler,
-    span.toggler:before,
-    span.toggler:after {
-        content: '';
-        display: block;
-        height: 3px;
-        width: 25px;
-        border-radius: 3px;
-        background-color: #ffffff;
-        position: absolute;
-        pointer-events: none;
-    }
-
-    span.toggler:before{
-        bottom: 9px;
-    }
-    span.toggler:after {
-        top: 9px;
-    }
-    span.deleteclass {
-        background-color: transparent;
-    }
-    span.deleteclass::before {
-        bottom: 0;
-        transform: rotate(45deg);
-    }
-    span.deleteclass::after {
-        top: 0;
-        transform: rotate(-45deg);
-    }
-
-    .logo {
-    text-align: center;
-    margin-bottom: 30px;
-    }
-    .logo  a{
-    text-decoration: none;
-    color: #888;
-    font-size: 2rem;
-    }
-    .nav ul li {
-    display: block;
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    }
-    .nav ul li a {
-    padding: 10px 20px;
-    display: block;
-    color: #313131;
-    font-size: 1rem;
-    text-decoration: none;
-    transition: all 200ms ease;
-    }
-    .nav ul li a:hover {
-    background-color: #f1f1f1;
-    }
-
-    /* Show Nav */
-    .show-nav .nav {
-    left: 0;
-    box-shadow: 0 2px 4px rgba(0,0,0,.6);
-    }
-    .show-nav .overlay {
-    opacity: 1;
-    visibility: visible;
-    }
-
+    
+footer {
+    position: relative; /* ← 親要素を相対位置に */
+    height: 30px; /* ← フッターの高さ（調整可） */
+    background-color: #f8f8f8; /* フッターの背景色（適宜変更） */
+    margin-top: auto; /* ← フッターを下部に固定 */
+    
 }
-</style>
-   
+
+footer::before {
+    content: "";
+    position: absolute;
+    /* top: 10; ← 上端に配置（少し下げたければ 5px など） */
+    left: 0;
+    width: 100%;
+    height: 1px; /* ← 線の太さ */
+    background-color: #ccc; /* ← 線の色（調整可） */
+    opacity: 0.5; /* ← 線の薄さ（0.3〜0.7 で調整） */
+}
+}
+</style>   
 </head>  
-  <body>
+
+<body>
   <nav class="navbar navbar-default">
     <div class="container-fluid">
         <div class="navbar-header">
@@ -294,7 +205,7 @@ $prompt_response = isset($speech_data['response_data']) ? $speech_data['response
         </div>
         <ul class="nav navbar-nav">
             <li><a href="index.php">Menu</a></li>
-            <li><a href="tutorial-5.php">Tutorial</a></li>
+            <li><a href="tutorial-5.1.php">Tutorial</a></li>
             <li><a href="select1.php">即興スピーチ記録</a></li>
             <li><a href="logout.php">Log out</a></li>
             
@@ -303,7 +214,7 @@ $prompt_response = isset($speech_data['response_data']) ? $speech_data['response
             <li><a href="login.php"><span class="glyphicon glyphicon-log-in"></span> ログイン</a></li>
         </ul>
     </div>
-</nav>
+    </nav>
   
   <div class="selection">
     <p class="selection">スピーチをしたいテーマを選ぶ</p>
@@ -413,7 +324,7 @@ $prompt_response = isset($speech_data['response_data']) ? $speech_data['response
                 const selectedTheme = $("#themeSelect").val();
                 const keyword = getRandomKeyword(selectedTheme);
                 $("#result").text(keyword);
-                $("#themeHidden").val(selectedTheme); // 選択したテーマをhidden inputにセット
+                $("#generatedTopic").val(keyword); // 選択したお題をhidden inputにセット
             });
         });
     </script>
@@ -618,7 +529,7 @@ $prompt_response = isset($speech_data['response_data']) ? $speech_data['response
 
                 </div>
                     <!-- お題を保持するhidden form -->
-                <input type='hidden' name='theme' id='themeHidden' value='' >
+                <input type='hidden' name='generated_topic' id='generatedTopic' value='' >
                 <p class="response-prompt"><input type="hidden" name="response_prompt" id="hiddenResponsePrompt" value="<?php echo htmlspecialchars($prompt_response); ?>">            
 
 
@@ -662,5 +573,11 @@ $prompt_response = isset($speech_data['response_data']) ? $speech_data['response
 </script>
 
 
+<!-- <footer>
+        <p>© 2025 AI SPEECH. All rights reserved</p> 
+</footer> -->
+    
+</body>
+</html>
     
     

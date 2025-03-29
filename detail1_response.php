@@ -8,13 +8,23 @@ if (!isset($_GET['id']) || empty($_GET['id'])) {
     exit('Error: ID is not set or empty');
 }
 
+// if (isset($_POST['generated_topic'])) {
+//     $generated_topic = $_POST['generated_topic'];
+//     echo "generated_topic: $generated_topic<br>";
+// } else {
+//     exit('Error: generated_topic is not set.');
+// }
+
 $id = $_GET['id']; //?id~**を受け取る
+// $generated_topic = $_GET['generated_topic']; //?id~**を受け取る
 $pdo = db_conn();
 
 
 //２．つぶやき登録SQL作成
 $stmt = $pdo->prepare('SELECT * FROM speech_text_prompt WHERE id=:id;');
 $stmt->bindValue(':id', $id, PDO::PARAM_INT);
+// $stmt->bindValue(':generated_topic', $generated_topic, PDO::PARAM_STR);
+
 $status = $stmt->execute();
 
 //３．つぶやき表示
@@ -22,10 +32,9 @@ if (!$status) {
     sql_error($stmt);
 } else {
     $row = $stmt->fetch();
-    // title を SESSION に保存
-    // $_SESSION['title'] = $row['title'];
-    $_SESSION['text_prompt'] = $row['text_prompt'];
+    // $_SESSION['text_prompt'] = $row['text_prompt'];
     $_SESSION['response_prompt'] = $row['response_prompt'];
+    // $_SESSION['generated_topic'] = $row['generated_topic'];
 }
 ?>
 
@@ -71,7 +80,7 @@ if (!$status) {
                     <!-- <input class="comment" type="text" style="width: 60%;"> -->
                 </div>
                   <div>
-                    <label for="title">タイトル：</label><p class='title' id="title" style="display: inline;"><?= h($_SESSION['title']) ?></p></div>
+                    <!-- <label for="title">タイトル：</label><p class='title' id="title" style="display: inline;"><?= h($_SESSION['generated_topic']) ?></p></div> -->
                 <div>
                     <label for="content"></label>
                     <textarea class='content' name="content" rows="60" cols="100"><?= h($row['response_prompt']) ?></textarea>

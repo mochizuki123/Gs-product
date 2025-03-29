@@ -21,6 +21,7 @@
     </div>
     <ul class="nav navbar-nav">
         <li><a href="index.php">Menu</a></li>
+        <li><a href="tutorial-4.php">Tutorial</a></li>
         <li><a href="menu3.php">テーマ検討</a></li>
         <li><a href="select2.php">スピーチ原稿</a></li>
         <li><a href="logout.php">Log out</a></li>       
@@ -296,9 +297,9 @@ background-color:rgb(209, 229, 243);
 footer {
     position: relative; /* ← 親要素を相対位置に */
     height: 60px; /* ← フッターの高さ（調整可） */
-    background-color: #f8f8f8; /* フッターの背景色（適宜変更） */
-    margin-top: auto; /* ← フッターを下部に固定 */
-    
+    background-color: rgb(131, 202, 235) ;
+    color: white; /* フッターの文字色（適宜変更） */
+    margin-top: auto; /* ← フッターを下部に固定 */    
 }
 
 footer::before {

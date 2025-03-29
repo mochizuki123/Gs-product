@@ -263,14 +263,14 @@ footer::before {
 
 <div class='input-container'>
   <!-- 日付と時間を表示する部分（初期値を例として表示） -->
-  <p style="display: inline;">日付：</p><div class='dateTimeDisplay' id="dateTimeDisplay" style="display: inline;"></div>
+  <p style='display: inline; font-weight:bold;'>日付：</p><div class='dateTimeDisplay' id="dateTimeDisplay" style="display: inline;"></div>
   <form id='diaryForm' action="insert0.php" method="post">
     <input type='hidden' id='hiddenDateTime' name='date'>
-    <label for="title">タイトル：</label>
+    <label for="title" style='font-weight: bold;'>タイトル：</label>
     <input type="text" id="title" name='title' placeholder="タイトルを入力" style="width: 500px; height: 40px;"> <br>
     <!-- テキスト入力欄 -->
-    <label for="text_diary">日記</label><br>
-    <textarea id="diaryText" name='text_diary' placeholder="テキスト入力" style="width: 600px";></textarea>
+    <label for="text_diary" style="font-weight: bold;">日記</label><br>
+    <textarea id="diaryText" name='text_diary' placeholder="テキスト入力" style="width: 600px;"></textarea>
     
     <!-- 非表示の file入力（画像アップロード用） -->
     <input type="file" id="imageInput" name='photo_diary'  accept="image/*" style="display: none;">

@@ -11,6 +11,14 @@ loginCheck();
 // echo "loginCheck passed<br>";
 
 // 1. menu1 から振り返りコメント取得
+if (isset($_POST['generated_topic'])) {
+    $generated_topic = $_POST['generated_topic'];
+    echo "generated_topic: $generated_topic<br>";
+} else {
+    exit('Error: generated_topic is not set.');
+}
+
+
 if (isset($_POST['text_prompt'])) {
     $text_prompt = $_POST['text_prompt'];
     echo "text_prompt: $text_prompt<br>";
@@ -53,8 +61,9 @@ $pdo = db_conn();
 
 //３．データベースの speech_text テーブルに新しいレコードを挿入するための準備を行っています。
 //NOW() 関数は、現在の日時を created_at カラムに挿入
-$stmt = $pdo->prepare('INSERT INTO speech_text_prompt(user_id, text_prompt, response_prompt, created_at) VALUES(:user_id, :text_prompt, :response_prompt, NOW());');
+$stmt = $pdo->prepare('INSERT INTO speech_text_prompt(user_id, generated_topic, text_prompt, response_prompt, created_at) VALUES(:user_id, :generated_topic, :text_prompt, :response_prompt, NOW());');
 
+$stmt->bindValue(':generated_topic', $generated_topic, PDO::PARAM_STR);
 $stmt->bindValue(':text_prompt', $text_prompt, PDO::PARAM_STR);
 $stmt->bindValue(':user_id', $user_id, PDO::PARAM_STR);  // bindValue追加
 $stmt->bindValue(':response_prompt', $response_prompt, PDO::PARAM_STR);  // bindValue追加

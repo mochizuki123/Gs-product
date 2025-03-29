@@ -1,5 +1,12 @@
 <style>
 
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+}
 .container-fluid{
     display: flex;
     justify-content: space-between;
@@ -109,6 +116,27 @@
 
 .preparedSpeech tr:hover {
     background-color: #ddd; /* ホバー時の背景色を設定 */
+}
+
+footer {
+    position: relative; /* ← 親要素を相対位置に */
+    height: 60px; /* ← フッターの高さ（調整可） */
+    background-color: rgb(131, 202, 235) ;
+    color: white; /* フッターの文字色（適宜変更） */
+    
+    margin-top: auto; /* ← フッターを下部に固定 */
+    
+}
+
+footer::before {
+    content: "";
+    position: absolute;
+    top: 0; /* ← 上端に配置（少し下げたければ 5px など） */
+    left: 0;
+    width: 100%;
+    height: 1px; /* ← 線の太さ */
+    background-color: #ccc; /* ← 線の色（調整可） */
+    opacity: 0.5; /* ← 線の薄さ（0.3〜0.7 で調整） */
 }
 
 
@@ -238,9 +266,11 @@ if (!$status_ready) {
             </table>
     </div>
 
-
-
-
 </body>
+
+<footer>
+        <p>© 2025 AI SPEECH. All rights reserved</p> <!-- ← 任意のフッターコンテンツ -->
+</footer>
+
 
 </html>

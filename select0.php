@@ -212,6 +212,8 @@ body {
         </div>
         <ul class="nav navbar-nav">
             <li><a href="index.php">Menu</a></li>
+            <li><a href="tutorial-2.php">Tutorial</a></li>
+            
             <li><a href="menu0.php">スピーチの種</a></li>
             <li><a href="logout.php">Log out</a></li>       
         </ul>

@@ -137,7 +137,7 @@ if (!$status_ready) {
         </div>
 
     <div class= 'preparedSpeech'>
-            <h3 class=title> 日記帳📚 </h3>
+            <h3 class=title> スピーチの種：日記帳📚 </h3>
                 <table>
                     <thead>
                         <tr>
@@ -500,7 +500,8 @@ body {
 footer {
     position: relative; /* ← 親要素を相対位置に */
     height: 30px; /* ← フッターの高さ（調整可） */
-    background-color: #f8f8f8; /* フッターの背景色（適宜変更） */
+    background-color: rgb(131, 202, 235) ;
+    color: white; /* フッターの文字色（適宜変更） */
     /* text-align: center; テキストを中央揃え */
     padding: 20px 0; /* 上下のパディングを追加 */
     margin-top: auto; /* フッターをページの下部に配置 */

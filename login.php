@@ -218,7 +218,7 @@
     .problems-note {
       text-align: center;
       margin-top: 20px;
-      font-size: 20px;
+      font-size: 25px;
       font-weight: bold;
       color: #0070C9;
     }
@@ -321,7 +321,7 @@
         </div>
 
         <p class="problems-note">
-        <span style="color: red;">アイスピーチ</span>は以下の機能を通じて、あなたのスピーチ作成や準備を支援します！
+        <span style="color: red;">アイスピーチ</span>は以下の機能で、あなたのスピーチ作成や準備を支援します！
         </p>
  
         <div class="solution-container">
